@@ -28,7 +28,7 @@
     }
   },
   "rules": {
-    "prettier/prettier": "error",
+    "prettier/prettier": "warn",
 
     "indent": "off",
     "no-useless-constructor": "off",
