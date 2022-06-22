@@ -1,5 +1,3 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
 # dependencies
 /node_modules
 /.pnp
@@ -9,8 +7,8 @@
 /coverage
 
 # next.js
-/.next/
-/out/
+/.next
+/out
 
 # production
 /build
@@ -30,6 +28,9 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# eslint
+.eslintcache
 
 # typescript
 *.tsbuildinfo
