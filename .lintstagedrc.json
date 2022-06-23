@@ -1,0 +1,4 @@
+{
+  "*.(j|t)s(x|)": ["yarn lint --fix"],
+  "*": ["yarn style:format"]
+}

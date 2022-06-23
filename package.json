@@ -9,7 +9,11 @@
     "lint": "eslint --ext 'js,jsx,ts,tsx' --cache",
     "style": "prettier --loglevel warn --ignore-unknown --no-error-on-unmatched-pattern",
     "style:check": "yarn style --check",
-    "style:format": "yarn style --write"
+    "style:format": "yarn style --write",
+    "types:check": "tsc --pretty --noEmit",
+    "pre:commit": "lint-staged",
+    "pre:push": "concurrently 'yarn types:check' 'yarn lint . --max-warnings=0' 'yarn style:check .'",
+    "prepare": "husky install"
   },
   "dependencies": {
     "next": "12.1.6",
@@ -23,6 +27,7 @@
     "@typescript-eslint/eslint-plugin": "^5.29.0",
     "@typescript-eslint/parser": "^5.29.0",
     "autoprefixer": "^10.4.7",
+    "concurrently": "^7.2.2",
     "eslint": "^8.18.0",
     "eslint-config-airbnb": "19.0.4",
     "eslint-config-next": "12.1.6",
@@ -34,6 +39,8 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.2",
     "postcss": "^8.4.14",
     "prettier": "^2.7.1",
     "prettier-plugin-tailwindcss": "^0.1.11",
