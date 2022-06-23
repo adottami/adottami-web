@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+
+concurrency: ci
+
+env:
+  CACHE_VERSION: v1
+
+jobs:
+  unit-and-integration-tests:
+    name: Unit and integration tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ${{ github.workspace }}/node_modules
+          key: ${{ runner.os }}-dependencies-${{ env.CACHE_VERSION }}-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-dependencies-${{ env.CACHE_VERSION }}-
+            ${{ runner.os }}-dependencies-
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Check formatting style, lint code and check types
+        run: yarn concurrently 'yarn types:check' 'yarn lint . --max-warnings=0' 'yarn style:check .'
+
+      - name: Run tests
+        run: yarn test:ci
