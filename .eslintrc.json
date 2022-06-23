@@ -65,7 +65,10 @@
       }
     ],
 
-    "import/no-extraneous-dependencies": ["error", { "devDependencies": ["**/*.test.ts*", "scripts/**/*.ts*"] }],
+    "import/no-extraneous-dependencies": [
+      "error",
+      { "devDependencies": ["**/*.test.ts*", "tests/**/*.ts*", "__tests__/**/*.ts*", "scripts/**/*.ts*"] }
+    ],
 
     "react/jsx-props-no-spreading": "off",
     "react/jsx-filename-extension": ["warn", { "extensions": [".jsx", ".tsx"] }],
