@@ -1,6 +1,7 @@
 {
   "name": "adottami-web",
   "version": "0.0.0",
+  "repository": "git@github.com:es-2021-2-grupo-2/adottami-web.git",
   "private": true,
   "scripts": {
     "dev": "next dev",
