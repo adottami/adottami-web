@@ -72,7 +72,7 @@ Pull requests must target `canary`. As with commit messages, pull request titles
 
 ### Folders
 
-Every meaningful file should follow the structure:
+The recommended file structure is as follows, to keep local resources and tests closer to the main file:
 
 ```
 {filename}
