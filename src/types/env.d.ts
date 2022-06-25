@@ -1,5 +1,5 @@
 declare namespace NodeJS {
-  type Mode = import('@/config/global-config/global-config').Mode;
+  type Mode = import('@/config/global-config/types').Mode;
 
   interface ProcessEnv {
     readonly NODE_ENV?: Mode;

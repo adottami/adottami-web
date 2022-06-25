@@ -1,4 +1,4 @@
-export type Mode = 'development' | 'test' | 'production';
+import { Mode } from './types';
 
 export class GlobalConfig {
   private _mode: Mode;
