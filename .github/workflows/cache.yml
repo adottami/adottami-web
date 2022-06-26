@@ -8,9 +8,6 @@ on:
 
 concurrency: cache
 
-env:
-  CACHE_VERSION: v1
-
 jobs:
   cache:
     name: Cache
@@ -30,9 +27,8 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ${{ github.workspace }}/node_modules
-          key: ${{ runner.os }}-dependencies-${{ env.CACHE_VERSION }}-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-dependencies-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-dependencies-${{ env.CACHE_VERSION }}-
             ${{ runner.os }}-dependencies-
 
       - name: Install dependencies
