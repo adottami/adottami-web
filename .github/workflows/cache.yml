@@ -5,17 +5,10 @@ on:
     branches:
       - 'canary*'
   workflow_dispatch:
-    inputs:
-      include-build:
-        description: Include build artifacts
-        type: boolean
-        default: false
-        required: true
 
 concurrency: cache
 
 env:
-  INCLUDE_BUILD: false
   CACHE_VERSION: v1
 
 jobs:
@@ -27,11 +20,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
-      - name: Save custom environment variables if necessary
-        if: ${{ github.event_name == 'workflow_dispatch' }}
-        run: |
-          echo "INCLUDE_BUILD=${{ github.event.inputs.include-build }}" >> $GITHUB_ENV
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
@@ -47,21 +35,5 @@ jobs:
             ${{ runner.os }}-dependencies-${{ env.CACHE_VERSION }}-
             ${{ runner.os }}-dependencies-
 
-      - name: Cache Next.js
-        id: cache-nextjs
-        if: ${{ env.INCLUDE_BUILD == 'true' }}
-        uses: actions/cache@v2
-        with:
-          path: ${{ github.workspace }}/.next/cache
-          key: ${{ runner.os }}-nextjs-${{ env.CACHE_VERSION }}-${{ hashFiles('**/yarn.lock') }}-${{ hashFiles('**/*.[jt]s', '**/*.[jt]sx') }}
-          restore-keys: |
-            ${{ runner.os }}-nextjs-${{ env.CACHE_VERSION }}-${{ hashFiles('**/yarn.lock') }}-
-            ${{ runner.os }}-nextjs-${{ env.CACHE_VERSION }}-
-            ${{ runner.os }}-nextjs-
-
       - name: Install dependencies
         run: yarn install --frozen-lockfile
-
-      - name: Generate build
-        if: ${{ env.INCLUDE_BUILD == 'true' && steps.cache-nextjs.outputs.cache-hit != 'true' }}
-        run: yarn build
