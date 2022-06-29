@@ -15,7 +15,7 @@
     "test:ci": "JEST_MAX_WORKERS=1 yarn test",
     "types:check": "tsc --pretty --noEmit",
     "pre:commit": "lint-staged",
-    "pre:push": "concurrently 'yarn types:check' 'yarn lint . --max-warnings=0' 'yarn style:check .' 'yarn test'",
+    "pre:push": "concurrently \"yarn types:check\" \"yarn lint . --max-warnings=0\" \"yarn style:check .\" \"yarn test\"",
     "prepare": "husky install"
   },
   "dependencies": {
