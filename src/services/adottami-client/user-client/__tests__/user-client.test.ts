@@ -6,8 +6,9 @@ import UserFactory from '@/models/user/user-factory';
 import { trackRequests } from '@tests/utils/requests';
 
 import { USERS_ENDPOINT } from '../constants';
-import { CreateUserData, EditUserData } from '../types';
+import { ChangePasswordData, CreateUserData, EditUserData } from '../types';
 import UserClient from '../user-client';
+import { getUserEndpoint, getUserPasswordEndpoint } from '../utils';
 
 const baseURL = globalConfig.baseAdottamiURL();
 
@@ -43,7 +44,7 @@ describe('User client', () => {
   });
 
   it('should support getting a user by id', async () => {
-    const getRequests = trackRequests(`${baseURL}${USERS_ENDPOINT}/:userId`, 'get', {
+    const getRequests = trackRequests(`${baseURL}${getUserEndpoint(':userId')}`, 'get', {
       responseData: userResponse,
     });
 
@@ -71,7 +72,7 @@ describe('User client', () => {
       phoneNumber: editedUserData.phoneNumber,
     };
 
-    const editRequests = trackRequests(`${baseURL}${USERS_ENDPOINT}/:userId`, 'put', {
+    const editRequests = trackRequests(`${baseURL}${getUserEndpoint(':userId')}`, 'put', {
       responseData: editedUserResponse,
     });
 
@@ -83,5 +84,21 @@ describe('User client', () => {
 
     const expectedUser = UserFactory.createFromResponse(editedUserResponse);
     expect(editedUser).toEqual(expectedUser);
+  });
+
+  it('should support changing the password of a user', async () => {
+    const editRequests = trackRequests(`${baseURL}${getUserPasswordEndpoint(':userId')}`, 'patch');
+
+    const passwordData: ChangePasswordData = {
+      currentPassword: 'current-password',
+      newPassword: 'new-password',
+    };
+
+    const userId = userResponse.id;
+    await userClient.changePassword(userId, passwordData);
+
+    expect(editRequests).toHaveLength(1);
+    expect(editRequests[0].params).toEqual({ userId });
+    expect(editRequests[0].body).toEqual(passwordData);
   });
 });

@@ -10,3 +10,8 @@ export interface EditUserData {
   email: string;
   phoneNumber: string;
 }
+
+export interface ChangePasswordData {
+  currentPassword: string;
+  newPassword: string;
+}

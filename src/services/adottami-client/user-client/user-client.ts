@@ -5,8 +5,8 @@ import User from '@/models/user/user';
 import UserFactory from '@/models/user/user-factory';
 
 import { USERS_ENDPOINT } from './constants';
-import { CreateUserData, EditUserData } from './types';
-import { getUserEndpoint } from './utils';
+import { ChangePasswordData, CreateUserData, EditUserData } from './types';
+import { getUserEndpoint, getUserPasswordEndpoint } from './utils';
 
 class UserClient {
   constructor(private api: AxiosInstance) {}
@@ -27,6 +27,10 @@ class UserClient {
     const { data: editedUserResponse } = await this.api.put<UserResponse>(getUserEndpoint(userId), userData);
     const editedUser = UserFactory.createFromResponse(editedUserResponse);
     return editedUser;
+  }
+
+  async changePassword(userId: string, passwordData: ChangePasswordData) {
+    await this.api.patch(getUserPasswordEndpoint(userId), passwordData);
   }
 }
 
