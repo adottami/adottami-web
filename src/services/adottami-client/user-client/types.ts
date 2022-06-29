@@ -4,3 +4,9 @@ export interface CreateUserData {
   password: string;
   phoneNumber: string;
 }
+
+export interface EditUserData {
+  name: string;
+  email: string;
+  phoneNumber: string;
+}

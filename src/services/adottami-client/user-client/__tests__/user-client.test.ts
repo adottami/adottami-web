@@ -6,7 +6,7 @@ import UserFactory from '@/models/user/user-factory';
 import { trackRequests } from '@tests/utils/requests';
 
 import { USERS_ENDPOINT } from '../constants';
-import { CreateUserData } from '../types';
+import { CreateUserData, EditUserData } from '../types';
 import UserClient from '../user-client';
 
 const baseURL = globalConfig.baseAdottamiURL();
@@ -55,5 +55,33 @@ describe('User client', () => {
 
     const expectedUser = UserFactory.createFromResponse(userResponse);
     expect(user).toEqual(expectedUser);
+  });
+
+  it('should support editing a user', async () => {
+    const editedUserData: EditUserData = {
+      name: 'New User',
+      email: 'newuser@email.coom',
+      phoneNumber: '2211110000',
+    };
+
+    const editedUserResponse: UserResponse = {
+      id: userResponse.id,
+      name: editedUserData.name,
+      email: editedUserData.email,
+      phoneNumber: editedUserData.phoneNumber,
+    };
+
+    const editRequests = trackRequests(`${baseURL}${USERS_ENDPOINT}/:userId`, 'put', {
+      responseData: editedUserResponse,
+    });
+
+    const userId = userResponse.id;
+    const editedUser = await userClient.edit(userId, editedUserData);
+
+    expect(editRequests).toHaveLength(1);
+    expect(editRequests[0].params).toEqual({ userId });
+
+    const expectedUser = UserFactory.createFromResponse(editedUserResponse);
+    expect(editedUser).toEqual(expectedUser);
   });
 });

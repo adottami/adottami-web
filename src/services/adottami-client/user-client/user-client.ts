@@ -5,7 +5,7 @@ import User from '@/models/user/user';
 import UserFactory from '@/models/user/user-factory';
 
 import { USERS_ENDPOINT } from './constants';
-import { CreateUserData } from './types';
+import { CreateUserData, EditUserData } from './types';
 import { getUserEndpoint } from './utils';
 
 class UserClient {
@@ -21,6 +21,12 @@ class UserClient {
     const { data: userResponse } = await this.api.get<UserResponse | null>(getUserEndpoint(userId));
     const user = userResponse ? UserFactory.createFromResponse(userResponse) : null;
     return user;
+  }
+
+  async edit(userId: string, userData: EditUserData): Promise<User> {
+    const { data: editedUserResponse } = await this.api.put<UserResponse>(getUserEndpoint(userId), userData);
+    const editedUser = UserFactory.createFromResponse(editedUserResponse);
+    return editedUser;
   }
 }
 
