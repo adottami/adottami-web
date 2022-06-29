@@ -14,31 +14,46 @@ const baseURL = globalConfig.baseAdottamiURL();
 describe('User client', () => {
   const userClient = new UserClient(axios.create({ baseURL }));
 
+  const userResponse: UserResponse = {
+    id: '1',
+    name: 'User',
+    email: 'user@email.com',
+    phoneNumber: '1100001111',
+  };
+
   it('should support creating a user', async () => {
     const userData: CreateUserData = {
-      name: 'User',
-      email: 'user@example.com',
+      name: userResponse.name,
+      email: userResponse.email,
       password: 'password',
-      phoneNumber: '1100001111',
-    };
-
-    const createdUserResponse: UserResponse = {
-      id: '1',
-      name: userData.name,
-      email: userData.email,
-      phoneNumber: userData.phoneNumber,
+      phoneNumber: userResponse.phoneNumber,
     };
 
     const creationRequests = trackRequests(`${baseURL}${USERS_ENDPOINT}`, 'post', {
-      responseData: createdUserResponse,
+      responseData: userResponse,
     });
 
-    const createdUser = await userClient.createUser(userData);
+    const createdUser = await userClient.create(userData);
 
     expect(creationRequests).toHaveLength(1);
     expect(creationRequests[0].body).toEqual(userData);
 
-    const expectedCreatedUser = UserFactory.createFromResponse(createdUserResponse);
+    const expectedCreatedUser = UserFactory.createFromResponse(userResponse);
     expect(createdUser).toEqual(expectedCreatedUser);
+  });
+
+  it('should support getting a user by id', async () => {
+    const getRequests = trackRequests(`${baseURL}${USERS_ENDPOINT}/:userId`, 'get', {
+      responseData: userResponse,
+    });
+
+    const userId = userResponse.id;
+    const user = await userClient.getById(userId);
+
+    expect(getRequests).toHaveLength(1);
+    expect(getRequests[0].params).toEqual({ userId });
+
+    const expectedUser = UserFactory.createFromResponse(userResponse);
+    expect(user).toEqual(expectedUser);
   });
 });
