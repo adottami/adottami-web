@@ -3,6 +3,7 @@ import axios from 'axios';
 import globalConfig from '@/config/global-config/global-config';
 import { UserResponse } from '@/models/user/types';
 import UserFactory from '@/models/user/user-factory';
+import { withBaseAdottamiURL } from '@/services/adottami-client/utils';
 import { trackRequests } from '@tests/utils/requests';
 
 import { USERS_ENDPOINT } from '../constants';
@@ -30,7 +31,7 @@ describe('User client', () => {
       phoneNumber: userResponse.phoneNumber,
     };
 
-    const creationRequests = trackRequests(`${baseURL}${USERS_ENDPOINT}`, 'post', {
+    const creationRequests = trackRequests(withBaseAdottamiURL(USERS_ENDPOINT), 'post', {
       responseData: userResponse,
     });
 
@@ -44,7 +45,7 @@ describe('User client', () => {
   });
 
   it('should support getting a user by id', async () => {
-    const getRequests = trackRequests(`${baseURL}${getUserEndpoint(':userId')}`, 'get', {
+    const getRequests = trackRequests(withBaseAdottamiURL(getUserEndpoint(':userId')), 'get', {
       responseData: userResponse,
     });
 
@@ -72,7 +73,7 @@ describe('User client', () => {
       phoneNumber: editedUserData.phoneNumber,
     };
 
-    const editRequests = trackRequests(`${baseURL}${getUserEndpoint(':userId')}`, 'put', {
+    const editRequests = trackRequests(withBaseAdottamiURL(getUserEndpoint(':userId')), 'put', {
       responseData: editedUserResponse,
     });
 
@@ -87,7 +88,7 @@ describe('User client', () => {
   });
 
   it('should support changing the password of a user', async () => {
-    const editRequests = trackRequests(`${baseURL}${getUserPasswordEndpoint(':userId')}`, 'patch');
+    const editRequests = trackRequests(withBaseAdottamiURL(getUserPasswordEndpoint(':userId')), 'patch');
 
     const passwordData: ChangePasswordData = {
       currentPassword: 'current-password',
