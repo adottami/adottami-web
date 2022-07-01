@@ -39,7 +39,7 @@ describe('User client', () => {
     expect(createdUser).toEqual(expectedCreatedUser);
   });
 
-  it('should support getting a user by id', async () => {
+  it('should support getting an existing user by id', async () => {
     const getRequests = userResponseHandler.mockGetById(':userId', userResponse);
 
     const userId = userResponse.id;
@@ -50,6 +50,12 @@ describe('User client', () => {
 
     const expectedUser = UserFactory.createFromResponse(userResponse);
     expect(user).toEqual(expectedUser);
+  });
+
+  it('should support getting a non-existing user by id', async () => {
+    userResponseHandler.mockGetById(':userId', null);
+    const user = await userClient.getById(userResponse.id);
+    expect(user).toBe(null);
   });
 
   it('should support editing a user', async () => {
