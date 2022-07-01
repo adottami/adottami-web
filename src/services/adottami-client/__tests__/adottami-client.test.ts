@@ -15,6 +15,9 @@ import { getUserEndpoint } from '../user-client/utils';
 import { withBaseAdottamiURL } from '../utils';
 
 describe('Adottami client', () => {
+  const accessToken = 'access-token';
+  const refreshToken = 'refresh-token';
+
   it('should initialize correctly', () => {
     const adottamiClient = new AdottamiClient();
 
@@ -27,6 +30,7 @@ describe('Adottami client', () => {
     const adottamiClient = new AdottamiClient();
 
     const adottamiClientCopy = adottamiClient.createCopy();
+    expect(JSON.stringify(adottamiClientCopy)).toEqual(JSON.stringify(adottamiClient));
     expect(adottamiClientCopy.baseURL()).toBe(adottamiClient.baseURL());
     expect(adottamiClientCopy.accessToken()).toBe(adottamiClient.accessToken());
     expect(adottamiClientCopy.refreshToken()).toBe(adottamiClient.refreshToken());
@@ -35,9 +39,6 @@ describe('Adottami client', () => {
   });
 
   describe('Authentication', () => {
-    const accessToken = 'access-token';
-    const refreshToken = 'refresh-token';
-
     const adottamiClient = new AdottamiClient({ accessToken, refreshToken });
 
     const userId = '1';
@@ -80,6 +81,10 @@ describe('Adottami client', () => {
   });
 
   describe('Sessions', () => {
+    const authentication: AuthenticationCredentials = { accessToken, refreshToken };
+    const loginCredentials: LoginCredentials = { email: 'user@email.com', password: 'password' };
+    const loginResult: LoginResult = { accessToken, refreshToken };
+
     const api = axios.create({ baseURL: globalConfig.baseAdottamiURL() });
     const sessionClient = new SessionClient(api);
 
@@ -90,13 +95,9 @@ describe('Adottami client', () => {
       expect(adottamiClient.accessToken()).toBe(undefined);
       expect(adottamiClient.refreshToken()).toBe(undefined);
 
-      const loginResult: LoginResult = { accessToken: 'access-token', refreshToken: 'refresh-token' };
-      trackRequests(withBaseAdottamiURL(LOGIN_ENDPOINT), 'post', {
-        responseData: loginResult,
-      });
+      trackRequests(withBaseAdottamiURL(LOGIN_ENDPOINT), 'post', { responseData: loginResult });
 
-      const loginCredentials: LoginCredentials = { email: 'user@email.com', password: 'password' };
-      const loggedInAdottamiClient = await adottamiClient.withLogin(loginCredentials);
+      const loggedInAdottamiClient = await adottamiClient.login(loginCredentials);
 
       expect(sessionLoginSpy).toHaveBeenCalledWith(loginCredentials);
 
@@ -108,20 +109,42 @@ describe('Adottami client', () => {
     it('should support logging out', async () => {
       const sessionLogoutSpy = jest.spyOn(sessionClient, 'logout');
 
-      const authentication: AuthenticationCredentials = { accessToken: 'access-token', refreshToken: 'refresh-token' };
       const adottamiClient = new AdottamiClient(authentication, { sessions: sessionClient });
       expect(adottamiClient.accessToken()).toBe(authentication.accessToken);
       expect(adottamiClient.refreshToken()).toBe(authentication.refreshToken);
 
       trackRequests(withBaseAdottamiURL(LOGOUT_ENDPOINT), 'post');
 
-      const loggedOutAdottamiClient = await adottamiClient.withLogout();
+      const loggedOutAdottamiClient = await adottamiClient.logout();
 
       expect(sessionLogoutSpy).toHaveBeenCalled();
 
       expect(loggedOutAdottamiClient).not.toBe(adottamiClient);
       expect(loggedOutAdottamiClient.accessToken()).toBe(undefined);
       expect(loggedOutAdottamiClient.refreshToken()).toBe(undefined);
+    });
+
+    it('should notify login listeners on login', async () => {
+      const onLogin = jest.fn();
+      const adottamiClient = new AdottamiClient(null, { listeners: { onLogin } });
+
+      trackRequests(withBaseAdottamiURL(LOGIN_ENDPOINT), 'post', { responseData: loginResult });
+
+      const loginCredentials: LoginCredentials = { email: 'user@email.com', password: 'password' };
+      const loggedInAdottamiClient = await adottamiClient.login(loginCredentials);
+
+      expect(onLogin).toHaveBeenCalledWith(loggedInAdottamiClient);
+    });
+
+    it('should notify logout listeners on logout', async () => {
+      const onLogout = jest.fn();
+      const adottamiClient = new AdottamiClient(null, { listeners: { onLogout } });
+
+      trackRequests(withBaseAdottamiURL(LOGOUT_ENDPOINT), 'post');
+
+      const loggedOutAdottamiClient = await adottamiClient.logout();
+
+      expect(onLogout).toHaveBeenCalledWith(loggedOutAdottamiClient);
     });
   });
 });

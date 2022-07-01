@@ -9,30 +9,38 @@ import { LoginCredentials } from './session-client/types';
 import { AuthenticationCredentials } from './types';
 import UserClient from './user-client/user-client';
 
+interface AdottamiListeners {
+  onLogin?: (newAdottamiClient: AdottamiClient) => void;
+  onLogout?: (newAdottamiClient: AdottamiClient) => void;
+}
+
 class AdottamiClient {
   private api: AxiosInstance;
   private authentication: AuthenticationCredentials | null;
+  private listeners: AdottamiListeners;
 
-  users: UserClient;
   private sessions: SessionClient;
+  users: UserClient;
   publications: PublicationClient;
 
   constructor(
     authentication: AuthenticationCredentials | null = null,
     options: {
       baseURL?: string;
-      users?: UserClient;
       sessions?: SessionClient;
+      users?: UserClient;
       publications?: PublicationClient;
+      listeners?: AdottamiListeners;
     } = {},
   ) {
     const baseURL = options.baseURL ?? globalConfig.baseAdottamiURL();
     this.authentication = authentication;
+    this.listeners = options.listeners ?? {};
 
     this.api = this.createAPIInstance(baseURL);
 
-    this.users = options.users ?? new UserClient(this.api);
     this.sessions = options.sessions ?? new SessionClient(this.api);
+    this.users = options.users ?? new UserClient(this.api);
     this.publications = options.publications ?? new PublicationClient(this.api);
   }
 
@@ -92,7 +100,7 @@ class AdottamiClient {
     return this.authentication?.refreshToken;
   }
 
-  async withLogin(credentials: LoginCredentials): Promise<AdottamiClient> {
+  async login(credentials: LoginCredentials): Promise<AdottamiClient> {
     const loginResult = await this.sessions.login(credentials);
 
     const loggedInAdottamiClient = this.createCopy({
@@ -100,21 +108,27 @@ class AdottamiClient {
       refreshToken: loginResult.refreshToken,
     });
 
+    this.listeners.onLogin?.(loggedInAdottamiClient);
+
     return loggedInAdottamiClient;
   }
 
-  async withLogout(): Promise<AdottamiClient> {
+  async logout(): Promise<AdottamiClient> {
     await this.sessions.logout();
     const loggedOutAdottamiClient = this.createCopy(null);
+
+    this.listeners.onLogout?.(loggedOutAdottamiClient);
+
     return loggedOutAdottamiClient;
   }
 
   createCopy(authentication: AuthenticationCredentials | null = this.authentication) {
     return new AdottamiClient(authentication, {
       baseURL: this.baseURL(),
-      users: this.users,
       sessions: this.sessions,
+      users: this.users,
       publications: this.publications,
+      listeners: this.listeners,
     });
   }
 }
