@@ -1,12 +1,12 @@
-import { act } from '@testing-library/react';
+import { act, render } from '@testing-library/react';
 import { FC } from 'react';
 
 import APIContext, { APIContextValue } from '@/contexts/api-context/api-context';
+import APIContextProvider from '@/contexts/api-context/api-context-provider';
 import createUser from '@/models/user/__tests__/factories/user-factory';
 import UserFactory from '@/models/user/user-factory';
 import sessionResponseHandler from '@/services/adottami-client/session-client/__tests__/mocks/session-response-handler';
 import { LoginCredentials, LoginResponse } from '@/services/adottami-client/session-client/types';
-import { renderWithTestProviders } from '@tests/utils/render';
 
 import SessionContext, { SessionContextValue } from '../session-context';
 import SessionContextProvider from '../session-context-provider';
@@ -22,10 +22,12 @@ describe('Session context provider', () => {
   };
 
   beforeEach(() => {
-    renderWithTestProviders(
-      <SessionContextProvider>
-        <ChildrenComponent />
-      </SessionContextProvider>,
+    render(
+      <APIContextProvider>
+        <SessionContextProvider>
+          <ChildrenComponent />
+        </SessionContextProvider>
+      </APIContextProvider>,
     );
   });
 
