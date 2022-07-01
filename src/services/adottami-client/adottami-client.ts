@@ -2,7 +2,7 @@ import axios, { AxiosError, AxiosInstance } from 'axios';
 
 import globalConfig from '@/config/global-config/global-config';
 
-import { UNAUTHORIZED_HTTP_CODE } from './constants';
+import { HTTPResponseCode } from '../types';
 import PublicationClient from './publication-client/publication-client';
 import SessionClient from './session-client/session-client';
 import { LoginResult } from './session-client/types';
@@ -66,7 +66,7 @@ class AdottamiClient {
   }
 
   private async handleAPIResponseError(api: AxiosInstance, error: AxiosError) {
-    const isUnauthorizedError = error.response?.status === UNAUTHORIZED_HTTP_CODE;
+    const isUnauthorizedError = error.response?.status === HTTPResponseCode.UNAUTHORIZED;
     const isRequestAccessTokenError = this.session.matchesRequestAccessTokenConfig(error.config);
 
     if (!isUnauthorizedError || isRequestAccessTokenError || this.authentication === null) {

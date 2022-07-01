@@ -29,17 +29,18 @@ function parseRequestQueryEntries(request: RestRequest): Query {
   }, {});
 }
 
-export function trackRequests<ResponseData>(
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function trackRequests<ResponseData extends string | number | null | Record<string, any>>(
   path: string,
   method: 'get' | 'post' | 'put' | 'patch' | 'delete',
   options: {
     server?: SetupServerApi;
     responseCode?: number;
-    responseData?: ResponseData;
+    responseData?: ResponseData | ((request: RestRequest, response: ResponseComposition) => ResponseData);
     beforeSendingResponse?: (request: RestRequest, response: ResponseComposition) => void;
   } = {},
 ): TrackedRequest[] {
-  const { server = testServer, responseCode, responseData = {}, beforeSendingResponse } = options;
+  const { server = testServer, responseCode, responseData, beforeSendingResponse } = options;
 
   const receivedRequests: TrackedRequest[] = [];
 
@@ -57,9 +58,12 @@ export function trackRequests<ResponseData>(
 
       beforeSendingResponse?.(request, response);
 
+      const responseDataAsJSON =
+        typeof responseData === 'function' ? context.json(responseData(request, response)) : context.json(responseData);
+
       return responseCode === undefined
-        ? response(context.json(responseData))
-        : response(context.status(responseCode), context.json(responseData));
+        ? response(responseDataAsJSON)
+        : response(context.status(responseCode), responseDataAsJSON);
     }),
   );
 

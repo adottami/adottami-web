@@ -3,13 +3,10 @@ import axios from 'axios';
 import globalConfig from '@/config/global-config/global-config';
 import { UserResponse } from '@/models/user/types';
 import UserFactory from '@/models/user/user-factory';
-import { withBaseAdottamiURL } from '@/services/adottami-client/utils';
-import { trackRequests } from '@tests/utils/requests';
 
-import { USERS_ENDPOINT } from '../constants';
 import { ChangePasswordData, CreateUserData, EditUserData } from '../types';
 import UserClient from '../user-client';
-import { getUserEndpoint, getUserPasswordEndpoint } from '../utils';
+import userResponseHandler from './mocks/user-response-handler';
 
 const baseURL = globalConfig.baseAdottamiURL();
 
@@ -31,9 +28,7 @@ describe('User client', () => {
       phoneNumber: userResponse.phoneNumber,
     };
 
-    const creationRequests = trackRequests(withBaseAdottamiURL(USERS_ENDPOINT), 'post', {
-      responseData: userResponse,
-    });
+    const creationRequests = userResponseHandler.mockCreate(userResponse);
 
     const createdUser = await userClient.create(userData);
 
@@ -45,9 +40,7 @@ describe('User client', () => {
   });
 
   it('should support getting a user by id', async () => {
-    const getRequests = trackRequests(withBaseAdottamiURL(getUserEndpoint(':userId')), 'get', {
-      responseData: userResponse,
-    });
+    const getRequests = userResponseHandler.mockGetById(':userId', userResponse);
 
     const userId = userResponse.id;
     const user = await userClient.getById(userId);
@@ -73,9 +66,7 @@ describe('User client', () => {
       phoneNumber: editedUserData.phoneNumber,
     };
 
-    const editRequests = trackRequests(withBaseAdottamiURL(getUserEndpoint(':userId')), 'put', {
-      responseData: editedUserResponse,
-    });
+    const editRequests = userResponseHandler.mockEdit(':userId', editedUserResponse);
 
     const userId = userResponse.id;
     const editedUser = await userClient.edit(userId, editedUserData);
@@ -88,7 +79,7 @@ describe('User client', () => {
   });
 
   it('should support changing the password of a user', async () => {
-    const editRequests = trackRequests(withBaseAdottamiURL(getUserPasswordEndpoint(':userId')), 'patch');
+    const changePasswordRequests = userResponseHandler.mockChangePassword(':userId');
 
     const passwordData: ChangePasswordData = {
       currentPassword: 'current-password',
@@ -98,8 +89,8 @@ describe('User client', () => {
     const userId = userResponse.id;
     await userClient.changePassword(userId, passwordData);
 
-    expect(editRequests).toHaveLength(1);
-    expect(editRequests[0].params).toEqual({ userId });
-    expect(editRequests[0].body).toEqual(passwordData);
+    expect(changePasswordRequests).toHaveLength(1);
+    expect(changePasswordRequests[0].params).toEqual({ userId });
+    expect(changePasswordRequests[0].body).toEqual(passwordData);
   });
 });

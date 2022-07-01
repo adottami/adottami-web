@@ -1,16 +1,15 @@
 import globalConfig from '@/config/global-config/global-config';
 import createUser from '@/models/user/__tests__/factories/user-factory';
-import { TrackedRequest, trackRequests } from '@tests/utils/requests';
+import { HTTPResponseCode } from '@/services/types';
+import { TrackedRequest } from '@tests/utils/requests';
 
 import AdottamiClient from '../adottami-client';
-import { UNAUTHORIZED_HTTP_CODE } from '../constants';
 import PublicationClient from '../publication-client/publication-client';
-import { ACCESS_TOKEN_ENDPOINT, LOGIN_ENDPOINT, LOGOUT_ENDPOINT } from '../session-client/constants';
+import sessionResponseHandler from '../session-client/__tests__/mocks/session-response-handler';
 import { LoginCredentials, LoginResponse } from '../session-client/types';
 import { AuthenticationCredentials } from '../types';
+import userResponseHandler from '../user-client/__tests__/mocks/user-response-handler';
 import UserClient from '../user-client/user-client';
-import { getUserEndpoint } from '../user-client/utils';
-import { withBaseAdottamiURL } from '../utils';
 
 describe('Adottami client', () => {
   const accessToken = 'access-token';
@@ -42,7 +41,7 @@ describe('Adottami client', () => {
     const userId = '1';
 
     it('should authenticate requests if the credentials are provided', async () => {
-      const userRequests = trackRequests(withBaseAdottamiURL(getUserEndpoint(userId)), 'get');
+      const userRequests = userResponseHandler.mockGetById(userId, null);
       await adottamiClient.users.getById(userId);
 
       expect(userRequests).toHaveLength(1);
@@ -50,18 +49,17 @@ describe('Adottami client', () => {
     });
 
     it('should request a new access token if a request is unauthorized', async () => {
-      const initialUserRequests = trackRequests(withBaseAdottamiURL(getUserEndpoint(userId)), 'get', {
-        responseCode: UNAUTHORIZED_HTTP_CODE,
+      const initialUserRequests = userResponseHandler.mockGetById(userId, null, {
+        responseCode: HTTPResponseCode.UNAUTHORIZED,
       });
 
       let finalUserRequests: TrackedRequest[] = [];
 
       const newAccessToken = 'new-access-token';
-      const accessTokenRequests = trackRequests(withBaseAdottamiURL(ACCESS_TOKEN_ENDPOINT), 'post', {
+      const accessTokenRequests = sessionResponseHandler.mockRequestAccessToken(newAccessToken, {
         responseCode: 201,
-        responseData: { accessToken: newAccessToken },
         beforeSendingResponse() {
-          finalUserRequests = trackRequests(withBaseAdottamiURL(getUserEndpoint(userId)), 'get', { responseCode: 200 });
+          finalUserRequests = userResponseHandler.mockGetById(userId, null, { responseCode: HTTPResponseCode.OK });
         },
       });
 
@@ -99,7 +97,7 @@ describe('Adottami client', () => {
       expect(adottamiClient.accessToken()).toBe(undefined);
       expect(adottamiClient.refreshToken()).toBe(undefined);
 
-      trackRequests(withBaseAdottamiURL(LOGIN_ENDPOINT), 'post', { responseData: loginResponse });
+      sessionResponseHandler.mockLogin(loginResponse);
 
       await adottamiClient.session.login(loginCredentials);
 
@@ -112,7 +110,7 @@ describe('Adottami client', () => {
       expect(adottamiClient.accessToken()).toBe(authentication.accessToken);
       expect(adottamiClient.refreshToken()).toBe(authentication.refreshToken);
 
-      trackRequests(withBaseAdottamiURL(LOGOUT_ENDPOINT), 'post');
+      sessionResponseHandler.mockLogout();
 
       await adottamiClient.session.logout();
 

@@ -2,12 +2,11 @@ import axios from 'axios';
 
 import globalConfig from '@/config/global-config/global-config';
 import createUser from '@/models/user/__tests__/factories/user-factory';
-import { trackRequests } from '@tests/utils/requests';
 
-import { withBaseAdottamiURL } from '../../utils';
-import { ACCESS_TOKEN_ENDPOINT, LOGIN_ENDPOINT, LOGOUT_ENDPOINT } from '../constants';
+import { ACCESS_TOKEN_ENDPOINT } from '../constants';
 import SessionClient from '../session-client';
 import { LoginCredentials, LoginResponse, LoginResult } from '../types';
+import sessionResponseHandler from './mocks/session-response-handler';
 
 const baseURL = globalConfig.baseAdottamiURL();
 
@@ -33,12 +32,9 @@ describe('Session client', () => {
   };
 
   it('should support logging in', async () => {
-    const loginRequests = trackRequests(withBaseAdottamiURL(LOGIN_ENDPOINT), 'post', {
-      responseData: loginResponse,
-    });
+    const loginRequests = sessionResponseHandler.mockLogin(loginResponse);
 
     const loginCredentials: LoginCredentials = { email: 'user@email.com', password: 'password' };
-
     const receivedLoginResult = await sessionClient.login(loginCredentials);
 
     expect(loginRequests).toHaveLength(1);
@@ -49,18 +45,15 @@ describe('Session client', () => {
 
   it('should support requesting a new access token', async () => {
     const refreshToken = 'refresh-token';
-    const expectedAccessToken = 'access-token';
+    const accessToken = 'access-token';
+    const requestAccessTokenRequests = sessionResponseHandler.mockRequestAccessToken(accessToken);
 
-    const requestAccessTokenRequests = trackRequests(withBaseAdottamiURL(ACCESS_TOKEN_ENDPOINT), 'post', {
-      responseData: { accessToken: expectedAccessToken },
-    });
-
-    const accessToken = await sessionClient.requestAccessToken(refreshToken);
+    const receivedAccessToken = await sessionClient.requestAccessToken(refreshToken);
 
     expect(requestAccessTokenRequests).toHaveLength(1);
     expect(requestAccessTokenRequests[0].body).toEqual({ refreshToken });
 
-    expect(accessToken).toEqual(expectedAccessToken);
+    expect(receivedAccessToken).toEqual(accessToken);
   });
 
   it('should correctly indicate if a config matches a request access token config', () => {
@@ -70,7 +63,7 @@ describe('Session client', () => {
   });
 
   it('should support logging out', async () => {
-    const logoutRequests = trackRequests(withBaseAdottamiURL(LOGOUT_ENDPOINT), 'post');
+    const logoutRequests = sessionResponseHandler.mockLogout();
 
     await sessionClient.logout();
 
@@ -79,10 +72,10 @@ describe('Session client', () => {
   });
 
   it('should notify login listeners on login', async () => {
+    sessionResponseHandler.mockLogin(loginResponse);
+
     const onLogin = jest.fn();
     const sessionClient = new SessionClient(api, { listeners: { onLogin } });
-
-    trackRequests(withBaseAdottamiURL(LOGIN_ENDPOINT), 'post', { responseData: loginResponse });
 
     await sessionClient.login({ email: 'user@email.com', password: 'password' });
 
@@ -90,10 +83,10 @@ describe('Session client', () => {
   });
 
   it('should notify logout listeners on logout', async () => {
+    sessionResponseHandler.mockLogout();
+
     const onLogout = jest.fn();
     const sessionClient = new SessionClient(api, { listeners: { onLogout } });
-
-    trackRequests(withBaseAdottamiURL(LOGOUT_ENDPOINT), 'post');
 
     await sessionClient.logout();
 
