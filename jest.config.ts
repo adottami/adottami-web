@@ -11,7 +11,8 @@ const customJestConfig = {
   coverageProvider: 'v8',
   coverageReporters: ['json', 'lcov'],
   collectCoverageFrom: [
-    '<rootDir>/{src,test}/**/*.{js,jsx,ts,tsx}',
+    '<rootDir>/{src,tests}/**/*.{ts,tsx}',
+    '!<rootDir>/**/*.test.{ts,tsx}',
     '!<rootDir>/node_modules',
     '!*.{js,ts,json}',
     '!**/types/**/*.ts',
