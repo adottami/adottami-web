@@ -25,7 +25,7 @@ describe('User client', () => {
       name: userResponse.name,
       email: userResponse.email,
       password: 'password',
-      phoneNumber: userResponse.phoneNumber,
+      phoneNumber: userResponse.phoneNumber!,
     };
 
     const creationRequests = userResponseHandler.mockCreate(userResponse);
