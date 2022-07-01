@@ -6,17 +6,12 @@ import { FCC } from '@/types/react';
 import APIContext, { APIContextValue } from './api-context';
 
 const APIContextProvider: FCC = ({ children }) => {
-  const [adottamiClient, setAdottamiClient] = useState<AdottamiClient>(
-    () =>
-      new AdottamiClient(null, {
-        listeners: {
-          onLogin: (newAdottamiClient) => setAdottamiClient(newAdottamiClient),
-          onLogout: (newAdottamiClient) => setAdottamiClient(newAdottamiClient),
-        },
-      }),
-  );
+  const [adottamiClient, setAdottamiClient] = useState<AdottamiClient>(() => new AdottamiClient(null));
 
-  const api = useMemo<APIContextValue>(() => ({ adottami: adottamiClient }), [adottamiClient]);
+  const api = useMemo<APIContextValue>(
+    () => ({ adottami: adottamiClient, setAdottami: setAdottamiClient }),
+    [adottamiClient],
+  );
 
   return <APIContext.Provider value={api}>{children}</APIContext.Provider>;
 };

@@ -1,36 +1,50 @@
 import axios from 'axios';
 
 import globalConfig from '@/config/global-config/global-config';
+import createUser from '@/models/user/__tests__/factories/user-factory';
 import { trackRequests } from '@tests/utils/requests';
 
 import { withBaseAdottamiURL } from '../../utils';
 import { ACCESS_TOKEN_ENDPOINT, LOGIN_ENDPOINT, LOGOUT_ENDPOINT } from '../constants';
 import SessionClient from '../session-client';
-import { LoginCredentials, LoginResult } from '../types';
+import { LoginCredentials, LoginResponse, LoginResult } from '../types';
 
 const baseURL = globalConfig.baseAdottamiURL();
 
 describe('Session client', () => {
-  const sessionClient = new SessionClient(axios.create({ baseURL }));
+  const api = axios.create({ baseURL });
+  const sessionClient = new SessionClient(api);
+
+  const loginResult: LoginResult = {
+    accessToken: 'access-token',
+    refreshToken: 'refresh-token',
+    user: createUser(),
+  };
+
+  const loginResponse: LoginResponse = {
+    accessToken: 'access-token',
+    refreshToken: 'refresh-token',
+    user: {
+      id: loginResult.user.id(),
+      name: loginResult.user.name(),
+      email: loginResult.user.email(),
+      phoneNumber: loginResult.user.phoneNumber(),
+    },
+  };
 
   it('should support logging in', async () => {
-    const expectedLoginResult: LoginResult = {
-      accessToken: 'access-token',
-      refreshToken: 'refresh-token',
-    };
-
     const loginRequests = trackRequests(withBaseAdottamiURL(LOGIN_ENDPOINT), 'post', {
-      responseData: expectedLoginResult,
+      responseData: loginResponse,
     });
 
     const loginCredentials: LoginCredentials = { email: 'user@email.com', password: 'password' };
 
-    const loginResult = await sessionClient.login(loginCredentials);
+    const receivedLoginResult = await sessionClient.login(loginCredentials);
 
     expect(loginRequests).toHaveLength(1);
     expect(loginRequests[0].body).toEqual(loginCredentials);
 
-    expect(loginResult).toEqual(expectedLoginResult);
+    expect(receivedLoginResult).toEqual(loginResult);
   });
 
   it('should support requesting a new access token', async () => {
@@ -62,5 +76,27 @@ describe('Session client', () => {
 
     expect(logoutRequests).toHaveLength(1);
     expect(logoutRequests[0].body).toEqual('');
+  });
+
+  it('should notify login listeners on login', async () => {
+    const onLogin = jest.fn();
+    const sessionClient = new SessionClient(api, { listeners: { onLogin } });
+
+    trackRequests(withBaseAdottamiURL(LOGIN_ENDPOINT), 'post', { responseData: loginResponse });
+
+    await sessionClient.login({ email: 'user@email.com', password: 'password' });
+
+    expect(onLogin).toHaveBeenCalledWith(loginResult);
+  });
+
+  it('should notify logout listeners on logout', async () => {
+    const onLogout = jest.fn();
+    const sessionClient = new SessionClient(api, { listeners: { onLogout } });
+
+    trackRequests(withBaseAdottamiURL(LOGOUT_ENDPOINT), 'post');
+
+    await sessionClient.logout();
+
+    expect(onLogout).toHaveBeenCalled();
   });
 });

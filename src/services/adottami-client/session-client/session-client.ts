@@ -1,13 +1,28 @@
 import { AxiosInstance, AxiosRequestConfig } from 'axios';
 
+import UserFactory from '@/models/user/user-factory';
+
 import { ACCESS_TOKEN_ENDPOINT, LOGIN_ENDPOINT, LOGOUT_ENDPOINT } from './constants';
-import { RequestAccessTokenResult, LoginCredentials, LoginResult } from './types';
+import { RequestAccessTokenResult, LoginCredentials, LoginResult, LoginResponse, SessionListeners } from './types';
 
 class SessionClient {
-  constructor(private api: AxiosInstance) {}
+  private listeners: SessionListeners;
+
+  constructor(private api: AxiosInstance, options: { listeners?: SessionListeners } = {}) {
+    this.listeners = options.listeners ?? {};
+  }
 
   async login(credentials: LoginCredentials): Promise<LoginResult> {
-    const { data: loginResult } = await this.api.post<LoginResult>(LOGIN_ENDPOINT, credentials);
+    const { data: loginResponse } = await this.api.post<LoginResponse>(LOGIN_ENDPOINT, credentials);
+
+    const loginResult = {
+      accessToken: loginResponse.accessToken,
+      refreshToken: loginResponse.refreshToken,
+      user: UserFactory.createFromResponse(loginResponse.user),
+    };
+
+    this.listeners.onLogin?.(loginResult);
+
     return loginResult;
   }
 
@@ -24,6 +39,8 @@ class SessionClient {
 
   async logout() {
     await this.api.post<RequestAccessTokenResult>(LOGOUT_ENDPOINT);
+
+    this.listeners.onLogout?.();
   }
 }
 
