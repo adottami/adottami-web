@@ -39,7 +39,7 @@ const Input: FC<Props> = ({ variant, label, type, errorMessage, description, dis
               <button
                 onClick={() => setPasswordIsVisible(false)}
                 disabled={disabled}
-                className="absolute top-1/2 right-4 -translate-y-1/2 disabled:opacity-50"
+                className="absolute top-1/2 right-4 -translate-y-1/2 focus:rounded-base focus:border-2 focus:border-secondary-medium focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
               >
                 <Eye size={24} />
               </button>
@@ -47,7 +47,7 @@ const Input: FC<Props> = ({ variant, label, type, errorMessage, description, dis
               <button
                 onClick={() => setPasswordIsVisible(true)}
                 disabled={disabled}
-                className="absolute top-1/2 right-4 -translate-y-1/2 disabled:opacity-50"
+                className="absolute top-1/2 right-4 -translate-y-1/2 focus:rounded-base focus:border-2 focus:border-secondary-medium focus:outline-none disabled:opacity-50"
               >
                 <EyeSlash size={24} />
               </button>
