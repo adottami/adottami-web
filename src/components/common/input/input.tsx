@@ -22,7 +22,12 @@ const Input: FC<Props> = ({ variant, label, type, errorMessage, description, dis
     case 'password':
       return (
         <div className="w-full">
-          {label && <Label.Root className="mb-1 text-md font-bold text-primary-dark">{label}</Label.Root>}
+          {label && (
+            <Label.Root className="text-md font-bold text-primary-dark">
+              {label}
+              <div className="h-1" />
+            </Label.Root>
+          )}
           <div className="relative">
             <input
               {...rest}
@@ -65,7 +70,12 @@ const Input: FC<Props> = ({ variant, label, type, errorMessage, description, dis
     default:
       return (
         <div className="w-full">
-          {label && <Label.Root className="mb-1 text-md font-bold text-primary-dark">{label}</Label.Root>}
+          {label && (
+            <Label.Root className="text-md font-bold text-primary-dark">
+              {label}
+              <div className="h-1" />
+            </Label.Root>
+          )}
           <div>
             <input
               {...rest}
