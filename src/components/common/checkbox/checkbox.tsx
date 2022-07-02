@@ -1,7 +1,55 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 
-interface Props {}
+interface Props {
+  title: string;
+  categoriesName: string[];
+}
 
-const Checkbox: FC<Props> = () => null;
+interface CheckboxProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  target: {
+    value: string;
+    checked: boolean;
+  };
+}
+
+const Checkbox: FC<Props> = ({ title, categoriesName }) => {
+  const [categories, setCategories] = useState<string[]>([]);
+
+  function handleCategories({ target }: CheckboxProps) {
+    const category = target.value;
+    if (target.checked) {
+      setCategories([...categories, category]);
+      console.log(categories);
+    } else {
+      setCategories(categories.filter((category) => category !== target.value));
+      console.log(categories);
+    }
+  }
+
+  return (
+    <div className="row col-5">
+      <form className="flex flex-col gap-y-4" action="">
+        <p className="text-md font-bold">{title}</p>
+        {categoriesName.map((category, index) => {
+          return (
+            <div key={category} className="flex gap-y-4">
+              <input
+                className="font-regular h-6 w-6 text-md accent-secondary-medium focus:ring-red-200"
+                type="checkbox"
+                value={category}
+                id={'flexCheckDefault' + index}
+                checked={categories.includes(category)}
+                onChange={handleCategories}
+              />
+              <label className="ml-2" htmlFor={'flexCheckDefault' + index}>
+                {category}
+              </label>
+            </div>
+          );
+        })}
+      </form>
+    </div>
+  );
+};
 
 export default Checkbox;
