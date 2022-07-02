@@ -1,4 +1,5 @@
 import { act, render } from '@testing-library/react';
+import { AxiosError } from 'axios';
 import { FC } from 'react';
 
 import APIContext, { APIContextValue } from '@/contexts/api-context/api-context';
@@ -7,6 +8,8 @@ import createUser from '@/models/user/__tests__/factories/user-factory';
 import UserFactory from '@/models/user/user-factory';
 import sessionResponseHandler from '@/services/adottami-client/session-client/__tests__/mocks/session-response-handler';
 import { LoginCredentials, LoginResponse } from '@/services/adottami-client/session-client/types';
+import userResponseHandler from '@/services/adottami-client/user-client/__tests__/mocks/user-response-handler';
+import { HTTPResponseCode } from '@/services/types';
 
 import SessionContext, { SessionContextValue } from '../session-context';
 import SessionContextProvider from '../session-context-provider';
@@ -52,6 +55,19 @@ describe('Session context provider', () => {
       password: 'password',
     };
 
+    async function loginAndEnsureActiveSession() {
+      sessionResponseHandler.mockLogin(loginResponse);
+
+      await act(async () => {
+        await session.login(loginCredentials);
+      });
+
+      expect(session.user).toEqual(user);
+      expect(session.isLoading).toBe(false);
+      expect(api.adottami.accessToken()).toBe(loginResponse.accessToken);
+      expect(api.adottami.refreshToken()).toBe(loginResponse.refreshToken);
+    }
+
     it('should support logging in', async () => {
       expect(session.user).toBe(null);
       expect(session.isLoading).toBe(false);
@@ -72,21 +88,31 @@ describe('Session context provider', () => {
     });
 
     it('should support logging out', async () => {
-      sessionResponseHandler.mockLogin(loginResponse);
-
-      await act(async () => {
-        await session.login(loginCredentials);
-      });
-
-      expect(session.user).toEqual(user);
-      expect(session.isLoading).toBe(false);
-      expect(api.adottami.accessToken()).toBe(loginResponse.accessToken);
-      expect(api.adottami.refreshToken()).toBe(loginResponse.refreshToken);
+      await loginAndEnsureActiveSession();
 
       sessionResponseHandler.mockLogout();
 
       await act(async () => {
         await session.logout();
+      });
+
+      expect(session.user).toBe(null);
+      expect(session.isLoading).toBe(false);
+      expect(api.adottami.accessToken()).toBe(undefined);
+      expect(api.adottami.refreshToken()).toBe(undefined);
+    });
+
+    it('should reset the correct state after an unexpected logout', async () => {
+      await loginAndEnsureActiveSession();
+
+      const userId = '1';
+      userResponseHandler.mockGetById(userId, null, { responseCode: HTTPResponseCode.UNAUTHORIZED });
+      sessionResponseHandler.mockRequestAccessToken(null, { responseCode: HTTPResponseCode.UNAUTHORIZED });
+
+      await act(async () => {
+        await expect(async () => {
+          await api.adottami.users.getById(userId);
+        }).rejects.toThrowError(AxiosError);
       });
 
       expect(session.user).toBe(null);

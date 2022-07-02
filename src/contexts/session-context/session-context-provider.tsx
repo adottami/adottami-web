@@ -15,20 +15,32 @@ const SessionContextProvider: FCC = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
+  const resetStateAfterLogout = useCallback(() => {
+    setAdottamiClient(new AdottamiClient(null));
+    setUser(null);
+  }, [setAdottamiClient]);
+
   const login = useCallback(
     async (credentials: LoginCredentials) => {
       setIsLoading(true);
 
       try {
         const { accessToken, refreshToken, user } = await api.adottami.session.login(credentials);
-        setAdottamiClient(new AdottamiClient({ accessToken, refreshToken }));
+
+        setAdottamiClient(
+          new AdottamiClient(
+            { accessToken, refreshToken },
+            { listeners: { onUnexpectedLogout: resetStateAfterLogout } },
+          ),
+        );
         setUser(user);
+
         return user;
       } finally {
         setIsLoading(false);
       }
     },
-    [api.adottami, setAdottamiClient],
+    [api.adottami.session, setAdottamiClient, resetStateAfterLogout],
   );
 
   const logout = useCallback(async () => {
@@ -36,12 +48,11 @@ const SessionContextProvider: FCC = ({ children }) => {
 
     try {
       await api.adottami.session.logout();
-      setAdottamiClient(new AdottamiClient(null));
-      setUser(null);
+      resetStateAfterLogout();
     } finally {
       setIsLoading(false);
     }
-  }, [api.adottami, setAdottamiClient]);
+  }, [api.adottami.session, resetStateAfterLogout]);
 
   const session = useMemo<SessionContextValue>(
     () => ({ user, login, logout, isLoading }),

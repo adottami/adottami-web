@@ -5,19 +5,26 @@ import globalConfig from '@/config/global-config/global-config';
 import { HTTPResponseCode } from '../types';
 import PublicationClient from './publication-client/publication-client';
 import SessionClient from './session-client/session-client';
-import { AuthenticationCredentials } from './types';
+import { AdottamiListeners, AuthenticationCredentials } from './types';
 import UserClient from './user-client/user-client';
 
 class AdottamiClient {
   private api: AxiosInstance;
   private authentication: AuthenticationCredentials | null;
+  private listeners: AdottamiListeners;
 
   session: SessionClient;
   users: UserClient;
   publications: PublicationClient;
 
-  constructor(authentication: AuthenticationCredentials | null) {
-    this.authentication = authentication;
+  constructor(
+    authentication: AuthenticationCredentials | null,
+    options: {
+      listeners?: AdottamiListeners;
+    } = {},
+  ) {
+    this.authentication = authentication ? { ...authentication } : null;
+    this.listeners = options.listeners ? { ...options.listeners } : {};
 
     const baseURL = globalConfig.baseAdottamiURL();
     this.api = this.createAPIInstance(baseURL);
@@ -56,8 +63,14 @@ class AdottamiClient {
       return Promise.reject(error);
     }
 
-    const newAccessToken = await this.session.requestAccessToken(this.authentication.refreshToken);
-    this.authentication.accessToken = newAccessToken;
+    try {
+      const newAccessToken = await this.session.requestAccessToken(this.authentication.refreshToken);
+      this.authentication.accessToken = newAccessToken;
+    } catch {
+      this.authentication = null;
+      this.listeners.onUnexpectedLogout?.();
+      return Promise.reject(error);
+    }
 
     const newAuthorizationHeader = `Bearer ${this.authentication.accessToken}`;
     api.defaults.headers.common.authorization = newAuthorizationHeader;
