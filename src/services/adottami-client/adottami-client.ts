@@ -5,7 +5,6 @@ import globalConfig from '@/config/global-config/global-config';
 import { HTTPResponseCode } from '../types';
 import PublicationClient from './publication-client/publication-client';
 import SessionClient from './session-client/session-client';
-import { LoginResult } from './session-client/types';
 import { AuthenticationCredentials } from './types';
 import UserClient from './user-client/user-client';
 
@@ -17,31 +16,15 @@ class AdottamiClient {
   users: UserClient;
   publications: PublicationClient;
 
-  constructor(
-    authentication: AuthenticationCredentials | null = null,
-    options: {
-      baseURL?: string;
-      session?: SessionClient;
-      users?: UserClient;
-      publications?: PublicationClient;
-    } = {},
-  ) {
-    const baseURL = options.baseURL ?? globalConfig.baseAdottamiURL();
+  constructor(authentication: AuthenticationCredentials | null) {
     this.authentication = authentication;
 
+    const baseURL = globalConfig.baseAdottamiURL();
     this.api = this.createAPIInstance(baseURL);
 
-    this.session =
-      options.session ??
-      new SessionClient(this.api, {
-        listeners: {
-          onLogin: (loginResult) => this.handleLogin(loginResult),
-          onLogout: () => this.handleLogout(),
-        },
-      });
-
-    this.users = options.users ?? new UserClient(this.api);
-    this.publications = options.publications ?? new PublicationClient(this.api);
+    this.session = this.createSessionClient();
+    this.users = new UserClient(this.api);
+    this.publications = new PublicationClient(this.api);
   }
 
   private createAPIInstance(baseURL: string): AxiosInstance {
@@ -50,12 +33,12 @@ class AdottamiClient {
     if (this.authentication) {
       api.defaults.headers.common.authorization = `Bearer ${this.authentication.accessToken}`;
     }
+    this.registerAPIResponseErrorHandler(api);
 
-    this.registerAuthenticationErrorInterceptor(api);
     return api;
   }
 
-  private registerAuthenticationErrorInterceptor(api: AxiosInstance) {
+  private registerAPIResponseErrorHandler(api: AxiosInstance) {
     api.interceptors.response.use(
       (response) => response,
       async (error: unknown) => {
@@ -76,7 +59,7 @@ class AdottamiClient {
     const newAccessToken = await this.session.requestAccessToken(this.authentication.refreshToken);
     this.authentication.accessToken = newAccessToken;
 
-    const newAuthorizationHeader = `Bearer ${newAccessToken}`;
+    const newAuthorizationHeader = `Bearer ${this.authentication.accessToken}`;
     api.defaults.headers.common.authorization = newAuthorizationHeader;
 
     if (error.config.headers) {
@@ -88,15 +71,17 @@ class AdottamiClient {
     return api(error.config);
   }
 
-  private handleLogin(loginResult: LoginResult) {
-    this.authentication = {
-      accessToken: loginResult.accessToken,
-      refreshToken: loginResult.refreshToken,
-    };
-  }
-
-  private handleLogout() {
-    this.authentication = null;
+  private createSessionClient(): SessionClient {
+    return new SessionClient(this.api, {
+      listeners: {
+        onLogin: ({ accessToken, refreshToken }) => {
+          this.authentication = { accessToken, refreshToken };
+        },
+        onLogout: () => {
+          this.authentication = null;
+        },
+      },
+    });
   }
 
   baseURL(): string | undefined {
@@ -109,15 +94,6 @@ class AdottamiClient {
 
   refreshToken(): string | undefined {
     return this.authentication?.refreshToken;
-  }
-
-  createCopy(authentication: AuthenticationCredentials | null = this.authentication) {
-    return new AdottamiClient(authentication, {
-      baseURL: this.baseURL(),
-      session: this.session,
-      users: this.users,
-      publications: this.publications,
-    });
   }
 }
 

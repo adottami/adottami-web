@@ -2,6 +2,7 @@ import { useCallback, useMemo, useState } from 'react';
 
 import useAPI from '@/hooks/api/use-api/use-api';
 import User from '@/models/user/user';
+import AdottamiClient from '@/services/adottami-client/adottami-client';
 import { LoginCredentials } from '@/services/adottami-client/session-client/types';
 import { FCC } from '@/types/react';
 
@@ -19,8 +20,8 @@ const SessionContextProvider: FCC = ({ children }) => {
       setIsLoading(true);
 
       try {
-        const { user, ...authentication } = await api.adottami.session.login(credentials);
-        setAdottamiClient(api.adottami.createCopy(authentication));
+        const { accessToken, refreshToken, user } = await api.adottami.session.login(credentials);
+        setAdottamiClient(new AdottamiClient({ accessToken, refreshToken }));
         setUser(user);
         return user;
       } finally {
@@ -35,7 +36,7 @@ const SessionContextProvider: FCC = ({ children }) => {
 
     try {
       await api.adottami.session.logout();
-      setAdottamiClient(api.adottami.createCopy(null));
+      setAdottamiClient(new AdottamiClient(null));
       setUser(null);
     } finally {
       setIsLoading(false);

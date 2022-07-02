@@ -1,3 +1,5 @@
+import { AxiosError } from 'axios';
+
 import globalConfig from '@/config/global-config/global-config';
 import createUser from '@/models/user/__tests__/factories/user-factory';
 import { HTTPResponseCode } from '@/services/types';
@@ -16,23 +18,11 @@ describe('Adottami client', () => {
   const refreshToken = 'refresh-token';
 
   it('should initialize correctly', () => {
-    const adottamiClient = new AdottamiClient();
+    const adottamiClient = new AdottamiClient(null);
 
     expect(adottamiClient.baseURL()).toBe(globalConfig.baseAdottamiURL());
     expect(adottamiClient.users).toBeInstanceOf(UserClient);
     expect(adottamiClient.publications).toBeInstanceOf(PublicationClient);
-  });
-
-  it('should support creating a copy', () => {
-    const adottamiClient = new AdottamiClient();
-
-    const adottamiClientCopy = adottamiClient.createCopy();
-    expect(JSON.stringify(adottamiClientCopy)).toEqual(JSON.stringify(adottamiClient));
-    expect(adottamiClientCopy.baseURL()).toBe(adottamiClient.baseURL());
-    expect(adottamiClientCopy.accessToken()).toBe(adottamiClient.accessToken());
-    expect(adottamiClientCopy.refreshToken()).toBe(adottamiClient.refreshToken());
-    expect(adottamiClientCopy.users).toBe(adottamiClient.users);
-    expect(adottamiClientCopy.publications).toBe(adottamiClient.publications);
   });
 
   describe('Authentication', () => {
@@ -92,7 +82,7 @@ describe('Adottami client', () => {
       },
     };
 
-    it('should support logging in', async () => {
+    it('should populate the authentication credentials after log in', async () => {
       const adottamiClient = new AdottamiClient(null);
       expect(adottamiClient.accessToken()).toBe(undefined);
       expect(adottamiClient.refreshToken()).toBe(undefined);
@@ -105,7 +95,7 @@ describe('Adottami client', () => {
       expect(adottamiClient.refreshToken()).toBe(loginResponse.refreshToken);
     });
 
-    it('should support logging out', async () => {
+    it('should clear the authentication credentials after log out', async () => {
       const adottamiClient = new AdottamiClient(authentication);
       expect(adottamiClient.accessToken()).toBe(authentication.accessToken);
       expect(adottamiClient.refreshToken()).toBe(authentication.refreshToken);
