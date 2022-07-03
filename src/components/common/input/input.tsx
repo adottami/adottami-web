@@ -1,4 +1,4 @@
-import * as Label from '@radix-ui/react-label';
+import { Label } from '@radix-ui/react-label';
 import { Eye, EyeSlash, XCircle } from 'phosphor-react';
 import { FC, useEffect, useState } from 'react';
 
@@ -23,10 +23,10 @@ const Input: FC<Props> = ({ variant, label, type, errorMessage, description, dis
       return (
         <div className="w-full">
           {label && (
-            <Label.Root className="text-md font-bold text-primary-dark">
+            <Label className="text-md font-bold text-primary-dark">
               {label}
               <div className="h-1" />
-            </Label.Root>
+            </Label>
           )}
           <div className="relative">
             <input
@@ -71,10 +71,10 @@ const Input: FC<Props> = ({ variant, label, type, errorMessage, description, dis
       return (
         <div className="w-full">
           {label && (
-            <Label.Root className="text-md font-bold text-primary-dark">
+            <Label className="text-md font-bold text-primary-dark">
               {label}
               <div className="h-1" />
-            </Label.Root>
+            </Label>
           )}
           <div>
             <input
