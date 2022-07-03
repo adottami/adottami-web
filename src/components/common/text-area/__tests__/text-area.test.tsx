@@ -4,10 +4,6 @@ import { XCircle } from 'phosphor-react';
 import TextArea from '../text-area';
 
 describe('Text area', () => {
-  it('should render correctly', () => {
-    render(<TextArea />);
-    // ...
-  });
   it('should render label correctly', () => {
     render(<TextArea label="Descrição" />);
 

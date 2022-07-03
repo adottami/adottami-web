@@ -5,10 +5,6 @@ import Input from '../input';
 
 describe('Input', () => {
   // now starts the default Input tests
-  it('should render correctly', () => {
-    render(<Input />);
-    // ...
-  });
   it('should start with empty value only with the placeholder in input', () => {
     render(<Input placeholder="Some placeholder" />);
 
@@ -69,10 +65,6 @@ describe('Input', () => {
     expect(star).toBeInTheDocument();
   });
   // now starts the password variant Input tests
-  it('should render correctly password input', () => {
-    render(<Input variant="password" />);
-    // ...
-  });
   it('should start with empty value only with the placeholder in password input', () => {
     render(<Input variant="password" placeholder="Some placeholder" />);
 
