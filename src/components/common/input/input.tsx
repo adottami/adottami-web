@@ -57,6 +57,7 @@ const Input: FC<Props> = ({
                 onClick={() => setPasswordIsVisible(false)}
                 disabled={disabled}
                 className="absolute top-1/2 right-4 -translate-y-1/2 focus:rounded-base disabled:cursor-not-allowed disabled:opacity-50"
+                data-testid="turn-invisible"
               >
                 <Eye size={24} />
               </button>
@@ -65,6 +66,7 @@ const Input: FC<Props> = ({
                 onClick={() => setPasswordIsVisible(true)}
                 disabled={disabled}
                 className="absolute top-1/2 right-4 -translate-y-1/2 focus:rounded-base disabled:opacity-50"
+                data-testid="turn-visible"
               >
                 <EyeSlash size={24} />
               </button>
