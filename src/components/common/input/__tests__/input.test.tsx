@@ -1,5 +1,4 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import { XCircle } from 'phosphor-react';
 
 import Input from '../input';
 
@@ -27,7 +26,6 @@ describe('Input', () => {
     const errorMessage = screen.getByText('Some Error Message');
 
     expect(errorMessage).toBeInTheDocument();
-    expect(render(<XCircle size={24} color="#e66860" />));
   });
   it('should be able to write on input', () => {
     render(<Input placeholder="Some placeholder" />);
@@ -87,7 +85,6 @@ describe('Input', () => {
     const errorMessage = screen.getByText('Some Error Message');
 
     expect(errorMessage).toBeInTheDocument();
-    expect(render(<XCircle size={24} color="#e66860" />));
   });
   it('should be able to write in password input', () => {
     render(<Input variant="password" placeholder="Some placeholder" />);
