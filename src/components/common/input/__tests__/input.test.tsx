@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import { Eye, EyeSlash, XCircle } from 'phosphor-react';
+import { XCircle } from 'phosphor-react';
 
 import Input from '../input';
 
@@ -146,20 +146,23 @@ describe('Input', () => {
     const inputPassword = screen.getByPlaceholderText('Some placeholder');
 
     expect(inputPassword).toHaveAttribute('type', 'password');
-    expect(render(<EyeSlash size={24} />));
+    expect(screen.getByTestId('turn-visible')).toBeInTheDocument();
   });
   it('should switch to eye without slash and input must be visible when click on toggle visibility button', () => {
     render(<Input variant="password" placeholder="Some placeholder" label="Some Label" />);
 
     const inputPassword = screen.getByPlaceholderText('Some placeholder');
+
     expect(inputPassword).toHaveAttribute('type', 'password');
+    expect(screen.getByTestId('turn-visible')).toBeInTheDocument();
 
-    expect(render(<EyeSlash size={24} />));
     const turnVisibleButton = screen.getByTestId('turn-visible');
-
     fireEvent.click(turnVisibleButton);
-    expect(render(<Eye size={24} />));
+
+    expect(screen.getByTestId('turn-invisible')).toBeInTheDocument();
+
     const inputPasswordAfterClick = screen.getByPlaceholderText('Some placeholder');
+
     expect(inputPasswordAfterClick).toHaveAttribute('type', 'text');
   });
   it('should switch to eyeslash and input must be invisible when click on toggle visibility button', () => {
@@ -168,11 +171,11 @@ describe('Input', () => {
     const inputPassword = screen.getByPlaceholderText('Some placeholder');
     expect(inputPassword).toHaveAttribute('type', 'password');
 
-    expect(render(<EyeSlash size={24} />));
+    expect(screen.getByTestId('turn-visible')).toBeInTheDocument();
     const turnVisibleButton = screen.getByTestId('turn-visible');
 
     fireEvent.click(turnVisibleButton);
-    expect(render(<Eye size={24} />));
+    expect(screen.getByTestId('turn-invisible')).toBeInTheDocument();
     const inputPasswordAfterClick = screen.getByPlaceholderText('Some placeholder');
     expect(inputPasswordAfterClick).toHaveAttribute('type', 'text');
 
