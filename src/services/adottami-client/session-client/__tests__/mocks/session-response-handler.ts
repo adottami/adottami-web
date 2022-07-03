@@ -13,7 +13,7 @@ class SessionResponseHandler {
   }
 
   mockRequestAccessToken(
-    accessToken: string,
+    accessToken: string | null,
     options: {
       responseCode?: number;
       beforeSendingResponse?: () => void;

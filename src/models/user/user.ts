@@ -4,7 +4,7 @@ class User {
   private _id: string;
   private _name: string;
   private _email: string;
-  private _phoneNumber: string;
+  private _phoneNumber?: string;
 
   constructor(fields: UserFields) {
     this._id = fields.id;
@@ -25,7 +25,7 @@ class User {
     return this._email;
   }
 
-  phoneNumber(): string {
+  phoneNumber(): string | undefined {
     return this._phoneNumber;
   }
 }

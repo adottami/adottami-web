@@ -21,8 +21,8 @@ const customJestConfig = {
   ],
 
   testEnvironment: 'jsdom',
-  testRegex: '\\.test\\.tsx?$',
-  testPathIgnorePatterns: ['node_modules', 'public', '.next'],
+  testRegex: '^.+\\.test\\.tsx?$',
+  testPathIgnorePatterns: ['<rootDir>/node_modules', '<rootDir>/public', '<rootDir>/\\.next'],
 
   transformIgnorePatterns: ['node_modules/.+\\.(ts|tsx)$'],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],

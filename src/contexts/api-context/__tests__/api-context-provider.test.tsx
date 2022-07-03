@@ -1,7 +1,7 @@
+import { render } from '@testing-library/react';
 import { FC } from 'react';
 
 import AdottamiClient from '@/services/adottami-client/adottami-client';
-import { renderWithTestProviders } from '@tests/utils/render';
 
 import APIContext, { APIContextValue } from '../api-context';
 import APIContextProvider from '../api-context-provider';
@@ -15,7 +15,7 @@ describe('API context provider', () => {
   };
 
   beforeEach(() => {
-    renderWithTestProviders(
+    render(
       <APIContextProvider>
         <ChildrenComponent />
       </APIContextProvider>,

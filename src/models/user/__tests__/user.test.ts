@@ -1,14 +1,9 @@
-import { UserFields } from '../types';
 import User from '../user';
+import createUserFields from './factories/user-fields-factory';
 
 describe('User', () => {
   it('should initialize correctly', () => {
-    const userFields: UserFields = {
-      id: '1',
-      name: 'User',
-      email: 'user@email.com',
-      phoneNumber: '1100001111',
-    };
+    const userFields = createUserFields();
 
     const user = new User(userFields);
 
