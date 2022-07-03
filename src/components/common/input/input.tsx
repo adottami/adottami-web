@@ -4,11 +4,9 @@ import { FC, useEffect, useState } from 'react';
 
 interface Props extends React.HTMLProps<HTMLInputElement> {
   variant?: string;
-  label?: string;
   errorMessage?: string;
   description?: string;
   isRequired?: boolean;
-  id?: string;
 }
 
 const Input: FC<Props> = ({
