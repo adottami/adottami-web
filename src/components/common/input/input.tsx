@@ -59,10 +59,12 @@ const Input: FC<Props> = ({ variant, label, type, errorMessage, description, dis
                 <XCircle size={24} color="#e66860" />
                 <span className="ml-1 text-sm text-tertiary-medium">{errorMessage}</span>
               </div>
-              {description && <span className="text-sm">{description}</span>}
+              {description && <span className="text-sm text-neutral-800">{description}</span>}
             </div>
           ) : (
-            description && <span className="mt-1 flex w-full justify-end text-sm sm:mt-2">{description}</span>
+            description && (
+              <span className="mt-1 flex w-full justify-end text-sm text-neutral-800 sm:mt-2">{description}</span>
+            )
           )}
         </div>
       );
@@ -90,10 +92,12 @@ const Input: FC<Props> = ({ variant, label, type, errorMessage, description, dis
                 <XCircle size={24} color="#e66860" />
                 <span className="ml-1 text-sm text-tertiary-medium">{errorMessage}</span>
               </div>
-              {description && <span className="text-sm">{description}</span>}
+              {description && <span className="text-sm text-neutral-800">{description}</span>}
             </div>
           ) : (
-            description && <span className="mt-1 flex w-full justify-end text-sm sm:mt-2">{description}</span>
+            description && (
+              <span className="mt-1 flex w-full justify-end text-sm text-neutral-800 sm:mt-2">{description}</span>
+            )
           )}
         </div>
       );
