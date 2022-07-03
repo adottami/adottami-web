@@ -38,7 +38,7 @@ describe('Radio Group', () => {
     expect(options).toHaveLength(2);
   });
 
-  it('handles click correctly', async () => {
+  it('should be checked when handle click', async () => {
     render(
       <RadioGroup
         id="sexo"
