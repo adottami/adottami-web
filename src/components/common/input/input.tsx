@@ -7,9 +7,21 @@ interface Props extends React.HTMLProps<HTMLInputElement> {
   label?: string;
   errorMessage?: string;
   description?: string;
+  isRequired?: boolean;
+  id?: string;
 }
 
-const Input: FC<Props> = ({ variant, label, type, errorMessage, description, disabled, ...rest }: Props) => {
+const Input: FC<Props> = ({
+  variant,
+  label,
+  type,
+  errorMessage,
+  description,
+  disabled,
+  isRequired,
+  id,
+  ...rest
+}: Props) => {
   const [passwordIsVisible, setPasswordIsVisible] = useState(false);
 
   useEffect(() => {
@@ -23,17 +35,22 @@ const Input: FC<Props> = ({ variant, label, type, errorMessage, description, dis
       return (
         <div className="w-full">
           {label && (
-            <Label className="text-md font-bold text-primary-dark">
-              {label}
+            <div>
+              <Label htmlFor={id} className="text-md font-bold text-primary-dark">
+                {label}
+                {isRequired && <span> *</span>}
+              </Label>
               <div className="h-1" />
-            </Label>
+            </div>
           )}
           <div className="relative">
             <input
-              {...rest}
+              id={id}
               disabled={disabled}
               type={passwordIsVisible ? 'text' : 'password'}
+              required={isRequired}
               className="flex h-[3.375rem] w-full rounded-pill border-2 border-neutral-100 bg-surface-primary px-4 text-primary-dark placeholder:text-neutral-500 focus:border-secondary-medium focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+              {...rest}
             />
             {passwordIsVisible ? (
               <button
@@ -73,17 +90,22 @@ const Input: FC<Props> = ({ variant, label, type, errorMessage, description, dis
       return (
         <div className="w-full">
           {label && (
-            <Label className="text-md font-bold text-primary-dark">
-              {label}
+            <div>
+              <Label htmlFor={id} className="text-md font-bold text-primary-dark">
+                {label}
+                {isRequired && <span> *</span>}
+              </Label>
               <div className="h-1" />
-            </Label>
+            </div>
           )}
           <div>
             <input
-              {...rest}
+              id={id}
               disabled={disabled}
               type={type}
+              required={isRequired}
               className="flex h-[3.375rem] w-full rounded-pill border-2 border-neutral-100 bg-surface-primary px-4 text-primary-dark placeholder:text-neutral-500 focus:border-secondary-medium focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+              {...rest}
             />
           </div>
           {errorMessage && !disabled ? (
