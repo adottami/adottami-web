@@ -19,10 +19,8 @@ const Checkbox: FC<Props> = ({ title, options }) => {
     const category = target.value;
     if (target.checked) {
       setCategories([...categories, category]);
-      console.log(categories);
     } else {
       setCategories(categories.filter((category) => category !== target.value));
-      console.log(categories);
     }
   }
 
