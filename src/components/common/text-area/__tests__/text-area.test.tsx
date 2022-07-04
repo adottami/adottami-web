@@ -1,5 +1,4 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import { XCircle } from 'phosphor-react';
 
 import TextArea from '../text-area';
 
@@ -16,7 +15,6 @@ describe('Text area', () => {
     const errorMessage = screen.getByText('Some Error Message');
 
     expect(errorMessage).toBeInTheDocument();
-    expect(render(<XCircle size={24} color="#e66860" />));
   });
   it('should be able to write on input', () => {
     render(<TextArea placeholder="Some placeholder" />);
