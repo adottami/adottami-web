@@ -1,26 +1,20 @@
-import { FC, useState } from 'react';
+/* eslint-disable jsx-a11y/label-has-associated-control */
+import { ChangeEvent, FC, useState } from 'react';
 
 interface Props {
   title: string;
   options: string[];
 }
 
-interface CheckboxProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  target: {
-    value: string;
-    checked: boolean;
-  };
-}
-
 const Checkbox: FC<Props> = ({ title, options }) => {
-  const [categories, setCategories] = useState<string[]>([]);
+  const [optionsChecked, setOptionsChecked] = useState<string[]>([]);
 
-  function handleCategories({ target }: CheckboxProps) {
-    const category = target.value;
+  function handleOptions({ target }: ChangeEvent<HTMLInputElement>) {
+    const newOption = target.value;
     if (target.checked) {
-      setCategories([...categories, category]);
+      setOptionsChecked((optionsChecked) => [...optionsChecked, newOption]);
     } else {
-      setCategories(categories.filter((category) => category !== target.value));
+      setOptionsChecked((optionsChecked) => optionsChecked.filter((option) => option !== target.value));
     }
   }
 
@@ -28,19 +22,18 @@ const Checkbox: FC<Props> = ({ title, options }) => {
     <div className="row col-5">
       <form className="flex flex-col gap-y-4" action="">
         <p className="text-md font-bold">{title}</p>
-        {options.map((category, index) => {
+        {options.map((option) => {
           return (
-            <div key={category} className="flex gap-y-4">
-              <input
-                className="font-regular h-6 w-6 text-md accent-secondary-medium focus:ring-red-200"
-                type="checkbox"
-                value={category}
-                id={'flexCheckDefault' + index}
-                checked={categories.includes(category)}
-                onChange={handleCategories}
-              />
-              <label className="ml-2" htmlFor={'flexCheckDefault' + index}>
-                {category}
+            <div key={option} className="flex gap-y-4">
+              <label className="flex text-md">
+                <input
+                  className="mr-2 h-6 w-6 text-md accent-secondary-medium"
+                  type="checkbox"
+                  value={option}
+                  checked={optionsChecked.includes(option)}
+                  onChange={handleOptions}
+                />
+                {option}
               </label>
             </div>
           );
