@@ -2,6 +2,7 @@ import testServer from './test-server';
 import testQueryClient from './utils/test-query-client';
 import '@testing-library/jest-dom';
 import '@testing-library/jest-dom/extend-expect';
+import 'resize-observer-polyfill';
 
 beforeAll(async () => {
   testServer.listen();
