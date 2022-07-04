@@ -2,7 +2,7 @@ import { FC, useState } from 'react';
 
 interface Props {
   title: string;
-  categoriesName: string[];
+  options: string[];
 }
 
 interface CheckboxProps extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -12,7 +12,7 @@ interface CheckboxProps extends React.InputHTMLAttributes<HTMLInputElement> {
   };
 }
 
-const Checkbox: FC<Props> = ({ title, categoriesName }) => {
+const Checkbox: FC<Props> = ({ title, options }) => {
   const [categories, setCategories] = useState<string[]>([]);
 
   function handleCategories({ target }: CheckboxProps) {
@@ -30,7 +30,7 @@ const Checkbox: FC<Props> = ({ title, categoriesName }) => {
     <div className="row col-5">
       <form className="flex flex-col gap-y-4" action="">
         <p className="text-md font-bold">{title}</p>
-        {categoriesName.map((category, index) => {
+        {options.map((category, index) => {
           return (
             <div key={category} className="flex gap-y-4">
               <input
