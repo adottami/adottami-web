@@ -1,7 +1,20 @@
-import { FC } from 'react';
+import Link from 'next/link';
+import React from 'react';
 
-interface Props {}
+import { FunctionComponentWithChildren } from '@/types/react';
 
-const InlineLink: FC<Props> = () => null;
+interface Props {
+  href: string;
+}
+
+const InlineLink: FunctionComponentWithChildren<Props> = (props) => {
+  const { href, children } = props;
+
+  return (
+    <div className="flex text-md text-secondary-medium">
+      <Link href={href}>{children}</Link>
+    </div>
+  );
+};
 
 export default InlineLink;
