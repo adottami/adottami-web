@@ -1,18 +1,18 @@
 import clsx from 'clsx';
 import { FC } from 'react';
 
-import LoadingIcon from '@/components/icons/loading';
+import LoadingIcon from '@/components/icons/loading-icon';
 import { HTMLButtonProps } from '@/types/html';
 
 import { buttonTestIds } from './constants';
 
-type ButtonSizes = 'lg' | 'md' | 'sm';
+type ButtonSize = 'lg' | 'md' | 'sm';
 
-type ButtonVariants = 'primary' | 'secondary';
+type ButtonVariant = 'primary' | 'secondary';
 
 export interface Props extends HTMLButtonProps {
-  size?: ButtonSizes;
-  variant?: ButtonVariants;
+  size?: ButtonSize;
+  variant?: ButtonVariant;
   loading?: boolean;
   RightIcon?: () => JSX.Element;
   LeftIcon?: () => JSX.Element;
@@ -42,9 +42,9 @@ const Button: FC<Props> = ({
     data-testid={variant === 'primary' ? buttonTestIds.primary() : buttonTestIds.secondary()}
     {...rest}
   >
-    {LeftIcon?.()}
+    {LeftIcon && <LeftIcon />}
     {!isLoading && children}
-    {RightIcon?.()}
+    {RightIcon && <RightIcon />}
 
     <LoadingIcon
       aria-hidden={!isLoading}
