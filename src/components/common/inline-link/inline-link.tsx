@@ -4,10 +4,12 @@ import React from 'react';
 
 import { FunctionComponentWithChildren } from '@/types/react';
 
+type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';
+
 interface Props {
   href: string;
   rightIcon?: boolean;
-  size?: 'sm' | 'md' | 'lg';
+  size?: Size;
 }
 
 const InlineLink: FunctionComponentWithChildren<Props> = (props) => {
