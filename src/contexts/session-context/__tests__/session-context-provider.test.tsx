@@ -69,17 +69,24 @@ describe('Session context provider', () => {
         password: 'password',
       };
 
-      async function loginAndEnsureActiveSession() {
+      function expectActiveSession() {
+        expect(session.user).toEqual(user);
+        expect(session.isLoading).toBe(false);
+        expect(api.adottami.accessToken()).toBe(authentication.accessToken);
+        expect(api.adottami.refreshToken()).toBe(authentication.refreshToken);
+
+        const sessionData = storage.session.read();
+        expect(sessionData).toEqual({ userId: user.id(), authentication });
+      }
+
+      async function loginAndExpectActiveSession() {
         sessionResponseHandler.mockLogin(loginResponse);
 
         await act(async () => {
           await session.login(loginCredentials);
         });
 
-        expect(session.user).toEqual(user);
-        expect(session.isLoading).toBe(false);
-        expect(api.adottami.accessToken()).toBe(authentication.accessToken);
-        expect(api.adottami.refreshToken()).toBe(authentication.refreshToken);
+        expectActiveSession();
       }
 
       it('should support logging in', async () => {
@@ -89,6 +96,7 @@ describe('Session context provider', () => {
         expect(session.isLoading).toBe(false);
         expect(api.adottami.accessToken()).toBe(undefined);
         expect(api.adottami.refreshToken()).toBe(undefined);
+        expect(storage.session.read()).toBe(null);
 
         sessionResponseHandler.mockLogin(loginResponse);
 
@@ -97,16 +105,13 @@ describe('Session context provider', () => {
           expect(loggedInUser).toEqual(user);
         });
 
-        expect(session.user).toEqual(user);
-        expect(session.isLoading).toBe(false);
-        expect(api.adottami.accessToken()).toBe(authentication.accessToken);
-        expect(api.adottami.refreshToken()).toBe(authentication.refreshToken);
+        expectActiveSession();
       });
 
       it('should support logging out', async () => {
         renderSessionContext();
 
-        await loginAndEnsureActiveSession();
+        await loginAndExpectActiveSession();
 
         sessionResponseHandler.mockLogout();
 
@@ -118,12 +123,13 @@ describe('Session context provider', () => {
         expect(session.isLoading).toBe(false);
         expect(api.adottami.accessToken()).toBe(undefined);
         expect(api.adottami.refreshToken()).toBe(undefined);
+        expect(storage.session.read()).toBe(null);
       });
 
-      it('should reset the correct state after an unexpected logout', async () => {
+      it('should reset session after an unexpected logout', async () => {
         renderSessionContext();
 
-        await loginAndEnsureActiveSession();
+        await loginAndExpectActiveSession();
 
         userResponseHandler.mockGetById(user.id(), null, { responseCode: HTTPResponseCode.UNAUTHORIZED });
         sessionResponseHandler.mockRequestAccessToken(null, { responseCode: HTTPResponseCode.UNAUTHORIZED });
@@ -138,6 +144,7 @@ describe('Session context provider', () => {
         expect(session.isLoading).toBe(false);
         expect(api.adottami.accessToken()).toBe(undefined);
         expect(api.adottami.refreshToken()).toBe(undefined);
+        expect(storage.session.read()).toBe(null);
       });
     });
 
@@ -156,10 +163,11 @@ describe('Session context provider', () => {
 
         await waitFor(() => {
           expect(session.user).toEqual(user);
-          expect(session.isLoading).toBe(false);
-          expect(api.adottami.accessToken()).toBe(authentication.accessToken);
-          expect(api.adottami.refreshToken()).toBe(authentication.refreshToken);
         });
+
+        expect(session.isLoading).toBe(false);
+        expect(api.adottami.accessToken()).toBe(authentication.accessToken);
+        expect(api.adottami.refreshToken()).toBe(authentication.refreshToken);
       });
 
       it('should not restore a previous session if not present', async () => {
@@ -169,6 +177,7 @@ describe('Session context provider', () => {
         expect(session.isLoading).toBe(false);
         expect(api.adottami.accessToken()).toBe(undefined);
         expect(api.adottami.refreshToken()).toBe(undefined);
+        expect(storage.session.read()).toBe(null);
       });
     });
   });

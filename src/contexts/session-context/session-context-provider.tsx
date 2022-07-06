@@ -17,19 +17,20 @@ const SessionContextProvider: FCC = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  const resetStateAfterUnauthenticated = useCallback(() => {
+  const resetSessionAfterUnauthenticated = useCallback(() => {
     setAdottamiClient(new AdottamiClient(null));
     setUser(null);
+    storage.session.clear();
   }, [setAdottamiClient]);
 
   const createClientsAfterAuthenticated = useCallback(
     (authentication: AuthenticationCredentials) => {
       const adottamiClient = new AdottamiClient(authentication, {
-        listeners: { onUnexpectedLogout: resetStateAfterUnauthenticated },
+        listeners: { onUnexpectedLogout: resetSessionAfterUnauthenticated },
       });
       return { adottamiClient };
     },
-    [resetStateAfterUnauthenticated],
+    [resetSessionAfterUnauthenticated],
   );
 
   const login = useCallback(
@@ -38,9 +39,13 @@ const SessionContextProvider: FCC = ({ children }) => {
 
       try {
         const { accessToken, refreshToken, user } = await api.adottami.session.login(credentials);
-        const { adottamiClient } = createClientsAfterAuthenticated({ accessToken, refreshToken });
+        const authentication: AuthenticationCredentials = { accessToken, refreshToken };
+
+        const { adottamiClient } = createClientsAfterAuthenticated(authentication);
         setAdottamiClient(adottamiClient);
         setUser(user);
+        storage.session.save({ userId: user.id(), authentication });
+
         return user;
       } finally {
         setIsLoading(false);
@@ -54,11 +59,11 @@ const SessionContextProvider: FCC = ({ children }) => {
 
     try {
       await api.adottami.session.logout();
-      resetStateAfterUnauthenticated();
+      resetSessionAfterUnauthenticated();
     } finally {
       setIsLoading(false);
     }
-  }, [api.adottami.session, resetStateAfterUnauthenticated]);
+  }, [api.adottami.session, resetSessionAfterUnauthenticated]);
 
   useEffect(() => {
     async function restorePreviousSessionIfPresent() {
