@@ -1,10 +1,18 @@
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import Separator from '../separator';
 
 describe('Separator', () => {
   it('should render correctly', () => {
-    render(<Separator />);
-    // ...
+    const testId = 'testId';
+    render(<Separator testId={testId} />);
+
+    expect(screen.getByTestId(testId)).toBeInTheDocument();
+  });
+
+  it('should render correctly with children', () => {
+    render(<Separator>ou</Separator>);
+
+    expect(screen.getByText('ou')).toBeInTheDocument();
   });
 });
