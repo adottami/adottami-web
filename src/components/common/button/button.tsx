@@ -34,9 +34,9 @@ const Button: FC<Props> = ({
       'relative flex items-center justify-center gap-3 rounded-pill font-bold text-white shadow-current hover:opacity-80 focus:border-2  disabled:cursor-not-allowed disabled:opacity-50',
       variant === 'primary' && 'bg-secondary-medium focus:border-secondary-light',
       variant === 'secondary' && 'bg-tertiary-medium focus:border-tertiary-light',
-      size === 'lg' && 'h-16 p-8',
-      size === 'md' && 'h-12 p-6',
-      size === 'sm' && 'h-10 p-5',
+      size === 'lg' && 'h-[64px] p-8',
+      size === 'md' && 'h-[54px] p-6',
+      size === 'sm' && 'h-[46px] p-5',
       !children && 'px-2',
     )}
     data-testid={variant === 'primary' ? buttonTestIds.primary() : buttonTestIds.secondary()}
