@@ -1,10 +1,10 @@
-import { render } from '@testing-library/react';
+import renderer from 'react-test-renderer';
 
 import SignInPage from '../sign-in-page';
 
 describe('Sign in page', () => {
   it('should render correctly', () => {
-    render(<SignInPage />);
-    // ...
+    const tree = renderer.create(<SignInPage />).toJSON();
+    expect(tree).toMatchSnapshot();
   });
 });
