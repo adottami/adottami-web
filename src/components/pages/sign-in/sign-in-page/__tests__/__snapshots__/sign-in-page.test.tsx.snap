@@ -5,10 +5,10 @@ exports[`Sign in page should render correctly 1`] = `
   className="flex min-h-screen w-full overflow-y-auto"
 >
   <div
-    className="mx-[1.5rem] my-[1rem] flex h-full w-full flex-col items-start gap-8 md:m-[3.5rem] md:w-1/2 xl:m-[6rem]"
+    className="mx-[1.5rem] my-[1rem] flex h-full w-full flex-col items-start gap-8 md:m-[3.5rem] md:w-1/2 xl:m-[6rem] 2xl:gap-14"
   >
     <svg
-      className="h-6 w-auto md:h-8"
+      className="h-6 w-auto md:h-8 2xl:h-10"
       fill="none"
       height="100%"
       viewBox="0 0 1045 173"
@@ -53,7 +53,7 @@ exports[`Sign in page should render correctly 1`] = `
       />
     </svg>
     <div
-      className="w-full md:w-3/4"
+      className="w-full md:w-3/4 xl:w-4/6"
     >
       <div
         className="flex flex-col gap-4 md:gap-6"
@@ -193,7 +193,7 @@ exports[`Sign in page should render correctly 1`] = `
             </div>
           </div>
           <button
-            className="relative flex items-center justify-center gap-3 rounded-pill font-bold text-white shadow-current hover:opacity-80 focus:border-2  disabled:cursor-not-allowed disabled:opacity-50 bg-secondary-medium focus:border-secondary-light h-[54px] p-6"
+            className="relative flex items-center justify-center gap-3 rounded-pill font-bold text-white shadow-current hover:opacity-80 focus:border-2  disabled:cursor-not-allowed disabled:opacity-50 bg-secondary-medium focus:border-secondary-light h-12 p-6"
             data-testid="primary-button-test-id"
           >
             Entrar
@@ -217,34 +217,38 @@ exports[`Sign in page should render correctly 1`] = `
             </svg>
           </button>
         </div>
-        <p
-          className="text-center text-sm text-neutral-500"
+        <div
+          className="flex flex-col gap-4 md:gap-6"
         >
-          Ao continuar, você concorda com os 
-          <a>
-            Termos de Uso
-          </a>
-           e a 
-          <a>
-            Política de Privacidade
-          </a>
-           da Adottami, e também, em receber comunicações via e-mail.
-        </p>
-        <hr
-          className="w-full border-neutral-100"
-        />
-        <p
-          className="w-full text-center text-sm text-neutral-800 md:text-md"
-        >
-          Não tem uma conta ?
-           
-          <a
-            className="text-sm text-secondary-medium md:text-md"
-            href=""
+          <p
+            className="text-center text-sm text-neutral-500 md:text-md"
           >
-            Cadastre-se
-          </a>
-        </p>
+            Ao continuar, você concorda com os 
+            <a>
+              Termos de Uso
+            </a>
+             e a 
+            <a>
+              Política de Privacidade
+            </a>
+             da Adottami, e também, em receber comunicações via e-mail.
+          </p>
+          <div
+            className="flex items-center font-medium text-neutral-500  before:h-px before:w-full before:bg-neutral-100 after:h-px after:w-full after:bg-neutral-100"
+          />
+          <p
+            className="w-full text-center text-sm text-neutral-800 md:text-md"
+          >
+            Não tem uma conta ?
+             
+            <a
+              className="text-sm text-secondary-medium md:text-md"
+              href=""
+            >
+              Cadastre-se
+            </a>
+          </p>
+        </div>
       </div>
     </div>
   </div>
