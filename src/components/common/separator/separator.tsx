@@ -10,7 +10,7 @@ const Separator: FunctionComponentWithChildren<Props> = ({ testId, children }) =
   return (
     <div
       data-testid={testId}
-      className={`my-4 flex items-center font-medium text-neutral-500 ${gap} before:h-px before:w-full before:bg-neutral-100 after:h-px after:w-full after:bg-neutral-100`}
+      className={`flex items-center font-medium text-neutral-500 ${gap} before:h-px before:w-full before:bg-neutral-100 after:h-px after:w-full after:bg-neutral-100`}
     >
       {children}
     </div>
