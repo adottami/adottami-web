@@ -74,7 +74,7 @@ exports[`Sign in page should render correctly 1`] = `
             >
               <div>
                 <span
-                  className="text-md font-bold text-primary-dark"
+                  className="text-sm font-bold text-primary-dark md:text-md"
                   id="radix-:r0:"
                   onClick={[Function]}
                   onMouseDown={[Function]}
@@ -91,7 +91,7 @@ exports[`Sign in page should render correctly 1`] = `
               </div>
               <div>
                 <input
-                  className="flex h-[3.375rem] w-full rounded-pill border-2 border-neutral-100 bg-surface-primary px-4 text-primary-dark placeholder:text-neutral-500 focus:border-secondary-medium focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+                  className="flex h-[46px] w-full rounded-pill border-2 border-neutral-100 bg-surface-primary px-4 text-sm text-primary-dark placeholder:text-neutral-500 focus:border-secondary-medium focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 md:h-[54px] md:text-md 2xl:h-[64px] 2xl:text-md"
                   placeholder="Digite seu e-mail"
                   required={true}
                   type="text"
@@ -103,7 +103,7 @@ exports[`Sign in page should render correctly 1`] = `
             >
               <div>
                 <span
-                  className="text-md font-bold text-primary-dark"
+                  className="text-sm font-bold text-primary-dark md:text-md"
                   id="radix-:r1:"
                   onClick={[Function]}
                   onMouseDown={[Function]}
@@ -122,7 +122,7 @@ exports[`Sign in page should render correctly 1`] = `
                 className="relative"
               >
                 <input
-                  className="flex h-[3.375rem] w-full rounded-pill border-2 border-neutral-100 bg-surface-primary px-4 text-primary-dark placeholder:text-neutral-500 focus:border-secondary-medium focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+                  className="flex h-[46px] w-full rounded-pill border-2 border-neutral-100 bg-surface-primary px-4 text-sm text-primary-dark placeholder:text-neutral-500 focus:border-secondary-medium focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 md:h-[54px] md:text-md 2xl:h-[64px] 2xl:text-md"
                   placeholder="Digite sua senha"
                   required={true}
                   type="password"
@@ -193,7 +193,7 @@ exports[`Sign in page should render correctly 1`] = `
             </div>
           </div>
           <button
-            className="relative flex items-center justify-center gap-3 rounded-pill font-bold text-white shadow-current hover:opacity-80 focus:border-2  disabled:cursor-not-allowed disabled:opacity-50 bg-secondary-medium focus:border-secondary-light h-[54px] p-6"
+            className=" relative flex h-[46px] items-center justify-center gap-3 rounded-pill p-5 text-sm font-bold text-white shadow-current hover:opacity-80 focus:border-2  disabled:cursor-not-allowed disabled:opacity-50 bg-secondary-medium focus:border-secondary-light 2xl:h-[64px] 2xl:p-8 2xl:text-md md:h-[54px] md:p-6 md:text-md"
             data-testid="primary-button-test-id"
           >
             Entrar
@@ -224,11 +224,22 @@ exports[`Sign in page should render correctly 1`] = `
             className="text-center text-sm text-neutral-500 md:text-md"
           >
             Ao continuar, você concorda com os 
-            <a>
+            <a
+              className="cursor-pointer text-sm leading-4 text-secondary-medium no-underline decoration-secondary-medium transition duration-300 ease-out hover:text-secondary-dark hover:underline md:text-md"
+              href="/#"
+              onClick={[Function]}
+              onMouseEnter={[Function]}
+            >
               Termos de Uso
             </a>
-             e a 
-            <a>
+             e a
+             
+            <a
+              className="cursor-pointer text-sm leading-4 text-secondary-medium no-underline decoration-secondary-medium transition duration-300 ease-out hover:text-secondary-dark hover:underline md:text-md"
+              href="/#"
+              onClick={[Function]}
+              onMouseEnter={[Function]}
+            >
               Política de Privacidade
             </a>
              da Adottami, e também, em receber comunicações via e-mail.
@@ -245,17 +256,36 @@ exports[`Sign in page should render correctly 1`] = `
               Não tem uma conta ?
             </p>
             <div
-              className="flex w-fit items-center border-b border-transparent
-        text-md leading-4 text-secondary-medium duration-200
-        hover:cursor-pointer hover:border-secondary-medium hover:brightness-75"
+              className="flex w-fit cursor-pointer items-center gap-1 text-sm leading-4 text-secondary-medium no-underline decoration-secondary-medium transition duration-300 ease-out hover:text-secondary-dark hover:underline md:text-md"
             >
               <a
-                href="/"
+                href="/#"
                 onClick={[Function]}
                 onMouseEnter={[Function]}
               >
                 Cadastre-se
               </a>
+              <svg
+                fill="currentColor"
+                height="1em"
+                viewBox="0 0 256 256"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  fill="none"
+                  height="256"
+                  width="256"
+                />
+                <polyline
+                  fill="none"
+                  points="96 48 176 128 96 208"
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="16"
+                />
+              </svg>
             </div>
           </div>
         </div>
