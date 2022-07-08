@@ -9,9 +9,9 @@ import Separator from '@/components/common/separator/separator';
 import AdottamiLogo from '@/components/icons/adottami-logo';
 
 const SignInPage: FC = () => {
-  function handleSubmit(e: any) {
+  /* function handleSubmit(e: any) {
     e.preventDefault();
-  }
+  } */
 
   return (
     <div className="flex min-h-screen w-full overflow-y-auto">
@@ -21,7 +21,7 @@ const SignInPage: FC = () => {
         <div className="w-full md:w-3/4 xl:w-4/6">
           <div className="flex flex-col gap-4 md:gap-6">
             <h3 className="w-full text-xl font-bold text-primary-dark md:text-2xl">Acesse a sua conta</h3>
-            <form className="flex flex-col gap-4 md:gap-8" onSubmit={handleSubmit}>
+            <form className="flex flex-col gap-4 md:gap-8">
               <div className="flex flex-col gap-2">
                 <Input type="text" label="E-mail" placeholder="Digite seu e-mail" isRequired />
                 <Input variant="password" label="Senha" placeholder="Digite sua senha" isRequired />

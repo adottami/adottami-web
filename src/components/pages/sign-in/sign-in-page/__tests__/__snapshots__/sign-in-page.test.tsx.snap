@@ -65,7 +65,6 @@ exports[`Sign in page should render correctly 1`] = `
         </h3>
         <form
           className="flex flex-col gap-4 md:gap-8"
-          onSubmit={[Function]}
         >
           <div
             className="flex flex-col gap-2"
