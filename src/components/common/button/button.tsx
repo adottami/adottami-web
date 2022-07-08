@@ -6,12 +6,9 @@ import { HTMLButtonProps } from '@/types/html';
 
 import { buttonTestIds } from './constants';
 
-type ButtonSize = 'lg' | 'md' | 'sm';
-
 type ButtonVariant = 'primary' | 'secondary';
 
 export interface Props extends HTMLButtonProps {
-  size?: ButtonSize;
   variant?: ButtonVariant;
   loading?: boolean;
   RightIcon?: () => JSX.Element;
@@ -19,7 +16,6 @@ export interface Props extends HTMLButtonProps {
 }
 
 const Button: FC<Props> = ({
-  size = 'lg',
   children,
   className,
   variant = 'primary',
@@ -31,12 +27,11 @@ const Button: FC<Props> = ({
   <button
     className={clsx(
       className,
-      'relative flex items-center justify-center gap-3 rounded-pill font-bold text-white shadow-current hover:opacity-80 focus:border-2  disabled:cursor-not-allowed disabled:opacity-50',
+      ' relative flex h-[46px] items-center justify-center gap-3 rounded-pill p-5 text-sm font-bold text-white shadow-current hover:opacity-80 focus:border-2  disabled:cursor-not-allowed disabled:opacity-50',
       variant === 'primary' && 'bg-secondary-medium focus:border-secondary-light',
       variant === 'secondary' && 'bg-tertiary-medium focus:border-tertiary-light',
-      size === 'lg' && 'h-[64px] p-8',
-      size === 'md' && 'h-[54px] p-6',
-      size === 'sm' && 'h-[46px] p-5',
+      '2xl:h-[64px] 2xl:p-8 2xl:text-md',
+      'md:h-[54px] md:p-6 md:text-md',
       !children && 'px-2',
     )}
     data-testid={variant === 'primary' ? buttonTestIds.primary() : buttonTestIds.secondary()}
