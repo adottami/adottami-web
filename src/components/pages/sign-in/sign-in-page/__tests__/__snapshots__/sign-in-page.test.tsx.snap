@@ -63,8 +63,9 @@ exports[`Sign in page should render correctly 1`] = `
         >
           Acesse a sua conta
         </h3>
-        <div
+        <form
           className="flex flex-col gap-4 md:gap-8"
+          onSubmit={[Function]}
         >
           <div
             className="flex flex-col gap-2"
@@ -216,7 +217,7 @@ exports[`Sign in page should render correctly 1`] = `
               />
             </svg>
           </button>
-        </div>
+        </form>
         <div
           className="flex flex-col gap-4 md:gap-6"
         >
@@ -236,18 +237,28 @@ exports[`Sign in page should render correctly 1`] = `
           <div
             className="flex items-center font-medium text-neutral-500  before:h-px before:w-full before:bg-neutral-100 after:h-px after:w-full after:bg-neutral-100"
           />
-          <p
-            className="w-full text-center text-sm text-neutral-800 md:text-md"
+          <div
+            className="flex w-full justify-center gap-2"
           >
-            Não tem uma conta ?
-             
-            <a
-              className="text-sm text-secondary-medium md:text-md"
-              href=""
+            <p
+              className="text-center text-sm text-neutral-800 md:text-md"
             >
-              Cadastre-se
-            </a>
-          </p>
+              Não tem uma conta ?
+            </p>
+            <div
+              className="flex w-fit items-center border-b border-transparent
+        text-md leading-4 text-secondary-medium duration-200
+        hover:cursor-pointer hover:border-secondary-medium hover:brightness-75"
+            >
+              <a
+                href="/"
+                onClick={[Function]}
+                onMouseEnter={[Function]}
+              >
+                Cadastre-se
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
