@@ -26,17 +26,20 @@ const SignInPage: FC = () => {
                 <Input type="text" label="E-mail" placeholder="Digite seu e-mail" isRequired />
                 <Input variant="password" label="Senha" placeholder="Digite sua senha" isRequired />
               </div>
-              <Button size="md">Entrar</Button>
+              <Button>Entrar</Button>
             </form>
             <div className="flex flex-col gap-4 md:gap-6">
               <p className="text-center text-sm text-neutral-500 md:text-md">
-                Ao continuar, você concorda com os <a>Termos de Uso</a> e a <a>Política de Privacidade</a> da Adottami,
-                e também, em receber comunicações via e-mail.
+                Ao continuar, você concorda com os <InlineLink href="#">Termos de Uso</InlineLink> e a{' '}
+                <InlineLink href="#">Política de Privacidade</InlineLink> da Adottami, e também, em receber comunicações
+                via e-mail.
               </p>
               <Separator />
               <div className="flex w-full justify-center gap-2">
                 <p className="text-center text-sm text-neutral-800 md:text-md">Não tem uma conta ?</p>
-                <InlineLink href="">Cadastre-se</InlineLink>
+                <InlineLink href="#" rightIcon>
+                  Cadastre-se
+                </InlineLink>
               </div>
             </div>
           </div>
