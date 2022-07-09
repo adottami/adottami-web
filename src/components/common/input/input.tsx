@@ -34,7 +34,7 @@ const Input: FC<Props> = ({
         <div className="w-full">
           {label && (
             <div>
-              <Label htmlFor={id} className="text-md font-bold text-primary-dark">
+              <Label htmlFor={id} className="text-sm font-bold text-primary-dark md:text-md">
                 {label}
                 {isRequired && <span> *</span>}
               </Label>
@@ -47,7 +47,7 @@ const Input: FC<Props> = ({
               disabled={disabled}
               type={passwordIsVisible ? 'text' : 'password'}
               required={isRequired}
-              className="flex h-[3.375rem] w-full rounded-pill border-2 border-neutral-100 bg-surface-primary px-4 text-primary-dark placeholder:text-neutral-500 focus:border-secondary-medium focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex h-[46px] w-full rounded-pill border-2 border-neutral-100 bg-surface-primary px-4 text-sm text-primary-dark placeholder:text-neutral-500 focus:border-secondary-medium focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 md:h-[54px] md:text-md 2xl:h-[64px] 2xl:text-md"
               {...rest}
             />
             {passwordIsVisible ? (
@@ -91,7 +91,7 @@ const Input: FC<Props> = ({
         <div className="w-full">
           {label && (
             <div>
-              <Label htmlFor={id} className="text-md font-bold text-primary-dark">
+              <Label htmlFor={id} className="text-sm font-bold text-primary-dark md:text-md">
                 {label}
                 {isRequired && <span> *</span>}
               </Label>
@@ -104,7 +104,7 @@ const Input: FC<Props> = ({
               disabled={disabled}
               type={type}
               required={isRequired}
-              className="flex h-[3.375rem] w-full rounded-pill border-2 border-neutral-100 bg-surface-primary px-4 text-primary-dark placeholder:text-neutral-500 focus:border-secondary-medium focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex h-[46px] w-full rounded-pill border-2 border-neutral-100 bg-surface-primary px-4 text-sm text-primary-dark placeholder:text-neutral-500 focus:border-secondary-medium focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 md:h-[54px] md:text-md 2xl:h-[64px] 2xl:text-md"
               {...rest}
             />
           </div>

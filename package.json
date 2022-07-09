@@ -38,6 +38,7 @@
     "@types/node": "18.0.0",
     "@types/react": "18.0.14",
     "@types/react-dom": "18.0.5",
+    "@types/react-test-renderer": "^18.0.0",
     "@typescript-eslint/eslint-plugin": "^5.29.0",
     "@typescript-eslint/parser": "^5.29.0",
     "autoprefixer": "^10.4.7",
@@ -62,8 +63,9 @@
     "postcss": "^8.4.14",
     "prettier": "^2.7.1",
     "prettier-plugin-tailwindcss": "^0.1.11",
-    "tailwind-scrollbar": "adoxography/tailwind-scrollbar#pull/36/head",
+    "react-test-renderer": "^18.2.0",
     "resize-observer-polyfill": "^1.5.1",
+    "tailwind-scrollbar": "adoxography/tailwind-scrollbar#pull/36/head",
     "tailwindcss": "^3.1.4",
     "ts-node": "^10.8.1",
     "typescript": "^4.7.4"
