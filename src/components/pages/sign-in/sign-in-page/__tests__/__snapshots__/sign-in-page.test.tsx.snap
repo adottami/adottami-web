@@ -5,7 +5,7 @@ exports[`Sign in page should render correctly 1`] = `
   className="flex min-h-screen w-full overflow-y-auto"
 >
   <div
-    className="mx-[1.5rem] my-[1rem] flex h-full w-full flex-col items-start gap-8 md:m-[3.5rem] md:w-1/2 xl:m-[6rem] 2xl:gap-14"
+    className="mx-[1.5rem] my-[2.5rem] flex h-full w-full flex-col items-start gap-8 md:m-[3.5rem] md:w-1/2 xl:m-[6rem] 2xl:gap-14"
   >
     <svg
       className="h-6 w-auto md:h-8 2xl:h-10"
@@ -64,7 +64,7 @@ exports[`Sign in page should render correctly 1`] = `
           Acesse a sua conta
         </h3>
         <form
-          className="flex flex-col gap-4 md:gap-8"
+          className="flex flex-col gap-6 md:gap-8"
         >
           <div
             className="flex flex-col gap-2"
@@ -247,47 +247,19 @@ exports[`Sign in page should render correctly 1`] = `
           <div
             className="flex items-center font-medium text-neutral-500  before:h-px before:w-full before:bg-neutral-100 after:h-px after:w-full after:bg-neutral-100"
           />
-          <div
-            className="flex w-full justify-center gap-2"
+          <p
+            className="text-center text-sm text-neutral-800 md:text-md"
           >
-            <p
-              className="text-center text-sm text-neutral-800 md:text-md"
+            Não tem uma conta? 
+            <a
+              className="cursor-pointer text-sm leading-4 text-secondary-medium no-underline decoration-secondary-medium transition duration-300 ease-out hover:text-secondary-dark hover:underline md:text-md"
+              href="/#"
+              onClick={[Function]}
+              onMouseEnter={[Function]}
             >
-              Não tem uma conta ?
-            </p>
-            <div
-              className="flex w-fit cursor-pointer items-center gap-1 text-sm leading-4 text-secondary-medium no-underline decoration-secondary-medium transition duration-300 ease-out hover:text-secondary-dark hover:underline md:text-md"
-            >
-              <a
-                href="/#"
-                onClick={[Function]}
-                onMouseEnter={[Function]}
-              >
-                Cadastre-se
-              </a>
-              <svg
-                fill="currentColor"
-                height="1em"
-                viewBox="0 0 256 256"
-                width="1em"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  fill="none"
-                  height="256"
-                  width="256"
-                />
-                <polyline
-                  fill="none"
-                  points="96 48 176 128 96 208"
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="16"
-                />
-              </svg>
-            </div>
-          </div>
+              Cadastre-se
+            </a>
+          </p>
         </div>
       </div>
     </div>
