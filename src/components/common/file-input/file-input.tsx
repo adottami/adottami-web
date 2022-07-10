@@ -10,7 +10,16 @@ interface Props extends React.HTMLProps<HTMLInputElement> {
   maxFiles?: number;
 }
 
-const FileInput: FC<Props> = ({ variant, label, onImageChange, description, maxFiles, required, ...rest }) => {
+const FileInput: FC<Props> = ({
+  variant,
+  label,
+  onImageChange,
+  description,
+  maxFiles,
+  required,
+  disabled,
+  ...rest
+}) => {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [imageInputIsDisabled, setImageInputIsDisabled] = useState(false);
   const [errorMessageOnImageInput, setErrorMessageOnImageInput] = useState<string | null>(null);
@@ -121,36 +130,38 @@ const FileInput: FC<Props> = ({ variant, label, onImageChange, description, maxF
             </Label>
             {description && <span className="text-sm">{description}</span>}
           </div>
-          <div className="md flex flex-col gap-2 md:flex-row">
+          <div className="flex flex-col gap-2 md:flex-row">
             {handleRenderImages(selectedFiles)}
-            <button
-              onClick={handleClickOnButtonThatTriggerHiddenInput}
-              disabled={imageInputIsDisabled}
-              className="flex h-32 w-36 cursor-pointer flex-col items-center justify-center rounded-pill border-2 border-dashed border-secondary-medium focus:bg-secondary-medium focus:bg-opacity-10 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
-            >
-              <Camera size={32} color="#6e3ed8" className="" />
-              <span className="text-base font-bold text-secondary-medium">Adicionar fotos</span>
-              <span className="mt-2 text-sm text-secondary-medium">PNG, JPG até 5MB</span>
-            </button>
+            <div>
+              <button
+                onClick={handleClickOnButtonThatTriggerHiddenInput}
+                disabled={disabled || imageInputIsDisabled}
+                className="flex h-32 w-36 cursor-pointer flex-col items-center justify-center rounded-pill border-2 border-dashed border-secondary-medium focus:bg-secondary-medium focus:bg-opacity-10 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                <Camera size={32} color="#6e3ed8" className="" />
+                <span className="text-base font-bold text-secondary-medium">Adicionar fotos</span>
+                <span className="mt-2 text-sm text-secondary-medium">PNG, JPG até 5MB</span>
+              </button>
+              {errorMessageOnImageInput && (
+                <div className="mt-2 flex items-center">
+                  <XCircle size={24} color="#e66860" />
+                  <span className="ml-1 text-sm text-tertiary-medium">{errorMessageOnImageInput}</span>
+                </div>
+              )}
+            </div>
             <input
               name="file"
               type="file"
               id="file"
               multiple
+              required={required}
               accept=".png, .jpg, .jpeg"
               disabled={imageInputIsDisabled}
               onChange={imageHandleChange}
-              required={required}
-              className="hidden placeholder-white"
+              className="hidden"
               ref={inputRef}
               {...rest}
             />
-            {errorMessageOnImageInput && (
-              <div className="mt-2 flex items-center">
-                <XCircle size={24} color="#e66860" />
-                <span className="ml-1 text-sm text-tertiary-medium">{errorMessageOnImageInput}</span>
-              </div>
-            )}
           </div>
         </div>
       );
