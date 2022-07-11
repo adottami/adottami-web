@@ -100,6 +100,7 @@ const FileInput: FC<Props> = ({
           layout="fill"
           objectFit="cover"
           className="h-32 w-36  rounded-pill border border-red-100"
+          data-testid="fileImage"
         />
         <button
           type="button"
@@ -126,7 +127,7 @@ const FileInput: FC<Props> = ({
           <div className="mb-4 flex flex-col gap-1">
             <Label htmlFor="file" className="text-base font-bold">
               {label}
-              {required && <span> *</span>}
+              {required && label && <span> *</span>}
             </Label>
             {description && <span className="text-sm">{description}</span>}
           </div>
