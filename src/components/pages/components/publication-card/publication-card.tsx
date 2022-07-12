@@ -17,7 +17,7 @@ const PublicationCard: FC<Props> = (props) => {
     <div className="flex max-w-sm flex-col gap-y-2">
       <CardHeader images={images} />
 
-      <div>
+      <div className="flex flex-col gap-y-2">
         <CardSubHeader name={name} />
 
         <CardDescription breed={breed} city={city} state={state} />
