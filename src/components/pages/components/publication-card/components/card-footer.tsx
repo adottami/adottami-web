@@ -5,11 +5,6 @@ interface Props {
   gender: string;
 }
 
-const Icon: FC<Props> = (props) => {
-  const { gender } = props;
-  return gender.toLowerCase() === 'fêmea' ? <GenderFemale size={24} /> : <GenderMale size={24} />;
-};
-
 const CardFooter: FC<Props> = (props) => {
   const { gender } = props;
 
@@ -21,7 +16,7 @@ const CardFooter: FC<Props> = (props) => {
   return (
     <footer className="mt-2">
       <span className={`${color} ${borderColor} flex w-fit items-center gap-2 rounded-full border-2 px-3 py-2`}>
-        <Icon gender={gender} />
+        {gender.toLowerCase() === 'fêmea' ? <GenderFemale size={24} /> : <GenderMale size={24} />}
         {gender}
       </span>
     </footer>
