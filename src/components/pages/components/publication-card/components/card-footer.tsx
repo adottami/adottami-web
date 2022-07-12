@@ -7,12 +7,7 @@ interface Props {
 
 const Icon: FC<Props> = (props) => {
   const { gender } = props;
-
-  if (gender.toLowerCase() === 'fêmea') {
-    return <GenderFemale size={24} />;
-  }
-
-  return <GenderMale size={24} />;
+  return gender.toLowerCase() === 'fêmea' ? <GenderFemale size={24} /> : <GenderMale size={24} />;
 };
 
 const CardFooter: FC<Props> = (props) => {

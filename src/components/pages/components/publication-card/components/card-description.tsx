@@ -9,9 +9,9 @@ interface Props {
   breed: string | null;
 }
 
-const Info: FCC = ({ children }) => {
-  return <div className="flex items-center gap-2 font-medium text-neutral-800">{children}</div>;
-};
+const Info: FCC = ({ children }) => (
+  <div className="flex items-center gap-2 font-medium text-neutral-800">{children}</div>
+);
 
 const CardDescription: FC<Props> = (props) => {
   const { city, state, breed } = props;
