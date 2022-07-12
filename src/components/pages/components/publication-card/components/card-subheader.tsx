@@ -5,7 +5,7 @@ interface Props {
   name: string;
 }
 
-const CardHeader: FC<Props> = (props) => {
+const CardSubheader: FC<Props> = (props) => {
   const { name } = props;
 
   return (
@@ -18,4 +18,4 @@ const CardHeader: FC<Props> = (props) => {
   );
 };
 
-export default CardHeader;
+export default CardSubheader;

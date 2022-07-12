@@ -3,7 +3,10 @@ import { FC } from 'react';
 import Publication from '@/models/publication/publication';
 import PublicationFactory from '@/models/publication/publication-factory';
 
-import { CardDescription, CardFooter, CardHeader, CardSubHeader } from './components';
+import CardDescription from './components/card-description';
+import CardFooter from './components/card-footer';
+import CardHeader from './components/card-header';
+import CardSubheader from './components/card-subheader';
 
 interface Props {
   publication: Publication;
@@ -18,7 +21,7 @@ const PublicationCard: FC<Props> = (props) => {
       <CardHeader images={images} />
 
       <div className="flex flex-col gap-y-2">
-        <CardSubHeader name={name} />
+        <CardSubheader name={name} />
 
         <CardDescription breed={breed} city={city} state={state} />
 
