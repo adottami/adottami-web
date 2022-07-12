@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react';
 
-import { publicationMock } from '../mock';
 import PublicationCard from '../publication-card';
+import { publicationMock } from './mock/publication-mock';
 
 describe('Publication card', () => {
   it('should render correctly', () => {
