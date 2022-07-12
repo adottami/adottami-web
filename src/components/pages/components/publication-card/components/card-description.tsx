@@ -1,17 +1,11 @@
 import { CalendarBlank, MapPinLine } from 'phosphor-react';
 import { FC } from 'react';
 
-import { FCC } from '@/types/react';
-
 interface Props {
   city: string;
   state: string;
   breed: string | null;
 }
-
-const Info: FCC = ({ children }) => (
-  <div className="flex items-center gap-2 font-medium text-neutral-800">{children}</div>
-);
 
 const CardDescription: FC<Props> = (props) => {
   const { city, state, breed } = props;
@@ -22,14 +16,14 @@ const CardDescription: FC<Props> = (props) => {
 
   return (
     <div className="flex flex-col gap-y-2">
-      <Info>
+      <div className="flex items-center gap-2 font-medium text-neutral-800">
         <MapPinLine size={24} />
         {getLocation()}
-      </Info>
-      <Info>
+      </div>
+      <div className="flex items-center gap-2 font-medium text-neutral-800">
         <CalendarBlank size={24} />
         {breed}
-      </Info>
+      </div>
     </div>
   );
 };
