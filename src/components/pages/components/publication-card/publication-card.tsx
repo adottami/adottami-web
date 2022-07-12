@@ -1,7 +1,6 @@
 import { FC } from 'react';
 
 import Publication from '@/models/publication/publication';
-import PublicationFactory from '@/models/publication/publication-factory';
 
 import CardDescription from './components/card-description';
 import CardFooter from './components/card-footer';
@@ -14,18 +13,17 @@ interface Props {
 
 const PublicationCard: FC<Props> = (props) => {
   const { publication } = props;
-  const { name, images, city, state, breed, gender } = PublicationFactory.toResponse(publication);
 
   return (
     <div className="flex max-w-sm flex-col gap-y-2">
-      <CardHeader images={images} />
+      <CardHeader images={publication.images()} />
 
       <div className="flex flex-col gap-y-2">
-        <CardSubheader name={name} />
+        <CardSubheader name={publication.name()} />
 
-        <CardDescription breed={breed} city={city} state={state} />
+        <CardDescription breed={publication.breed()} city={publication.city()} state={publication.state()} />
 
-        <CardFooter gender={gender} />
+        <CardFooter gender={publication.gender()} />
       </div>
     </div>
   );
