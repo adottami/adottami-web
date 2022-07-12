@@ -4,7 +4,7 @@ import { FC } from 'react';
 import Publication from '@/models/publication/publication';
 import PublicationFactory from '@/models/publication/publication-factory';
 
-import { CardHeader, CardSubHeader } from './components';
+import { CardDescription, CardHeader, CardSubHeader } from './components';
 
 interface Props {
   publication: Publication;
@@ -14,10 +14,6 @@ const PublicationCard: FC<Props> = (props) => {
   const { publication } = props;
   const { name, images, city, state, breed, gender } = PublicationFactory.toResponse(publication);
 
-  function getLocation() {
-    return [city, state].join(', ');
-  }
-
   return (
     <div>
       <CardHeader images={images} />
@@ -25,17 +21,7 @@ const PublicationCard: FC<Props> = (props) => {
       <div>
         <CardSubHeader name={name} />
 
-        {/* CardDescription */}
-        <div>
-          <div>
-            <MapPinLine />
-            {getLocation()}
-          </div>
-          <div>
-            <CalendarBlank />
-            {breed}
-          </div>
-        </div>
+        <CardDescription breed={breed} city={city} state={state} />
 
         {/* CardFooter */}
         <footer>
