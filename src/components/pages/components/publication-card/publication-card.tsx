@@ -14,7 +14,7 @@ const PublicationCard: FC<Props> = (props) => {
   const { name, images, city, state, breed, gender } = PublicationFactory.toResponse(publication);
 
   return (
-    <div>
+    <div className="flex flex-col gap-y-2">
       <CardHeader images={images} />
 
       <div>
