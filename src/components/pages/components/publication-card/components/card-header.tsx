@@ -12,7 +12,7 @@ const CardHeader: FC<Props> = (props) => {
 
   return (
     <header
-      className="relative h-72 w-96 rounded-xl bg-cover bg-center"
+      className="relative h-72 w-full max-w-sm rounded-xl bg-cover bg-center"
       style={{ backgroundImage: `url(${images[0].url})` }}
     >
       <div className="absolute bottom-0 left-0 flex items-center gap-2 rounded-tr-xl rounded-bl-xl border-2 border-solid border-neutral-100 bg-surface-secondary p-2 text-xs font-medium text-neutral-800">
