@@ -193,7 +193,7 @@ exports[`Sign in page should render correctly 1`] = `
             </div>
           </div>
           <button
-            className=" relative flex h-[46px] items-center justify-center gap-3 rounded-pill p-5 text-sm font-bold text-white shadow-current hover:opacity-80 focus:border-2  disabled:cursor-not-allowed disabled:opacity-50 bg-secondary-medium focus:border-secondary-light 2xl:h-[64px] 2xl:p-8 2xl:text-md md:h-[54px] md:p-6 md:text-md"
+            className=" relative flex h-[46px] items-center justify-center gap-3 rounded-pill border-2 border-transparent p-5 text-sm font-bold text-white shadow-current hover:opacity-80  disabled:cursor-not-allowed disabled:opacity-50 bg-secondary-medium focus:border-secondary-light 2xl:h-[64px] 2xl:p-8 2xl:text-md md:h-[54px] md:p-6 md:text-md"
             data-testid="primary-button-test-id"
           >
             Entrar
