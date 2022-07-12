@@ -27,7 +27,7 @@ const Button: FC<Props> = ({
   <button
     className={clsx(
       className,
-      ' relative flex h-[46px] items-center justify-center gap-3 rounded-pill p-5 text-sm font-bold text-white shadow-current hover:opacity-80 focus:border-2  disabled:cursor-not-allowed disabled:opacity-50',
+      ' relative flex h-[46px] items-center justify-center gap-3 rounded-pill border-2 border-transparent p-5 text-sm font-bold text-white shadow-current hover:opacity-80  disabled:cursor-not-allowed disabled:opacity-50',
       variant === 'primary' && 'bg-secondary-medium focus:border-secondary-light',
       variant === 'secondary' && 'bg-tertiary-medium focus:border-tertiary-light',
       '2xl:h-[64px] 2xl:p-8 2xl:text-md',
