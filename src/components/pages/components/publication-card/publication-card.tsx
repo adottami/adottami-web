@@ -4,6 +4,8 @@ import { FC } from 'react';
 import Publication from '@/models/publication/publication';
 import PublicationFactory from '@/models/publication/publication-factory';
 
+import { CardHeader } from './components';
+
 interface Props {
   publication: Publication;
 }
@@ -18,15 +20,10 @@ const PublicationCard: FC<Props> = (props) => {
 
   return (
     <div>
-      <header>
-        <img src={images[0].url} alt="" />
-        <div>
-          <Camera />
-          <span>{images.length} Foto(s)</span>
-        </div>
-      </header>
+      <CardHeader images={images} />
 
       <div>
+        {/* CardSubHeader */}
         <div>
           <h3>{name}</h3>
           <span>
@@ -34,6 +31,7 @@ const PublicationCard: FC<Props> = (props) => {
           </span>
         </div>
 
+        {/* CardDescription */}
         <div>
           <div>
             <MapPinLine />
@@ -45,6 +43,7 @@ const PublicationCard: FC<Props> = (props) => {
           </div>
         </div>
 
+        {/* CardFooter */}
         <footer>
           <span>
             <GenderFemale />
