@@ -6,7 +6,7 @@ import React, { FC, useEffect, useRef, useState } from 'react';
 import { MAX_FILE_SIZE } from './constants';
 
 interface Props extends React.HTMLProps<HTMLInputElement> {
-  variant?: string;
+  variant?: 'image';
   onImageChange?: (files: File[]) => void;
   description?: string;
   maxFiles?: number;
