@@ -3,6 +3,8 @@ import Image from 'next/image';
 import { Camera, X, XCircle } from 'phosphor-react';
 import React, { FC, useEffect, useRef, useState } from 'react';
 
+import { MAX_FILE_SIZE } from './constants';
+
 interface Props extends React.HTMLProps<HTMLInputElement> {
   variant?: string;
   onImageChange?: (files: File[]) => void;
@@ -70,7 +72,7 @@ const FileInput: FC<Props> = ({
 
     const filesArray: File[] = [];
     for (let i = 0; i < files.length; i++) {
-      if (files[i].size > 5242880) {
+      if (files[i].size > MAX_FILE_SIZE) {
         target.value = '';
         setErrorMessageOnImageInput('Limite de tamanho');
         return;
