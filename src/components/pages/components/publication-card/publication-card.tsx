@@ -1,10 +1,9 @@
-import { CalendarBlank, Camera, GenderFemale, Heart, MapPinLine } from 'phosphor-react';
 import { FC } from 'react';
 
 import Publication from '@/models/publication/publication';
 import PublicationFactory from '@/models/publication/publication-factory';
 
-import { CardDescription, CardHeader, CardSubHeader } from './components';
+import { CardDescription, CardFooter, CardHeader, CardSubHeader } from './components';
 
 interface Props {
   publication: Publication;
@@ -23,13 +22,7 @@ const PublicationCard: FC<Props> = (props) => {
 
         <CardDescription breed={breed} city={city} state={state} />
 
-        {/* CardFooter */}
-        <footer>
-          <span>
-            <GenderFemale />
-            {gender}
-          </span>
-        </footer>
+        <CardFooter gender={gender} />
       </div>
     </div>
   );
