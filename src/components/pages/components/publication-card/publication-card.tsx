@@ -4,7 +4,7 @@ import { FC } from 'react';
 import Publication from '@/models/publication/publication';
 import PublicationFactory from '@/models/publication/publication-factory';
 
-import { CardHeader } from './components';
+import { CardHeader, CardSubHeader } from './components';
 
 interface Props {
   publication: Publication;
@@ -23,13 +23,7 @@ const PublicationCard: FC<Props> = (props) => {
       <CardHeader images={images} />
 
       <div>
-        {/* CardSubHeader */}
-        <div>
-          <h3>{name}</h3>
-          <span>
-            <Heart />
-          </span>
-        </div>
+        <CardSubHeader name={name} />
 
         {/* CardDescription */}
         <div>
