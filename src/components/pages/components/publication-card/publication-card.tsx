@@ -9,17 +9,18 @@ import CardSubheader from './components/card-subheader';
 
 interface Props {
   publication: Publication;
+  isMenuVisible?: boolean;
 }
 
 const PublicationCard: FC<Props> = (props) => {
-  const { publication } = props;
+  const { publication, isMenuVisible } = props;
 
   return (
     <div className="flex max-w-sm flex-col gap-y-2">
       <CardHeader images={publication.images()} />
 
       <div className="flex flex-col gap-y-2">
-        <CardSubheader name={publication.name()} />
+        <CardSubheader name={publication.name()} isArchived={publication.isArchived()} isVisible={isMenuVisible} />
 
         <CardDescription breed={publication.breed()} city={publication.city()} state={publication.state()} />
 
