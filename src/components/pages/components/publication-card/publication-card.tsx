@@ -2,6 +2,7 @@ import { FC } from 'react';
 
 import Publication from '@/models/publication/publication';
 
+import { getTestId } from './__tests__/mock/publication-mock';
 import CardDescription from './components/card-description';
 import CardFooter from './components/card-footer';
 import CardHeader from './components/card-header';
@@ -16,7 +17,7 @@ const PublicationCard: FC<Props> = (props) => {
   const { publication, isMenuVisible } = props;
 
   return (
-    <div className="flex max-w-sm flex-col gap-y-2">
+    <div data-testid={getTestId({ publication, isMenuVisible })} className="flex max-w-sm flex-col gap-y-2">
       <CardHeader images={publication.images()} />
 
       <div className="flex flex-col gap-y-2">
