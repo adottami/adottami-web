@@ -142,7 +142,13 @@ const Header: FC<Props> = ({ isAuth, avatarPhoto = profile, username }) => {
       <div className="flex items-center justify-around p-6">
         <div className="flex items-center">
           <span className="lg:hidden">
-            <List data-testid="hamburguer-menu" size={32} weight="regular" onClick={openModal} />
+            <List
+              data-testid="hamburguer-menu"
+              size={32}
+              weight="regular"
+              onClick={openModal}
+              className="hover:text-secondary-medium"
+            />
           </span>
           <Link href="/">
             <div>
