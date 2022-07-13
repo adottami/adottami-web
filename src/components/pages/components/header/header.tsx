@@ -38,6 +38,11 @@ interface CardProps {
   router: NextRouter;
 }
 
+interface CardMenuDesktopProps {
+  router: NextRouter;
+  mouseOut: () => void;
+}
+
 const MenuCard: FC<CardProps> = ({ router, icon, href, text }) => {
   return (
     <li
@@ -125,17 +130,41 @@ const ModalMenu: FC<ModalMenu> = ({ setCloseModal, isAuth, avatarPhoto = profile
   );
 };
 
+const CardMenuDesktop: FC<CardMenuDesktopProps> = ({ router, mouseOut }) => {
+  return (
+    <nav className="fixed p-4 shadow-lg">
+      <ul onMouseLeave={mouseOut} className="flex flex-col gap-3">
+        <MenuCard router={router} icon={<User size={24} weight="regular" />} href="#" text="Meu cadastro" />
+        <Separator />
+        <MenuCard router={router} icon={<Shield size={24} weight="regular" />} href="#" text="Login e segurança" />
+        <Separator />
+        <MenuCard router={router} icon={<Door size={24} weight="regular" />} href="#" text="Sair" />
+      </ul>
+    </nav>
+  );
+};
+
 const Header: FC<Props> = ({ isAuth, avatarPhoto = profile, username }) => {
   const [menuHamburguerOpen, setMenuHamburguerOpen] = useState(false);
+  const [isHovering, setIsHovering] = useState(false);
   const router = useRouter();
 
   const closeModal = () => {
-    setMenuHamburguerOpen(false);
+    setMenuHamburguerOpen(() => false);
   };
 
   const openModal = () => {
-    setMenuHamburguerOpen(true);
+    setMenuHamburguerOpen(() => true);
   };
+
+  const handleMouseOver = () => {
+    setIsHovering(() => true);
+  };
+
+  const handleMouseOut = () => {
+    setIsHovering(() => false);
+  };
+
   return (
     <header>
       <Separator />
@@ -169,14 +198,17 @@ const Header: FC<Props> = ({ isAuth, avatarPhoto = profile, username }) => {
                 text="Meus Anúncios"
               />
               <MenuCard router={router} icon={<Heart size={24} weight="regular" />} href="/#" text="Favoritos" />
-              <li className="flex items-center">
+              <li>
                 {isAuth ? (
                   <>
-                    <Image src={avatarPhoto} alt="Foto de perfil" className="rounded-full" />
-                    <Link href="#" className="text-lg font-medium">
-                      <a className="ml-2.5 text-lg font-medium text-neutral-800">{username}</a>
-                    </Link>
-                    <CaretDown size={20} className="hover:text-secondary-medium" />
+                    <div className="flex items-center">
+                      <Image src={avatarPhoto} alt="Foto de perfil" className="rounded-full" />
+                      <Link href="#" className="text-lg font-medium">
+                        <a className="ml-2.5 text-lg font-medium text-neutral-800">{username}</a>
+                      </Link>
+                      <CaretDown size={20} className="hover:text-secondary-medium" onMouseOver={handleMouseOver} />
+                    </div>
+                    {isHovering && <CardMenuDesktop router={router} mouseOut={handleMouseOut} />}
                   </>
                 ) : (
                   <>
