@@ -2,11 +2,11 @@ import { FC } from 'react';
 
 import Publication from '@/models/publication/publication';
 
-import { getTestId } from './__tests__/mock/publication-mock';
 import CardDescription from './components/card-description';
 import CardFooter from './components/card-footer';
 import CardHeader from './components/card-header';
 import CardSubheader from './components/card-subheader';
+import { getTestId } from './utils';
 
 interface Props {
   publication: Publication;

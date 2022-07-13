@@ -1,7 +1,5 @@
 import Publication from '@/models/publication/publication';
 
-import { publicationCardTestIds } from '../test-ids';
-
 export const publicationMaleMock = new Publication({
   name: 'Thor',
   gender: 'Macho',
@@ -63,17 +61,3 @@ export const publicationFemaleMock = new Publication({
   weightInGrams: 1200,
   zipCode: '1111',
 });
-
-interface GetTestIdProps {
-  isMenuVisible?: boolean;
-  publication: Publication;
-}
-
-export const getTestId = ({ publication, isMenuVisible }: GetTestIdProps) => {
-  if (isMenuVisible) {
-    return publication.isArchived() ? publicationCardTestIds.menuIconArchived() : publicationCardTestIds.menuIcon();
-  }
-  return publication.gender().toLowerCase() === 'fêmea'
-    ? publicationCardTestIds.female()
-    : publicationCardTestIds.male();
-};
