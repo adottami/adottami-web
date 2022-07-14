@@ -30,7 +30,8 @@
     "phosphor-react": "^1.4.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-query": "^3.39.1"
+    "react-query": "^3.39.1",
+    "sharp": "^0.30.7"
   },
   "devDependencies": {
     "@testing-library/dom": "^8.14.0",
