@@ -24,7 +24,7 @@ const HomePage: FC = () => (
           </p>
           <div className="mt-6 flex items-center gap-6 tablet:mt-8">
             <Button data-testid={homePageTestIds.firstSection.button()}>Adotar um pet</Button>
-            <InlineLink href="" rightIcon>
+            <InlineLink href="#" rightIcon>
               Saiba mais
             </InlineLink>
           </div>
