@@ -1,3 +1,4 @@
+import createNextHeadMock from './mocks/next-head';
 import testServer from './test-server';
 import testQueryClient from './utils/test-query-client';
 import '@testing-library/jest-dom';
@@ -16,3 +17,5 @@ beforeEach(() => {
 afterAll(() => {
   testServer.close();
 });
+
+jest.mock('next/head', () => createNextHeadMock());
