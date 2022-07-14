@@ -11,7 +11,7 @@ interface CardMenuDesktopProps {
 
 const CardMenuDesktop: FC<CardMenuDesktopProps> = ({ mouseOut }) => {
   return (
-    <nav className="fixed p-4 shadow-lg">
+    <nav className="fixed bg-surface-primary p-4 shadow-lg">
       <ul onMouseLeave={mouseOut} className="flex flex-col gap-3">
         <MenuCard icon={<User size={24} weight="regular" />} href="#" text="Meu cadastro" />
         <Separator />
