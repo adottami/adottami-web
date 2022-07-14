@@ -9,6 +9,8 @@
 /.next
 /next.config.js
 /next-env.d.ts
+/public/sw.js
+/public/workbox*.js
 
 # configuration
 /tailwind.config.js
