@@ -40,7 +40,6 @@ const Header: FC<Props> = ({ isAuth, avatarPhoto = profile, username = null }) =
 
   return (
     <header className="w-full">
-      <Separator />
       <div className="flex items-center justify-around p-6">
         <div className="flex items-center">
           <span className="lg:hidden">
@@ -96,6 +95,7 @@ const Header: FC<Props> = ({ isAuth, avatarPhoto = profile, username = null }) =
           </div>
         </div>
       </div>
+      <Separator />
     </header>
   );
 };
