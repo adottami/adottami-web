@@ -50,7 +50,7 @@ describe('Header', () => {
   });
 
   it('should render correctly with prop isAuth as false', () => {
-    const { getByText } = render(<Header isAuth={false} />);
+    const { getByText } = render(<Header isAuth={false} username="Emanuel" />);
     expect(getByText('Entrar')).toBeInTheDocument();
     expect(getByText('Meus Anúncios')).toBeInTheDocument();
     expect(getByText('Favoritos')).toBeInTheDocument();
@@ -58,7 +58,7 @@ describe('Header', () => {
   });
 
   it('should render button with name "Anunciar" at mobile', () => {
-    const { getByText } = render(<Header isAuth={false} />);
+    const { getByText } = render(<Header isAuth={false} username="Emanuel" />);
     expect(getByText('Anunciar')).toBeInTheDocument();
   });
 });
