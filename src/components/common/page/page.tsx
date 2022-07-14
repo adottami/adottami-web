@@ -4,7 +4,7 @@ import tailwindConfig from '@@/tailwind.config';
 
 import { FCC } from '@/types/react';
 
-import { BASE_PAGE_TITLE, DEFAULT_PAGE_DESCRIPTION } from './constants';
+import { APPLICATION_NAME, DEFAULT_PAGE_DESCRIPTION } from './constants';
 
 interface Props {
   title?: string;
@@ -12,7 +12,7 @@ interface Props {
 }
 
 const Page: FCC<Props> = ({ title: partialTitle, description = DEFAULT_PAGE_DESCRIPTION, children }) => {
-  const title = partialTitle ? `${partialTitle} | ${BASE_PAGE_TITLE}` : BASE_PAGE_TITLE;
+  const title = partialTitle ? `${partialTitle} | ${APPLICATION_NAME}` : APPLICATION_NAME;
 
   return (
     <>
@@ -25,10 +25,10 @@ const Page: FCC<Props> = ({ title: partialTitle, description = DEFAULT_PAGE_DESC
         />
 
         <meta name="theme-color" content={tailwindConfig.theme.extend.colors.surface.primary} />
-        <meta name="application-name" content={title} />
+        <meta name="application-name" content={APPLICATION_NAME} />
 
         <meta property="og:type" content="website" />
-        <meta property="og:site_name" content={BASE_PAGE_TITLE} />
+        <meta property="og:site_name" content={APPLICATION_NAME} />
         <meta name="twitter:card" content="summary_large_image" />
 
         <meta property="og:title" content={title} />

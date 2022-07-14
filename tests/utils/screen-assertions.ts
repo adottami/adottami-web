@@ -3,12 +3,10 @@ import { screen } from '@testing-library/react';
 export function expectPageTitle(title: string | null) {
   if (title === null) {
     expect(document.title).toBe('');
-    expect(screen.queryMetaByName('application-name')).not.toBeInTheDocument();
     expect(screen.queryMetaByProperty('og:title')).not.toBeInTheDocument();
     expect(screen.queryMetaByName('twitter:title')).not.toBeInTheDocument();
   } else {
     expect(document.title).toBe(title);
-    expect(screen.getMetaByName('application-name')).toHaveAttribute('content', title);
     expect(screen.getMetaByProperty('og:title')).toHaveAttribute('content', title);
     expect(screen.getMetaByName('twitter:title')).toHaveAttribute('content', title);
   }

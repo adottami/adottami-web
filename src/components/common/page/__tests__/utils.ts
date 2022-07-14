@@ -1,7 +1,7 @@
 import { expectPageTitle } from '@tests/utils/screen-assertions';
 
-import { BASE_PAGE_TITLE } from '../constants';
+import { APPLICATION_NAME } from '../constants';
 
-export function expectPageTitleWithBase(partialBaseTitle: string) {
-  expectPageTitle(`${partialBaseTitle} | ${BASE_PAGE_TITLE}`);
+export function expectPageTitleWithApplicationName(partialTitle: string) {
+  expectPageTitle(`${partialTitle} | ${APPLICATION_NAME}`);
 }
