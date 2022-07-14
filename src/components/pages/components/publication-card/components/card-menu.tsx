@@ -80,7 +80,7 @@ const CardMenu: FC<Props> = (props) => {
         <DropdownMenu.Trigger asChild>
           <button
             className="rounded-xl border-2 border-neutral-100 bg-surface-secondary p-2 text-neutral-800 outline-none duration-200 hover:brightness-90"
-            aria-label="Customise options"
+            aria-label="Opções"
           >
             <DotsThree size={24} />
           </button>
