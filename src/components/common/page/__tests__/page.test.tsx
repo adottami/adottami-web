@@ -1,9 +1,8 @@
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import tailwindConfig from '@@/tailwind.config';
 
 import { expectPageDescription, expectPageTitle } from '@tests/utils/screen-assertions';
-import { getMetaByName, getMetaByProperty } from '@tests/utils/screen-queries';
 
 import { BASE_PAGE_TITLE, DEFAULT_PAGE_DESCRIPTION } from '../constants';
 import Page from '../page';
@@ -13,10 +12,11 @@ describe('Page', () => {
   it('should render the correct static meta elements', () => {
     render(<Page />);
 
-    expect(getMetaByName('theme-color')).toHaveAttribute('content', tailwindConfig.theme.extend.colors.surface.primary);
-    expect(getMetaByProperty('og:type')).toHaveAttribute('content', 'website');
-    expect(getMetaByName('twitter:card')).toHaveAttribute('content', 'summary_large_image');
-    expect(getMetaByProperty('og:site_name')).toHaveAttribute('content', BASE_PAGE_TITLE);
+    const themeColor = tailwindConfig.theme.extend.colors.surface.primary;
+    expect(screen.getMetaByName('theme-color')).toHaveAttribute('content', themeColor);
+    expect(screen.getMetaByProperty('og:type')).toHaveAttribute('content', 'website');
+    expect(screen.getMetaByName('twitter:card')).toHaveAttribute('content', 'summary_large_image');
+    expect(screen.getMetaByProperty('og:site_name')).toHaveAttribute('content', BASE_PAGE_TITLE);
   });
 
   it('should apply the provided title', () => {
