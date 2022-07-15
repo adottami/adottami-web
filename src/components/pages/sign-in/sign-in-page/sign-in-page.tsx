@@ -36,7 +36,7 @@ const SignInPage: FC = () => {
               </p>
               <Separator />
               <p className="text-center text-sm text-neutral-800 md:text-md">
-                Não tem uma conta? <InlineLink href="#">Cadastre-se</InlineLink>
+                Não tem uma conta? <InlineLink href="/sign-up">Cadastre-se</InlineLink>
               </p>
             </div>
           </div>
