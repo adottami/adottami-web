@@ -253,7 +253,7 @@ exports[`Sign in page should render correctly 1`] = `
             Não tem uma conta? 
             <a
               className="cursor-pointer text-sm leading-4 text-secondary-medium no-underline decoration-secondary-medium transition duration-300 ease-out hover:text-secondary-dark hover:underline md:text-md"
-              href="/#"
+              href="/sign-up"
               onClick={[Function]}
               onMouseEnter={[Function]}
             >

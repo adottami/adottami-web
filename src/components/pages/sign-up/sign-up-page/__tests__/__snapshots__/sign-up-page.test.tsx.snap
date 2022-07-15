@@ -65,6 +65,7 @@ exports[`Sign up page should render correctly 1`] = `
         </h3>
         <form
           className="flex flex-col gap-6 md:gap-8"
+          onSubmit={[Function]}
         >
           <div
             className="flex flex-col gap-2"
@@ -92,9 +93,12 @@ exports[`Sign up page should render correctly 1`] = `
               <div>
                 <input
                   className="flex h-[46px] w-full rounded-pill border-2 border-neutral-100 bg-surface-primary px-4 text-sm text-primary-dark placeholder:text-neutral-500 focus:border-secondary-medium focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 md:h-[54px] md:text-md 2xl:h-[64px] 2xl:text-md"
+                  name="name"
+                  onChange={[Function]}
                   placeholder="Ex: Matheus Silveira Barros"
                   required={true}
                   type="text"
+                  value=""
                 />
               </div>
             </div>
@@ -121,9 +125,12 @@ exports[`Sign up page should render correctly 1`] = `
               <div>
                 <input
                   className="flex h-[46px] w-full rounded-pill border-2 border-neutral-100 bg-surface-primary px-4 text-sm text-primary-dark placeholder:text-neutral-500 focus:border-secondary-medium focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 md:h-[54px] md:text-md 2xl:h-[64px] 2xl:text-md"
+                  name="email"
+                  onChange={[Function]}
                   placeholder="Ex: mathues.silveira@gmail.com"
                   required={true}
                   type="text"
+                  value=""
                 />
               </div>
             </div>
@@ -150,9 +157,12 @@ exports[`Sign up page should render correctly 1`] = `
               <div>
                 <input
                   className="flex h-[46px] w-full rounded-pill border-2 border-neutral-100 bg-surface-primary px-4 text-sm text-primary-dark placeholder:text-neutral-500 focus:border-secondary-medium focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 md:h-[54px] md:text-md 2xl:h-[64px] 2xl:text-md"
-                  placeholder="(XX) XXXXX-XXXX"
+                  name="telephone"
+                  onChange={[Function]}
+                  placeholder="(XX) XXXXXXXXX"
                   required={true}
                   type="text"
+                  value=""
                 />
               </div>
             </div>
@@ -181,9 +191,12 @@ exports[`Sign up page should render correctly 1`] = `
               >
                 <input
                   className="flex h-[46px] w-full rounded-pill border-2 border-neutral-100 bg-surface-primary px-4 text-sm text-primary-dark placeholder:text-neutral-500 focus:border-secondary-medium focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 md:h-[54px] md:text-md 2xl:h-[64px] 2xl:text-md"
+                  name="password"
+                  onChange={[Function]}
                   placeholder="Digite sua senha"
                   required={true}
                   type="password"
+                  value=""
                 />
                 <button
                   className="absolute top-1/2 right-4 -translate-y-1/2 focus:rounded-base disabled:opacity-50"
@@ -279,9 +292,12 @@ exports[`Sign up page should render correctly 1`] = `
               >
                 <input
                   className="flex h-[46px] w-full rounded-pill border-2 border-neutral-100 bg-surface-primary px-4 text-sm text-primary-dark placeholder:text-neutral-500 focus:border-secondary-medium focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 md:h-[54px] md:text-md 2xl:h-[64px] 2xl:text-md"
+                  name="confirmPassword"
+                  onChange={[Function]}
                   placeholder="Digite sua senha novamente"
                   required={true}
                   type="password"
+                  value=""
                 />
                 <button
                   className="absolute top-1/2 right-4 -translate-y-1/2 focus:rounded-base disabled:opacity-50"
@@ -351,6 +367,7 @@ exports[`Sign up page should render correctly 1`] = `
           <button
             className=" relative flex h-[46px] items-center justify-center gap-3 rounded-pill border-2 border-transparent p-5 text-sm font-bold text-white shadow-current hover:opacity-80  disabled:cursor-not-allowed disabled:opacity-50 bg-secondary-medium focus:border-secondary-light 2xl:h-[64px] 2xl:p-8 2xl:text-md md:h-[54px] md:p-6 md:text-md"
             data-testid="primary-button-test-id"
+            type="submit"
           >
             Criar conta
             <svg
@@ -409,7 +426,7 @@ exports[`Sign up page should render correctly 1`] = `
             Já tem uma conta? 
             <a
               className="cursor-pointer text-sm leading-4 text-secondary-medium no-underline decoration-secondary-medium transition duration-300 ease-out hover:text-secondary-dark hover:underline md:text-md"
-              href="/#"
+              href="/sign-in"
               onClick={[Function]}
               onMouseEnter={[Function]}
             >
@@ -460,7 +477,7 @@ exports[`Sign up page should render correctly 1`] = `
         <img
           alt=""
           aria-hidden={true}
-          src="data:image/svg+xml,%3csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20version=%271.1%27%20width=%2724%27%20height=%2724%27/%3e"
+          src="data:image/svg+xml,%3csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20version=%271.1%27%20width=%2724%27%20height=%27528%27/%3e"
           style={
             Object {
               "background": "none",
