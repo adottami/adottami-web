@@ -65,6 +65,7 @@ exports[`Sign in page should render correctly 1`] = `
         </h3>
         <form
           className="flex flex-col gap-6 md:gap-8"
+          onSubmit={[Function]}
         >
           <div
             className="flex flex-col gap-2"
@@ -92,9 +93,12 @@ exports[`Sign in page should render correctly 1`] = `
               <div>
                 <input
                   className="flex h-[46px] w-full rounded-pill border-2 border-neutral-100 bg-surface-primary px-4 text-sm text-primary-dark placeholder:text-neutral-500 focus:border-secondary-medium focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 md:h-[54px] md:text-md 2xl:h-[64px] 2xl:text-md"
+                  name="email"
+                  onChange={[Function]}
                   placeholder="Digite seu e-mail"
                   required={true}
                   type="text"
+                  value=""
                 />
               </div>
             </div>
@@ -123,9 +127,12 @@ exports[`Sign in page should render correctly 1`] = `
               >
                 <input
                   className="flex h-[46px] w-full rounded-pill border-2 border-neutral-100 bg-surface-primary px-4 text-sm text-primary-dark placeholder:text-neutral-500 focus:border-secondary-medium focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 md:h-[54px] md:text-md 2xl:h-[64px] 2xl:text-md"
+                  name="password"
+                  onChange={[Function]}
                   placeholder="Digite sua senha"
                   required={true}
                   type="password"
+                  value=""
                 />
                 <button
                   className="absolute top-1/2 right-4 -translate-y-1/2 focus:rounded-base disabled:opacity-50"
@@ -195,6 +202,7 @@ exports[`Sign in page should render correctly 1`] = `
           <button
             className=" relative flex h-[46px] items-center justify-center gap-3 rounded-pill border-2 border-transparent p-5 text-sm font-bold text-white shadow-current hover:opacity-80  disabled:cursor-not-allowed disabled:opacity-50 bg-secondary-medium focus:border-secondary-light 2xl:h-[64px] 2xl:p-8 2xl:text-md md:h-[54px] md:p-6 md:text-md"
             data-testid="primary-button-test-id"
+            type="submit"
           >
             Entrar
             <svg
@@ -253,7 +261,7 @@ exports[`Sign in page should render correctly 1`] = `
             Não tem uma conta? 
             <a
               className="cursor-pointer text-sm leading-4 text-secondary-medium no-underline decoration-secondary-medium transition duration-300 ease-out hover:text-secondary-dark hover:underline md:text-md"
-              href="/#"
+              href="/sign-up"
               onClick={[Function]}
               onMouseEnter={[Function]}
             >
@@ -322,7 +330,6 @@ exports[`Sign in page should render correctly 1`] = `
       </span>
       <img
         alt="Banner com a imagem de um cachorro, coelho, gato e pegadas de patas no fundo "
-        className="h-full object-cover"
         data-nimg="intrinsic"
         decoding="async"
         onError={[Function]}
@@ -354,7 +361,6 @@ exports[`Sign in page should render correctly 1`] = `
       <noscript>
         <img
           alt="Banner com a imagem de um cachorro, coelho, gato e pegadas de patas no fundo "
-          className="h-full object-cover"
           data-nimg="intrinsic"
           decoding="async"
           loading="lazy"
