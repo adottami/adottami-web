@@ -1,7 +1,6 @@
 const defaultTheme = require('tailwindcss/defaultTheme');
 
-/** @type {import('tailwindcss').Config} */
-module.exports = {
+const tailwindConfig = {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
     extend: {
@@ -107,3 +106,5 @@ module.exports = {
     scrollbar: ['rounded'],
   },
 };
+
+module.exports = tailwindConfig;

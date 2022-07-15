@@ -21,10 +21,10 @@ const Footer: FC<Props> = () => (
         className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-6"
         data-testid={footerTestIds.inlineLinks()}
       >
-        <InlineLink href="">Meus anúncios</InlineLink>
-        <InlineLink href="">Adotar pet</InlineLink>
-        <InlineLink href="">Anunciar pet</InlineLink>
-        <InlineLink href="">Pets favoritos</InlineLink>
+        <InlineLink href="#">Meus anúncios</InlineLink>
+        <InlineLink href="#">Adotar pet</InlineLink>
+        <InlineLink href="#">Anunciar pet</InlineLink>
+        <InlineLink href="#">Pets favoritos</InlineLink>
       </div>
     </div>
     <div className="border-t-2 border-t-neutral-100">
@@ -33,7 +33,7 @@ const Footer: FC<Props> = () => (
           Adottami | Copyright © 2022 - Todo os Direitos Reservados
         </span>
         <div className="flex items-center gap-3 text-neutral-200" data-testid={footerTestIds.policyAndTerms()}>
-          <InlineLink href="">Politica de privacidade</InlineLink> • <InlineLink href="">Termos de uso</InlineLink>
+          <InlineLink href="#">Política de privacidade</InlineLink> • <InlineLink href="#">Termos de uso</InlineLink>
         </div>
       </div>
     </div>
