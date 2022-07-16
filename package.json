@@ -32,8 +32,9 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-query": "^3.39.1",
-    "yup": "^0.32.11",
-    "sharp": "^0.30.7"
+    "react-toastify": "^9.0.5",
+    "sharp": "^0.30.7",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@testing-library/dom": "^8.14.0",
