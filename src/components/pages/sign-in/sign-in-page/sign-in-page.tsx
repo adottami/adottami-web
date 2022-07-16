@@ -1,8 +1,9 @@
-import axios from 'axios';
 import { useFormik } from 'formik';
 import Image from 'next/image';
+import router from 'next/router';
 import banner from 'public/images/dog-528x579.png';
 import { FC, useState } from 'react';
+import { toast } from 'react-toastify';
 
 import Button from '@/components/common/button/button';
 import InlineLink from '@/components/common/inline-link/inline-link';
@@ -10,17 +11,16 @@ import Input from '@/components/common/input/input';
 import Page from '@/components/common/page/page';
 import Separator from '@/components/common/separator/separator';
 import AdottamiLogo from '@/components/icons/adottami-logo';
-import globalConfig from '@/config/global-config/global-config';
-import SessionClient from '@/services/adottami-client/session-client/session-client';
+import useAPI from '@/hooks/api/use-api/use-api';
+import useSession from '@/hooks/session/use-session/use-session';
 
 import { PAGE_TITLE } from './constants';
 import { AuthenticationSchema } from './schema/authentication-schema';
 
 const SignInPage: FC = () => {
-  const baseURL = globalConfig.baseAdottamiURL();
+  const api = useAPI();
+  const session = useSession();
 
-  const api = axios.create({ baseURL });
-  const sessionClient = new SessionClient(api);
   const [showErrors, setShowErrors] = useState(false);
   const { values, errors, handleChange, handleSubmit } = useFormik({
     initialValues: {
@@ -28,8 +28,33 @@ const SignInPage: FC = () => {
       password: '',
     },
     validationSchema: AuthenticationSchema,
-    onSubmit(values): void {
-      sessionClient.login(values);
+    onSubmit: async (values) => {
+      const userData = {
+        email: values.email,
+        password: values.password,
+      };
+      try {
+        await api.adottami.session.login(userData);
+        toast.success('Login realizado com sucesso!', {
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
+        router.push('/');
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (error: any) {
+        if (error.response?.status === 400) {
+          toast.error('E-mail ou senha incorreta', {
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+          });
+        }
+      }
     },
   });
 
@@ -85,13 +110,14 @@ const SignInPage: FC = () => {
               </div>
             </div>
           </div>
-          <div className="hidden h-auto w-1/2 items-center justify-center bg-surface-secondary px-[6rem] md:flex">
-            <Image
-              src={banner}
-              className="h-full object-cover"
-              alt="Banner com a imagem de um cachorro, coelho, gato e pegadas de patas no fundo "
-            />
-          </div>
+        </div>
+        <div className="hidden h-auto w-1/2 items-center justify-center bg-surface-secondary px-[6rem] md:flex">
+          <Image
+            src={banner}
+            width={528}
+            className="h-full object-cover"
+            alt="Banner com a imagem de um cachorro, coelho, gato e pegadas de patas no fundo "
+          />
         </div>
       </div>
     </Page>
