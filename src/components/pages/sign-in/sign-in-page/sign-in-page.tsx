@@ -17,9 +17,9 @@ const SignInPage: FC = () => {
       <div className="flex min-h-screen w-full overflow-y-auto">
         <div className="mx-[1.5rem] my-[2.5rem] flex h-full w-full flex-col items-start gap-8 md:m-[3.5rem] md:w-1/2 xl:m-[6rem] 2xl:gap-14">
           <AdottamiLogo className="h-6 w-auto md:h-8 2xl:h-10" />
-
           <div className="w-full md:w-3/4 xl:w-4/6">
             <div className="flex flex-col gap-4 md:gap-6">
+              <h3 className="w-full text-xl font-bold text-primary-dark md:text-2xl">Acesse a sua conta</h3>
               <form className="flex flex-col gap-6 md:gap-8">
                 <div className="flex flex-col gap-2">
                   <Input type="text" label="E-mail" placeholder="Digite seu e-mail" isRequired />
