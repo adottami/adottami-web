@@ -1,17 +1,14 @@
-import { render } from '@testing-library/react';
-import renderer from 'react-test-renderer';
-
 import { expectPageTitleWithApplicationName } from '@/components/common/page/__tests__/utils';
+import { renderWithTestProviders } from '@tests/utils/render';
 
 import { PAGE_TITLE } from '../constants';
 import SignInPage from '../sign-in-page';
 
-describe('Sign in page', () => {
+describe('Sign up page', () => {
   it('should render correctly', () => {
-    render(<SignInPage />);
+    const tree = renderWithTestProviders(<SignInPage />);
     expectPageTitleWithApplicationName(PAGE_TITLE);
 
-    const tree = renderer.create(<SignInPage />).toJSON();
     expect(tree).toMatchSnapshot();
   });
 });
