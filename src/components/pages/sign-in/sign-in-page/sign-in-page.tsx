@@ -12,14 +12,12 @@ import Page from '@/components/common/page/page';
 import Separator from '@/components/common/separator/separator';
 import AdottamiLogo from '@/components/icons/adottami-logo';
 import useAPI from '@/hooks/api/use-api/use-api';
-import useSession from '@/hooks/session/use-session/use-session';
 
 import { PAGE_TITLE } from './constants';
 import { AuthenticationSchema } from './schema/authentication-schema';
 
 const SignInPage: FC = () => {
   const api = useAPI();
-  const session = useSession();
 
   const [showErrors, setShowErrors] = useState(false);
   const { values, errors, handleChange, handleSubmit } = useFormik({
