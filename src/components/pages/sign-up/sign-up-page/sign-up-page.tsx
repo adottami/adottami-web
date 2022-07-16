@@ -1,25 +1,24 @@
-import axios from 'axios';
 import { useFormik } from 'formik';
 import Image from 'next/image';
+import router from 'next/router';
 import banner from 'public/images/dog-528x579.png';
 import { FC, useState } from 'react';
+import { toast } from 'react-toastify';
 
 import Button from '@/components/common/button/button';
 import InlineLink from '@/components/common/inline-link/inline-link';
 import Input from '@/components/common/input/input';
 import Separator from '@/components/common/separator/separator';
 import AdottamiLogo from '@/components/icons/adottami-logo';
-import globalConfig from '@/config/global-config/global-config';
-import { CreateUserData } from '@/services/adottami-client/user-client/types';
-import UserClient from '@/services/adottami-client/user-client/user-client';
+import useAPI from '@/hooks/api/use-api/use-api';
+import useSession from '@/hooks/session/use-session/use-session';
 import { ApplyPhoneMask, UndoPhoneMask } from '@/utils/mask';
 
 import { RegisterSchema } from './schemas/register-schema';
 
 const SignUpPage: FC = () => {
-  const baseURL = globalConfig.baseAdottamiURL();
-
-  const userClient = new UserClient(axios.create({ baseURL }));
+  const api = useAPI();
+  const session = useSession();
 
   const [showErrors, setShowErrors] = useState(false);
   const { values, errors, handleChange, handleSubmit } = useFormik({
@@ -32,13 +31,34 @@ const SignUpPage: FC = () => {
     },
     validationSchema: RegisterSchema,
     onSubmit: async (values) => {
-      const userData: CreateUserData = {
+      const userData = {
         name: values.name,
         email: values.email,
         password: values.password,
         phoneNumber: UndoPhoneMask(values.telephone),
       };
-      await userClient.create(userData);
+      try {
+        await api.adottami.users.create(userData);
+        toast.success('Cadastro realizado com sucesso!', {
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
+        await session.login(userData);
+        router.push('/');
+      } catch (error: any) {
+        if (error.response?.status === 400) {
+          toast.error('Usuário já existente. Por favor, tente novamente.', {
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+          });
+        }
+      }
     },
   });
 
@@ -77,6 +97,7 @@ const SignUpPage: FC = () => {
                   errorMessage={showErrors ? errors.email : ''}
                   isRequired
                 />
+
                 <Input
                   type="text"
                   name="telephone"
