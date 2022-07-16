@@ -48,6 +48,7 @@ const SignUpPage: FC = () => {
         });
         await session.login(userData);
         router.push('/');
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {
         if (error.response?.status === 400) {
           toast.error('Usuário já existente. Por favor, tente novamente.', {
