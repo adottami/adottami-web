@@ -131,6 +131,7 @@ exports[`Sign in page should render correctly 1`] = `
                   className="absolute top-1/2 right-4 -translate-y-1/2 focus:rounded-base disabled:opacity-50"
                   data-testid="turn-visible"
                   onClick={[Function]}
+                  type="button"
                 >
                   <svg
                     fill="currentColor"
