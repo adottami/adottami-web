@@ -20,7 +20,7 @@ const customJestConfig = {
     '!**/*.d.ts',
   ],
 
-  testEnvironment: 'jsdom',
+  testEnvironment: '<rootDir>/tests/test-environment.ts',
   testRegex: '^.+\\.test\\.tsx?$',
   testPathIgnorePatterns: ['<rootDir>/node_modules', '<rootDir>/public', '<rootDir>/\\.next'],
 

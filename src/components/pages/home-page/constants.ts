@@ -1,3 +1,4 @@
+export const PAGE_TITLE = 'Página inicial';
 export const SLOGAN_MESSAGE = 'Nós ajudamos você a encontrar o seu novo amigo.';
 
 export const homePageTestIds = {
