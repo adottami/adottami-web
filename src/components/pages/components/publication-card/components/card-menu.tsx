@@ -80,7 +80,7 @@ const CardMenu: FC<Props> = (props) => {
         <DropdownMenu.Trigger asChild>
           <button
             className="rounded-xl border-2 border-neutral-100 bg-surface-secondary p-2 text-neutral-800 outline-none duration-200 hover:brightness-90"
-            aria-label="Customise options"
+            aria-label="Opções"
           >
             <DotsThree size={24} />
           </button>
@@ -88,7 +88,10 @@ const CardMenu: FC<Props> = (props) => {
 
         <DropdownMenuContent sideOffset={5}>
           {items.map((item) => (
-            <DropdownMenu.Item className="flex cursor-pointer items-center gap-x-3 py-2 px-4 text-neutral-500 outline-none duration-200 hover:bg-neutral-100 hover:text-secondary-medium">
+            <DropdownMenu.Item
+              key={item.label}
+              className="flex cursor-pointer items-center gap-x-3 py-2 px-4 text-neutral-500 outline-none duration-200 hover:bg-neutral-100 hover:text-secondary-medium"
+            >
               {item.icon}
               <span className="text-base">{item.label}</span>
             </DropdownMenu.Item>

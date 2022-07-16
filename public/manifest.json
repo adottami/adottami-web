@@ -4,8 +4,8 @@
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait-primary",
-  "background_color": "#ebebeb",
-  "theme_color": "#ebebeb",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
   "description": "Adottami",
   "scope": "/",
   "icons": [
