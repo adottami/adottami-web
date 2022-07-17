@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 import { SVGSVGProps } from '@/types/html';
 
-interface Props {
+interface Props extends SVGSVGProps {
   variant?: string;
 }
 
