@@ -6,8 +6,8 @@ import { ToastContainer } from 'react-toastify';
 import APIContextProvider from '@/contexts/api-context/api-context-provider';
 import SessionContextProvider from '@/contexts/session-context/session-context-provider';
 
-import 'react-toastify/dist/ReactToastify.min.css';
 import '@/styles/global.css';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 const App: FC<AppProps> = ({ Component, pageProps }) => {
   const queryClient = useRef(new QueryClient()).current;
