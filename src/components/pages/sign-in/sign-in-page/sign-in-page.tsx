@@ -1,3 +1,4 @@
+import { AxiosError } from 'axios';
 import { useFormik } from 'formik';
 import Image from 'next/image';
 import router from 'next/router';
@@ -13,8 +14,8 @@ import Separator from '@/components/common/separator/separator';
 import AdottamiLogo from '@/components/icons/adottami-logo';
 import useAPI from '@/hooks/api/use-api/use-api';
 
-import { PAGE_TITLE } from './constants';
-import { AuthenticationSchema } from './schema/authentication-schema';
+import { PAGE_TITLE, TOAST_CONFIGS } from './constants';
+import { authenticationSchema } from './schema/authentication-schema';
 
 const SignInPage: FC = () => {
   const api = useAPI();
@@ -25,7 +26,7 @@ const SignInPage: FC = () => {
       email: '',
       password: '',
     },
-    validationSchema: AuthenticationSchema,
+    validationSchema: authenticationSchema,
     onSubmit: async (values) => {
       const userData = {
         email: values.email,
@@ -33,24 +34,12 @@ const SignInPage: FC = () => {
       };
       try {
         await api.adottami.session.login(userData);
-        toast.success('Login realizado com sucesso!', {
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-        });
+        toast.success('Login realizado com sucesso!', TOAST_CONFIGS);
         router.push('/');
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      } catch (error: any) {
+      } catch (error) {
+        if (!(error instanceof AxiosError)) throw error;
         if (error.response?.status === 400) {
-          toast.error('E-mail ou senha incorreta', {
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-          });
+          toast.error('E-mail ou senha incorreta', TOAST_CONFIGS);
         }
       }
     },
