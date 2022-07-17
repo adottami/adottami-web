@@ -353,10 +353,9 @@ Object {
                   </div>
                 </div>
                 <button
-                  className="absolute top-1/2 right-4 -translate-y-1/2 focus:rounded-base disabled:opacity-50"
-                  data-testid="turn-visible"
-                  onClick={[Function]}
-                  type="button"
+                  class=" relative flex h-[46px] items-center justify-center gap-3 rounded-pill border-2 border-transparent p-5 text-sm font-bold text-white shadow-current hover:opacity-80  disabled:cursor-not-allowed disabled:opacity-50 bg-secondary-medium focus:border-secondary-light 2xl:h-[64px] 2xl:p-8 2xl:text-md md:h-[54px] md:p-6 md:text-md"
+                  data-testid="primary-button-test-id"
+                  type="submit"
                 >
                   Criar conta
                   <svg
@@ -385,7 +384,7 @@ Object {
                 <p
                   class="text-center text-sm text-neutral-500 md:text-md"
                 >
-                  Ao continuar, você concorda com os
+                  Ao continuar, você concorda com os 
                   <a
                     class="cursor-pointer text-sm leading-4 text-secondary-medium no-underline decoration-secondary-medium transition duration-300 ease-out hover:text-secondary-dark hover:underline md:text-md"
                     href="/#"
@@ -393,7 +392,7 @@ Object {
                     Termos de Uso
                   </a>
                    e a
-
+                   
                   <a
                     class="cursor-pointer text-sm leading-4 text-secondary-medium no-underline decoration-secondary-medium transition duration-300 ease-out hover:text-secondary-dark hover:underline md:text-md"
                     href="/#"
@@ -408,7 +407,7 @@ Object {
                 <p
                   class="text-center text-sm text-neutral-800 md:text-md"
                 >
-                  Já tem uma conta?
+                  Já tem uma conta? 
                   <a
                     class="cursor-pointer text-sm leading-4 text-secondary-medium no-underline decoration-secondary-medium transition duration-300 ease-out hover:text-secondary-dark hover:underline md:text-md"
                     href="/sign-in"
@@ -519,17 +518,8 @@ Object {
               <div
                 class="flex flex-col gap-2"
               >
-                <input
-                  className="flex h-[46px] w-full rounded-pill border-2 border-neutral-100 bg-surface-primary px-4 text-sm text-primary-dark placeholder:text-neutral-500 focus:border-secondary-medium focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 md:h-[54px] md:text-md 2xl:h-[64px] 2xl:text-md"
-                  placeholder="Digite sua senha novamente"
-                  required={true}
-                  type="password"
-                />
-                <button
-                  className="absolute top-1/2 right-4 -translate-y-1/2 focus:rounded-base disabled:opacity-50"
-                  data-testid="turn-visible"
-                  onClick={[Function]}
-                  type="button"
+                <div
+                  class="w-full"
                 >
                   <div>
                     <span
@@ -839,7 +829,7 @@ Object {
               <p
                 class="text-center text-sm text-neutral-500 md:text-md"
               >
-                Ao continuar, você concorda com os
+                Ao continuar, você concorda com os 
                 <a
                   class="cursor-pointer text-sm leading-4 text-secondary-medium no-underline decoration-secondary-medium transition duration-300 ease-out hover:text-secondary-dark hover:underline md:text-md"
                   href="/#"
@@ -847,7 +837,7 @@ Object {
                   Termos de Uso
                 </a>
                  e a
-
+                 
                 <a
                   class="cursor-pointer text-sm leading-4 text-secondary-medium no-underline decoration-secondary-medium transition duration-300 ease-out hover:text-secondary-dark hover:underline md:text-md"
                   href="/#"
@@ -862,7 +852,7 @@ Object {
               <p
                 class="text-center text-sm text-neutral-800 md:text-md"
               >
-                Já tem uma conta?
+                Já tem uma conta? 
                 <a
                   class="cursor-pointer text-sm leading-4 text-secondary-medium no-underline decoration-secondary-medium transition duration-300 ease-out hover:text-secondary-dark hover:underline md:text-md"
                   href="/sign-in"

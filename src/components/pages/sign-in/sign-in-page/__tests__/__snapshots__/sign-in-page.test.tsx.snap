@@ -228,7 +228,7 @@ Object {
                 <p
                   class="text-center text-sm text-neutral-500 md:text-md"
                 >
-                  Ao continuar, você concorda com os
+                  Ao continuar, você concorda com os 
                   <a
                     class="cursor-pointer text-sm leading-4 text-secondary-medium no-underline decoration-secondary-medium transition duration-300 ease-out hover:text-secondary-dark hover:underline md:text-md"
                     href="/#"
@@ -236,7 +236,7 @@ Object {
                     Termos de Uso
                   </a>
                    e a
-
+                   
                   <a
                     class="cursor-pointer text-sm leading-4 text-secondary-medium no-underline decoration-secondary-medium transition duration-300 ease-out hover:text-secondary-dark hover:underline md:text-md"
                     href="/#"
@@ -251,7 +251,7 @@ Object {
                 <p
                   class="text-center text-sm text-neutral-800 md:text-md"
                 >
-                  Não tem uma conta?
+                  Não tem uma conta? 
                   <a
                     class="cursor-pointer text-sm leading-4 text-secondary-medium no-underline decoration-secondary-medium transition duration-300 ease-out hover:text-secondary-dark hover:underline md:text-md"
                     href="/sign-up"
@@ -517,7 +517,7 @@ Object {
               <p
                 class="text-center text-sm text-neutral-500 md:text-md"
               >
-                Ao continuar, você concorda com os
+                Ao continuar, você concorda com os 
                 <a
                   class="cursor-pointer text-sm leading-4 text-secondary-medium no-underline decoration-secondary-medium transition duration-300 ease-out hover:text-secondary-dark hover:underline md:text-md"
                   href="/#"
@@ -525,7 +525,7 @@ Object {
                   Termos de Uso
                 </a>
                  e a
-
+                 
                 <a
                   class="cursor-pointer text-sm leading-4 text-secondary-medium no-underline decoration-secondary-medium transition duration-300 ease-out hover:text-secondary-dark hover:underline md:text-md"
                   href="/#"
@@ -540,7 +540,7 @@ Object {
               <p
                 class="text-center text-sm text-neutral-800 md:text-md"
               >
-                Não tem uma conta?
+                Não tem uma conta? 
                 <a
                   class="cursor-pointer text-sm leading-4 text-secondary-medium no-underline decoration-secondary-medium transition duration-300 ease-out hover:text-secondary-dark hover:underline md:text-md"
                   href="/sign-up"
