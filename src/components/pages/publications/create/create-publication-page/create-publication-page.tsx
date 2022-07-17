@@ -1,14 +1,14 @@
-import { FC, MutableRefObject, useRef, useState } from 'react';
+import { FC, useRef } from 'react';
 
 import Page from '@/components/common/page/page';
 import FormPageHeader from '@/components/pages/components/form-page-header/form-pageheader';
-import PublicationForm from '@/components/pages/components/publication-form/publication-form';
+import PublicationForm, { PublicationFormRef } from '@/components/pages/components/publication-form/publication-form';
 
 import FormFooter from './components/form-footer';
 import { PAGE_TITLE } from './constants';
 
 const CreatePublicationPage: FC = () => {
-  const formRef = useRef<HTMLFormElement>(null);
+  const formRef = useRef<PublicationFormRef>(null);
 
   return (
     <Page title={PAGE_TITLE}>

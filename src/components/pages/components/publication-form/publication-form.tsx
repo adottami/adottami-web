@@ -1,17 +1,30 @@
-import { FC, RefObject } from 'react';
+import React, { useImperativeHandle, useRef } from 'react';
 
 import { PublicationFields } from '@/models/publication/types';
 
 interface Props {
   header: string;
   onSubmit(values: PublicationFields): void;
-  ref: RefObject<HTMLFormElement> | null;
 }
 
-const PublicationForm: FC<Props> = (props) => {
-  const { ref } = props;
+export interface PublicationFormRef {
+  submit: void | undefined;
+}
 
-  return <form ref={ref} />;
-};
+const PublicationForm = React.forwardRef<PublicationFormRef, Props>((props, ref) => {
+  const { onSubmit } = props;
+
+  const formRef = useRef<HTMLFormElement>(null);
+
+  useImperativeHandle(
+    ref,
+    () => ({
+      submit: formRef.current?.submit(),
+    }),
+    [],
+  );
+
+  return <form ref={formRef} onSubmit={() => onSubmit({} as PublicationFields)} />;
+});
 
 export default PublicationForm;
