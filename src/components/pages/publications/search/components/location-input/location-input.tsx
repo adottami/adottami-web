@@ -16,9 +16,7 @@ const LOCATION_INITIAL_STATE = {
 const LocationInput: FC = () => {
   const [locationValue, setLocationsValue] = useState<LocationProps>(LOCATION_INITIAL_STATE);
 
-  useEffect(() => {
-    console.log(locationValue);
-  }, [locationValue]);
+  useEffect(() => {}, [locationValue]);
 
   const handleSendForm = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
