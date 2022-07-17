@@ -20,7 +20,7 @@ const Checkbox: FC<Props> = ({ title, options }) => {
 
   return (
     <div className="row col-5">
-      <form className="flex flex-col gap-y-4" action="">
+      <div className="flex flex-col gap-y-4">
         {title && <p className="text-md font-bold">{title}</p>}
 
         {options.map((option) => {
@@ -39,7 +39,7 @@ const Checkbox: FC<Props> = ({ title, options }) => {
             </div>
           );
         })}
-      </form>
+      </div>
     </div>
   );
 };

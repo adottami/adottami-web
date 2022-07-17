@@ -1,22 +1,19 @@
-import { FC, useRef } from 'react';
+import { FC } from 'react';
 
 import Page from '@/components/common/page/page';
 import FormPageHeader from '@/components/pages/components/form-page-header/form-pageheader';
-import PublicationForm, { PublicationFormRef } from '@/components/pages/components/publication-form/publication-form';
+import PublicationForm from '@/components/pages/components/publication-form/publication-form';
 
-import FormFooter from './components/form-footer';
 import { PAGE_TITLE } from './constants';
 
 const CreatePublicationPage: FC = () => {
-  const formRef = useRef<PublicationFormRef>(null);
-
   return (
     <Page title={PAGE_TITLE}>
       <FormPageHeader />
 
-      <PublicationForm header="Qual pet você está anunciando?" ref={formRef} onSubmit={console.log} />
-
-      <FormFooter onClick={formRef.current?.submit} />
+      <div className="mx-auto w-full max-w-5xl px-6">
+        <PublicationForm type="create" header="Qual pet você está anunciando?" onSubmit={() => console.log('oi')} />
+      </div>
     </Page>
   );
 };
