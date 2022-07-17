@@ -3,7 +3,7 @@ import { FC, FormEvent, useEffect, useState } from 'react';
 
 import Input from '@/components/common/input/input';
 
-interface LocationProps {
+interface Location {
   state: string;
   city: string;
 }
@@ -14,7 +14,7 @@ const LOCATION_INITIAL_STATE = {
 };
 
 const LocationInput: FC = () => {
-  const [locationValue, setLocationsValue] = useState<LocationProps>(LOCATION_INITIAL_STATE);
+  const [locationValue, setLocationsValue] = useState<Location>(LOCATION_INITIAL_STATE);
 
   useEffect(() => {}, [locationValue]);
 
