@@ -1,20 +1,17 @@
-import { FC } from 'react';
+import { FC, RefObject } from 'react';
 
 import { PublicationFields } from '@/models/publication/types';
 
-export interface OnFieldChangeProps {
-  field: keyof PublicationFields;
-  value: PublicationFields[keyof PublicationFields];
-}
-
 interface Props {
   header: string;
-  formData: PublicationFields;
-  onFieldChange(props: OnFieldChangeProps): void;
+  onSubmit(values: PublicationFields): void;
+  ref: RefObject<HTMLFormElement> | null;
 }
 
-const PublicationForm: FC<Props> = () => {
-  return null;
+const PublicationForm: FC<Props> = (props) => {
+  const { ref } = props;
+
+  return <form ref={ref} />;
 };
 
 export default PublicationForm;

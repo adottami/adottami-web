@@ -1,7 +1,7 @@
-import { FC } from 'react';
+import { FC, RefObject } from 'react';
 
 interface Props {
-  onSubmit(): void;
+  formRef: RefObject<HTMLFormElement> | null;
 }
 
 const FormFooter: FC<Props> = () => null;
