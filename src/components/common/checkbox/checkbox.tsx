@@ -2,7 +2,7 @@
 import { ChangeEvent, FC, useState } from 'react';
 
 interface Props {
-  title: string;
+  title?: string;
   options: string[];
 }
 
@@ -21,7 +21,8 @@ const Checkbox: FC<Props> = ({ title, options }) => {
   return (
     <div className="row col-5">
       <form className="flex flex-col gap-y-4" action="">
-        <p className="text-md font-bold">{title}</p>
+        {title && <p className="text-md font-bold">{title}</p>}
+
         {options.map((option) => {
           return (
             <div key={option} className="flex gap-y-4">
