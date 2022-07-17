@@ -3,7 +3,6 @@ import { FC } from 'react';
 import Page from '@/components/common/page/page';
 import LocationInput from '@/components/pages/publications/search/components/location-input/location-input';
 
-import Categories from '../components/Categories/categories';
 import { PAGE_TITLE } from './constants';
 
 const SearchPublicationsPage: FC = () => {
