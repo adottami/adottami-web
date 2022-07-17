@@ -1,3 +1,4 @@
+import { AxiosError } from 'axios';
 import { useFormik } from 'formik';
 import Image from 'next/image';
 import router from 'next/router';
@@ -13,10 +14,10 @@ import Separator from '@/components/common/separator/separator';
 import AdottamiLogo from '@/components/icons/adottami-logo';
 import useAPI from '@/hooks/api/use-api/use-api';
 import useSession from '@/hooks/session/use-session/use-session';
-import { ApplyPhoneMask, UndoPhoneMask } from '@/utils/mask';
+import { applyPhoneMask, undoPhoneMask } from '@/utils/mask';
 
-import { PAGE_TITLE } from './constants';
-import { RegisterSchema } from './schemas/register-schema';
+import { PAGE_TITLE, TOAST_CONFIGS } from './constants';
+import { registerSchema } from './schemas/register-schema';
 
 const SignUpPage: FC = () => {
   const api = useAPI();
@@ -31,35 +32,23 @@ const SignUpPage: FC = () => {
       password: '',
       confirmPassword: '',
     },
-    validationSchema: RegisterSchema,
+    validationSchema: registerSchema,
     onSubmit: async (values) => {
       const userData = {
         name: values.name,
         email: values.email,
         password: values.password,
-        phoneNumber: UndoPhoneMask(values.telephone),
+        phoneNumber: undoPhoneMask(values.telephone),
       };
       try {
         await api.adottami.users.create(userData);
-        toast.success('Cadastro realizado com sucesso!', {
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-        });
+        toast.success('Cadastro realizado com sucesso!', TOAST_CONFIGS);
         await session.login(userData);
         router.push('/');
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      } catch (error: any) {
+      } catch (error) {
+        if (!(error instanceof AxiosError)) throw error;
         if (error.response?.status === 400) {
-          toast.error('Usuário já existente. Por favor, tente novamente.', {
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-          });
+          toast.error('Usuário já existente. Por favor, tente novamente.', TOAST_CONFIGS);
         }
       }
     },
@@ -106,7 +95,7 @@ const SignUpPage: FC = () => {
                     name="telephone"
                     label="Telefone"
                     placeholder="(XX) XXXXXXXXX"
-                    value={ApplyPhoneMask(values.telephone)}
+                    value={applyPhoneMask(values.telephone)}
                     onChange={handleChange}
                     errorMessage={showErrors ? errors.telephone : ''}
                     isRequired
