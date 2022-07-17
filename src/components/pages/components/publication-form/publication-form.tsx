@@ -8,7 +8,7 @@ interface Props {
 }
 
 export interface PublicationFormRef {
-  submit: void | undefined;
+  submit: (() => void) | undefined;
 }
 
 const PublicationForm = React.forwardRef<PublicationFormRef, Props>((props, ref) => {
@@ -19,7 +19,7 @@ const PublicationForm = React.forwardRef<PublicationFormRef, Props>((props, ref)
   useImperativeHandle(
     ref,
     () => ({
-      submit: formRef.current?.submit(),
+      submit: formRef.current?.submit,
     }),
     [],
   );

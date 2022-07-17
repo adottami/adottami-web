@@ -1,9 +1,7 @@
-import { FC, RefObject } from 'react';
-
-import { PublicationFormRef } from '@/components/pages/components/publication-form/publication-form';
+import { FC } from 'react';
 
 interface Props {
-  formRef: RefObject<PublicationFormRef>;
+  onClick: (() => void) | undefined;
 }
 
 const FormFooter: FC<Props> = () => null;

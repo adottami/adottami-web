@@ -16,7 +16,7 @@ const CreatePublicationPage: FC = () => {
 
       <PublicationForm header="Qual pet você está anunciando?" ref={formRef} onSubmit={console.log} />
 
-      <FormFooter formRef={formRef} />
+      <FormFooter onClick={formRef.current?.submit} />
     </Page>
   );
 };
