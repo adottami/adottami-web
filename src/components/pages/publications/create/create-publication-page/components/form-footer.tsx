@@ -3,13 +3,9 @@ import { FC } from 'react';
 import Button from '@/components/common/button/button';
 import InlineLink from '@/components/common/inline-link/inline-link';
 
-interface Props {
-  formRef: React.RefObject<HTMLFormElement>;
-}
+interface Props {}
 
-const CreatePublicationFormFooter: FC<Props> = (props) => {
-  const { formRef } = props;
-
+const CreatePublicationFormFooter: FC<Props> = () => {
   return (
     <footer className="mb-20 mt-8 flex flex-col gap-4 md:flex-row md:gap-8">
       <div className="flex-1 text-sm lg:text-base">
@@ -23,7 +19,7 @@ const CreatePublicationFormFooter: FC<Props> = (props) => {
       </div>
 
       <div className="w-44">
-        <Button onClick={formRef.current?.submit}>Publicar anúncio</Button>
+        <Button type="submit">Publicar anúncio</Button>
       </div>
     </footer>
   );

@@ -2,16 +2,12 @@ import { FC } from 'react';
 
 import Button from '@/components/common/button/button';
 
-interface Props {
-  formRef: React.RefObject<HTMLFormElement>;
-}
+interface Props {}
 
-const EditPublicationFormFooter: FC<Props> = (props) => {
-  const { formRef } = props;
-
+const EditPublicationFormFooter: FC<Props> = () => {
   return (
     <footer className="mb-20 mt-8">
-      <Button onClick={formRef.current?.submit}>Salvar alterações</Button>
+      <Button type="submit">Salvar alterações</Button>
     </footer>
   );
 };

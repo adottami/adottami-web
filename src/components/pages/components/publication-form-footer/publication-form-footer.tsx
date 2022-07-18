@@ -5,15 +5,14 @@ import EditPublicationFormFooter from '../../publications/edit/edit-publication-
 
 interface Props {
   type: 'create' | 'edit';
-  formRef: React.RefObject<HTMLFormElement>;
 }
 
 const PublicationFormFooter: FC<Props> = (props) => {
-  const { type, formRef } = props;
+  const { type } = props;
 
-  if (type === 'create') return <CreatePublicationFormFooter formRef={formRef} />;
+  if (type === 'create') return <CreatePublicationFormFooter />;
 
-  if (type === 'edit') return <EditPublicationFormFooter formRef={formRef} />;
+  if (type === 'edit') return <EditPublicationFormFooter />;
 
   return null;
 };
