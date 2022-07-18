@@ -4,14 +4,15 @@ import Page from '@/components/common/page/page';
 
 import Categories from '../components/categories';
 import LocationInput from '../components/location-input';
+import PublicationList from '../components/publication-list';
 import { PAGE_TITLE } from './constants';
 
 const SearchPublicationsPage: FC = () => {
   return (
     <Page title={PAGE_TITLE}>
       <div className="min-w-screen flex h-screen flex-col items-center">
-        <div className="flex h-60 w-full items-center justify-center bg-secondary-medium md:h-32">
-          <div className="w-4/5 md:w-3/5">
+        <div className="flex h-60 w-full items-center justify-center bg-secondary-medium p-6 md:h-32">
+          <div className="w-full md:w-3/5">
             <LocationInput />
           </div>
         </div>
@@ -21,6 +22,10 @@ const SearchPublicationsPage: FC = () => {
           <div className="scroll h-3/5 w-full overflow-x-scroll scroll-smooth scrollbar-thin scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-track-transparent scrollbar-thumb-surface-primary md:overflow-x-auto">
             <Categories />
           </div>
+        </div>
+
+        <div className="mt-7 flex w-full justify-center md:w-3/5">
+          <PublicationList />
         </div>
       </div>
     </Page>
