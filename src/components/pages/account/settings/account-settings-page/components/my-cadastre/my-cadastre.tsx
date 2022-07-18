@@ -52,8 +52,8 @@ const MyCadastre: FC<Props> = () => {
       <Box>
         {accountOptions.map((account, index) => (
           <React.Fragment key={account.label}>
-            <div className="flex justify-between">
-              <div className="flex gap-2">
+            <div className="flex flex-wrap justify-between gap-2 text-sm md:text-base">
+              <div className="flex flex-wrap gap-2">
                 <strong>{account.label}</strong>
                 <p>{account.value}</p>
                 {account.isVerified && (
