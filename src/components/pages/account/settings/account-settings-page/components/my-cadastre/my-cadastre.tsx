@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { Check } from 'phosphor-react';
 import profile from 'public/images/image-profile-not-found.png';
-import { FC } from 'react';
+import React, { FC } from 'react';
 
 import Button from '@/components/common/button/button';
 import InlineLink from '@/components/common/inline-link/inline-link';
@@ -51,7 +51,7 @@ const MyCadastre: FC<Props> = () => {
 
       <Box>
         {accountOptions.map((account, index) => (
-          <div>
+          <React.Fragment key={account.label}>
             <div className="flex justify-between">
               <div className="flex gap-2">
                 <strong>{account.label}</strong>
@@ -71,7 +71,7 @@ const MyCadastre: FC<Props> = () => {
                 <Separator />
               </div>
             )}
-          </div>
+          </React.Fragment>
         ))}
       </Box>
     </DefaultSection>
