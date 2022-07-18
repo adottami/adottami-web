@@ -1,24 +1,24 @@
 import { FC } from 'react';
 
 import Page from '@/components/common/page/page';
-import LocationInput from '@/components/pages/publications/search/components/location-input/location-input';
 
-import Categories from '../components/Categories/categories';
+import Categories from '../components/categories';
+import LocationInput from '../components/location-input';
 import { PAGE_TITLE } from './constants';
 
 const SearchPublicationsPage: FC = () => {
   return (
     <Page title={PAGE_TITLE}>
-      <div className="min-w-screen flex h-screen flex-col md:items-center">
+      <div className="min-w-screen flex h-screen flex-col items-center">
         <div className="flex h-60 w-full items-center justify-center bg-secondary-medium md:h-32">
-          <div className="w-4/5">
+          <div className="w-4/5 md:w-3/5">
             <LocationInput />
           </div>
         </div>
 
-        <div className="mt-8 px-5 md:w-4/5">
+        <div className="mt-8 w-4/5 px-5 md:w-3/5 ">
           <h1 className="mb-4 text-xl font-bold text-primary-dark md:mb-8 md:text-2xl">Buscar por categoria</h1>
-          <div className="h-full w-full overflow-x-scroll scroll-smooth whitespace-nowrap">
+          <div className="scroll h-3/5 w-full overflow-x-scroll scroll-smooth scrollbar-thin scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-track-transparent scrollbar-thumb-surface-primary md:overflow-x-auto">
             <Categories />
           </div>
         </div>
