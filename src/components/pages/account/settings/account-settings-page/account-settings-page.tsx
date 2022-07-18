@@ -5,6 +5,8 @@ import Page from '@/components/common/page/page';
 import Footer from '@/components/pages/components/footer/footer';
 import Header from '@/components/pages/components/header/header';
 
+import LoginAndSecurity from './components/login-and-security/login-and-security';
+import MyCadastre from './components/my-cadastre/my-cadastre';
 import { PAGE_TITLE } from './constants';
 
 type PageType = 'my-cadastre' | 'security-and-login';
@@ -32,17 +34,22 @@ const AccountSettingsPage: FC = () => {
   return (
     <Page title={PAGE_TITLE}>
       <Header isAuth username="Matheus" />
-      <div className="mx-auto mb-auto mt-14 flex w-full max-w-2xl">
-        <nav>
-          <ul className="flex flex-col gap-4">
-            {navBarOptions.map((option) => (
-              <li className={`flex gap-4 rounded-full ${optionColors(option.isSelected)} cursor-pointer py-2 px-4`}>
-                {option.icon}
-                {option.label}
-              </li>
-            ))}
-          </ul>
-        </nav>
+
+      <div className="mx-auto mt-14 mb-auto flex flex w-full max-w-2xl justify-between gap-8">
+        <div className="mt-4">
+          <nav>
+            <ul className="flex flex-col gap-4">
+              {navBarOptions.map((option) => (
+                <li className={`flex gap-4 rounded-full ${optionColors(option.isSelected)} cursor-pointer py-2 px-4`}>
+                  {option.icon}
+                  {option.label}
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
+
+        {selectedPage === 'my-cadastre' ? <MyCadastre /> : <LoginAndSecurity />}
       </div>
 
       <Footer />
