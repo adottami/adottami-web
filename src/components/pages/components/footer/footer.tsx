@@ -8,7 +8,7 @@ import { footerTestIds } from './constants';
 interface Props {}
 
 const Footer: FC<Props> = () => (
-  <div className="w-full border-t-2 border-t-neutral-100 bg-surface-secondary">
+  <div className="fixed bottom-0 w-full border-t-2 border-t-neutral-100 bg-surface-secondary">
     <div className="flex flex-col gap-6 p-6 sm:flex-row sm:justify-between sm:px-24 sm:py-12">
       <div>
         <AdottamiLogo width="200" height="40" className="mb-4" data-testid={footerTestIds.logo()} />
