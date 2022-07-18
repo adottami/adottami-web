@@ -4,12 +4,11 @@ import React, { FC, FormEventHandler, useRef } from 'react';
 import Checkbox from '@/components/common/checkbox/checkbox';
 import FileInput from '@/components/common/file-input/file-input';
 import Input from '@/components/common/input/input';
-import RadioGroup from '@/components/common/radio-group/radio-group';
 import TextArea from '@/components/common/text-area/text-area';
 import { PublicationFields } from '@/models/publication/types';
 
 import PublicationFormFooter from '../publication-form-footer/publication-form-footer';
-import { FeatureOptions, genderOptions } from './contants';
+import { FeatureOptions } from './contants';
 
 interface Props {
   header: string;
