@@ -10,6 +10,7 @@ interface Props {
 
 const MenuCard: FC<Props> = ({ icon, href, text }) => {
   const router = useRouter();
+
   return (
     <div
       className={`flex items-center ${
