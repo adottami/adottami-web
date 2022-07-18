@@ -12,16 +12,11 @@ import AdottamiLogo from '@/components/icons/adottami-logo';
 import { PAGE_TITLE } from './constants';
 
 const SignInPage: FC = () => {
-  /* function handleSubmit(e: any) {
-    e.preventDefault();
-  } */
-
   return (
     <Page title={PAGE_TITLE}>
       <div className="flex min-h-screen w-full overflow-y-auto">
         <div className="mx-[1.5rem] my-[2.5rem] flex h-full w-full flex-col items-start gap-8 md:m-[3.5rem] md:w-1/2 xl:m-[6rem] 2xl:gap-14">
           <AdottamiLogo className="h-6 w-auto md:h-8 2xl:h-10" />
-
           <div className="w-full md:w-3/4 xl:w-4/6">
             <div className="flex flex-col gap-4 md:gap-6">
               <h3 className="w-full text-xl font-bold text-primary-dark md:text-2xl">Acesse a sua conta</h3>
@@ -40,7 +35,7 @@ const SignInPage: FC = () => {
                 </p>
                 <Separator />
                 <p className="text-center text-sm text-neutral-800 md:text-md">
-                  Não tem uma conta? <InlineLink href="#">Cadastre-se</InlineLink>
+                  Não tem uma conta? <InlineLink href="/sign-up">Cadastre-se</InlineLink>
                 </p>
               </div>
             </div>
