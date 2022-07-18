@@ -2,7 +2,15 @@ import { render, screen } from '@testing-library/react';
 
 import { expectPageTitleWithApplicationName } from '@/components/common/page/__tests__/utils';
 
-import { homePageTestIds, PAGE_TITLE, SLOGAN_MESSAGE } from '../constants';
+import {
+  FIRST_DESCRIPTION_OF_HOW_IT_WORKS,
+  homePageTestIds,
+  HOW_ADOTTAMI_WORKS,
+  PAGE_TITLE,
+  SECOND_DESCRIPTION_OF_HOW_IT_WORKS,
+  SLOGAN_MESSAGE,
+  THIRD_DESCRIPTION_OF_HOW_IT_WORKS,
+} from '../constants';
 import HomePage from '../home-page';
 
 describe('Home page', () => {
@@ -14,5 +22,14 @@ describe('Home page', () => {
     expect(screen.getByTestId(homePageTestIds.firstSection.description())).toBeInTheDocument();
     expect(screen.getByTestId(homePageTestIds.firstSection.button())).toBeInTheDocument();
     expect(screen.getByText(/saiba mais/i)).toBeInTheDocument();
+  });
+
+  it('should render `how adottami works` section correctly', () => {
+    render(<HomePage />);
+    expect(screen.getByText(HOW_ADOTTAMI_WORKS)).toBeInTheDocument();
+    expect(screen.getByText(FIRST_DESCRIPTION_OF_HOW_IT_WORKS)).toBeInTheDocument();
+    expect(screen.getByText(SECOND_DESCRIPTION_OF_HOW_IT_WORKS)).toBeInTheDocument();
+    expect(screen.getByText(THIRD_DESCRIPTION_OF_HOW_IT_WORKS)).toBeInTheDocument();
+    expect(screen.getByAltText(/entenda como a adottami funciona/i)).toBeInTheDocument();
   });
 });

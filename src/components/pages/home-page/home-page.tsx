@@ -5,7 +5,15 @@ import Button from '@/components/common/button/button';
 import InlineLink from '@/components/common/inline-link/inline-link';
 import Page from '@/components/common/page/page';
 
-import { homePageTestIds, PAGE_TITLE, SLOGAN_MESSAGE } from './constants';
+import {
+  FIRST_DESCRIPTION_OF_HOW_IT_WORKS,
+  homePageTestIds,
+  HOW_ADOTTAMI_WORKS,
+  PAGE_TITLE,
+  SECOND_DESCRIPTION_OF_HOW_IT_WORKS,
+  SLOGAN_MESSAGE,
+  THIRD_DESCRIPTION_OF_HOW_IT_WORKS,
+} from './constants';
 
 const HomePage: FC = () => (
   <Page title={PAGE_TITLE}>
@@ -43,27 +51,18 @@ const HomePage: FC = () => (
         <div className="relative hidden h-full w-2/5 tablet:flex">
           <Image
             src="/images/how-adottami-works.png"
-            alt="Entenda como Adottami funciona"
+            alt="Entenda como a Adottami funciona"
             layout="fill"
             objectFit="contain"
           />
         </div>
-        <div className="w-full sm:w-1/2">
+        <div className="w-full md:w-1/2 tablet:w-1/3">
           <h2 className="text-xl font-bold leading-none text-primary-dark md:text-2xl lg:text-3xl">
-            Entenda como Adottami funciona
+            {HOW_ADOTTAMI_WORKS}
           </h2>
-          <p className="text-md text-primary-dark lg:text-lg">
-            1- ONGs ou protetores fazem o seu cadastro gratuitamente e no mesmo instante já podem anúnciar os animais
-            com detalhes sobre suas características e personalidade;
-          </p>
-          <p className="text-md text-primary-dark lg:text-lg">
-            2- Pessoas que estão interessadas em ter um novo bichinho vão entrar no site e procurar um que tenha a ver
-            com o perfil dele;
-          </p>
-          <p className="text-md text-primary-dark lg:text-lg">
-            3- Quando acharem aquele especial, é só entrar em contato com o anunciante e pronto, é só combinar com o
-            anunciante como buscar o mais novo membro da família!
-          </p>
+          <p className="text-md text-primary-dark lg:text-lg">{FIRST_DESCRIPTION_OF_HOW_IT_WORKS}</p>
+          <p className="text-md text-primary-dark lg:text-lg">{SECOND_DESCRIPTION_OF_HOW_IT_WORKS}</p>
+          <p className="text-md text-primary-dark lg:text-lg">{THIRD_DESCRIPTION_OF_HOW_IT_WORKS}</p>
         </div>
       </section>
     </div>
