@@ -68,7 +68,6 @@
     "prettier": "^2.7.1",
     "prettier-plugin-tailwindcss": "^0.1.11",
     "react-test-renderer": "^18.2.0",
-    "resize-observer-polyfill": "^1.5.1",
     "tailwind-scrollbar": "adoxography/tailwind-scrollbar#pull/36/head",
     "tailwindcss": "^3.1.4",
     "ts-node": "^10.8.1",

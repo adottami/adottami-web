@@ -41,7 +41,7 @@ const PublicationForm: FC<Props> = (props) => {
             <Input type="text" label="Nome" placeholder="Ex: Tom" isRequired />
             <TextArea type="text" label="Descrição" placeholder="Descreva a história do pet" isRequired />
 
-            <RadioGroup id="0" label="Sexo" isRequired options={genderOptions} />
+            {/* <RadioGroup id="gender" label="Sexo" isRequired options={genderOptions} /> */}
 
             <Input type="text" label="Raça" placeholder="Ex: Puddle" isRequired />
 

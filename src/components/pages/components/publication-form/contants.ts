@@ -1,8 +1,8 @@
 import { RadioProps } from '@/components/common/radio-group/radio-input';
 
 export const genderOptions = [
-  { id: '1', label: 'Macho' },
-  { id: '2', label: 'Fêmea' },
+  { id: 'macho', label: 'Macho' },
+  { id: 'fêmea', label: 'Fêmea' },
 ] as RadioProps[];
 
 export const FeatureOptions = [
