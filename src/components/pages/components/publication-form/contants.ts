@@ -1,7 +1,20 @@
 import { RadioProps } from '@/components/common/radio-group/radio-input';
 import { CreatePublicationData } from '@/services/adottami-client/publication-client/types';
 
-type FormKeys = (keyof CreatePublicationData)[];
+type FormKey = keyof CreatePublicationData;
+
+export const InputKeys = [
+  'name',
+  'description',
+  'breed',
+  'weightInGrams',
+  'ageInYears',
+  'zipCode',
+  'state',
+  'city',
+  'category',
+  'gender',
+] as FormKey[];
 
 export const genderOptions = [
   { id: 'macho', label: 'Macho' },
@@ -21,13 +34,4 @@ export const FeatureOptions = [
   'Vive bem em casa com quintal',
 ] as string[];
 
-export const InputKeys = [
-  'name',
-  'description',
-  'breed',
-  'weightInGrams',
-  'ageInYears',
-  'zipCode',
-  'state',
-  'city',
-] as FormKeys;
+export const CategoryOptions = ['cachorro', 'coelho', 'gato'];

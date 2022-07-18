@@ -12,7 +12,7 @@ import Publication from '@/models/publication/publication';
 import { CreatePublicationData } from '@/services/adottami-client/publication-client/types';
 
 import PublicationFormFooter from '../publication-form-footer/publication-form-footer';
-import { FeatureOptions, genderOptions, InputKeys } from './contants';
+import { CategoryOptions, FeatureOptions, genderOptions, InputKeys } from './contants';
 import { publicationFormSchema } from './schemas/publication-form-schema';
 
 interface Props {
@@ -45,6 +45,7 @@ const PublicationForm: FC<Props> = (props) => {
   function clearEmptyValues(values: CreatePublicationData): CreatePublicationData {
     return Object.keys(values).reduce((accumulate, currentValue) => {
       const field = currentValue as keyof CreatePublicationData;
+      console.log('field', field, values[field]);
       return values[field]
         ? {
             ...accumulate,
@@ -109,10 +110,16 @@ const PublicationForm: FC<Props> = (props) => {
             />
 
             {/* TODO: the select component is missing */}
-            <Select />
+            <Select
+              label="Categoria"
+              defaultValue="Selecione uma categoria"
+              isRequired
+              options={CategoryOptions}
+              {...getInputProps('category')}
+            />
 
             {/* TODO: fix RadioGroup usage because usage is breaking tests on this page and I don't know why */}
-            <RadioGroup id="gender" label="Sexo" isRequired options={genderOptions} />
+            <RadioGroup label="Sexo" isRequired options={genderOptions} {...getInputProps('gender')} />
 
             <Input type="text" label="Raça" placeholder="Ex: Puddle" {...getInputProps('breed')} />
 
