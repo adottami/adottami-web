@@ -36,7 +36,11 @@ const PublicationForm: FC<Props> = (props) => {
       <form noValidate ref={formRef} onSubmit={handleSubmit} className="">
         <div className="rounded-xl border-2 border-neutral-100 p-6">
           <div className="flex flex-col gap-4 md:w-3/6">
-            <FileInput label="Fotos" description={['Adicione até ', <b>5 fotos</b>]} variant="image" />
+            <FileInput
+              label="Fotos"
+              description={[<React.Fragment key="first">Adicione até </React.Fragment>, <b key="second">5 fotos</b>]}
+              variant="image"
+            />
 
             <Input type="text" label="Nome" placeholder="Ex: Tom" isRequired />
             <TextArea type="text" label="Descrição" placeholder="Descreva a história do pet" isRequired />
