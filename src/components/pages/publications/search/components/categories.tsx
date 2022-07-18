@@ -38,6 +38,7 @@ const Categories: FC = () => {
       {categoriesInfo.map(({ variant, name }) => (
         <button
           type="button"
+          data-testid={`categorie-${variant}`}
           className="flex h-12 w-32 min-w-[7rem] items-center justify-center gap-2 rounded-pill border-2 border-neutral-100 md:w-4/5"
         >
           <CategoryIcon variant={variant} width="1.6em" height="1.6em" />
