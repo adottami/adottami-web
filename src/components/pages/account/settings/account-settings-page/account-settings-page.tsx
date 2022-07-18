@@ -36,7 +36,7 @@ const AccountSettingsPage: FC = () => {
       <div className="h-screen">
         <Header isAuth username="Matheus" />
 
-        <div className="relative mx-auto mt-14 mb-24 flex w-full max-w-2xl justify-between gap-8">
+        <div className="mx-auto mt-14 mb-24 flex w-full max-w-4xl justify-between gap-8">
           <div className="mt-4">
             <nav>
               <ul className="flex flex-col gap-4">
