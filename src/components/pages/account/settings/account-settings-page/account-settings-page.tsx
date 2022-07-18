@@ -10,7 +10,7 @@ import { PAGE_TITLE } from './constants';
 type PageType = 'my-cadastre' | 'security-and-login';
 
 const AccountSettingsPage: FC = () => {
-  const [selectedPage, setSelectedPage] = useState<PageType>('my-cadastre');
+  const [selectedPage] = useState<PageType>('my-cadastre');
 
   const navBarOptions = [
     {
