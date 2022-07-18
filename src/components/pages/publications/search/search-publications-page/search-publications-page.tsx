@@ -16,7 +16,7 @@ const SearchPublicationsPage: FC = () => {
           </div>
         </div>
 
-        <div className="mt-8 w-4/5 px-5 md:w-3/5 ">
+        <div className="mt-8 w-11/12 px-5 md:w-3/5 ">
           <h1 className="mb-4 text-xl font-bold text-primary-dark md:mb-8 md:text-2xl">Buscar por categoria</h1>
           <div className="scroll h-3/5 w-full overflow-x-scroll scroll-smooth scrollbar-thin scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-track-transparent scrollbar-thumb-surface-primary md:overflow-x-auto">
             <Categories />
