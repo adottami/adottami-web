@@ -31,24 +31,22 @@ const NavBar: FC<Props> = (props) => {
   };
 
   return (
-    <div className="mt-4 hidden lg:flex">
-      <nav>
-        <ul className="flex flex-col gap-4">
-          {navBarOptions.map((option) => (
-            <li>
-              <button
-                type="button"
-                onClick={option.onClick}
-                className={`flex w-full gap-4 rounded-full ${optionColors(option.isSelected)} cursor-pointer py-2 px-4`}
-              >
-                {option.icon}
-                {option.label}
-              </button>
-            </li>
-          ))}
-        </ul>
-      </nav>
-    </div>
+    <nav className="mt-4 hidden lg:flex">
+      <ul className="flex flex-col gap-4">
+        {navBarOptions.map((option) => (
+          <li>
+            <button
+              type="button"
+              onClick={option.onClick}
+              className={`flex w-full gap-4 rounded-full ${optionColors(option.isSelected)} cursor-pointer py-2 px-4`}
+            >
+              {option.icon}
+              {option.label}
+            </button>
+          </li>
+        ))}
+      </ul>
+    </nav>
   );
 };
 
