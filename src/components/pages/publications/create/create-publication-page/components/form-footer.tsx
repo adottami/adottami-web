@@ -7,11 +7,11 @@ interface Props {
   formRef: React.RefObject<HTMLFormElement>;
 }
 
-const FormFooter: FC<Props> = (props) => {
+const CreatePublicationFormFooter: FC<Props> = (props) => {
   const { formRef } = props;
 
   return (
-    <div className="mb-20 mt-8 flex flex-col gap-4 md:flex-row md:gap-8">
+    <footer className="mb-20 mt-8 flex flex-col gap-4 md:flex-row md:gap-8">
       <div className="flex-1 text-sm lg:text-base">
         <p>
           A Adottami não compartilha seus dados com empresas. O uso de seus dados pode ser consultado em nossos{' '}
@@ -25,8 +25,8 @@ const FormFooter: FC<Props> = (props) => {
       <div className="w-44">
         <Button onClick={formRef.current?.submit}>Publicar anúncio</Button>
       </div>
-    </div>
+    </footer>
   );
 };
 
-export default FormFooter;
+export default CreatePublicationFormFooter;

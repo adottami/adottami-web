@@ -1,6 +1,7 @@
 import { FC } from 'react';
 
-import FormFooter from '../../publications/create/create-publication-page/components/form-footer';
+import CreatePublicationFormFooter from '../../publications/create/create-publication-page/components/form-footer';
+import EditPublicationFormFooter from '../../publications/edit/edit-publication-page/components/form-footer';
 
 interface Props {
   type: 'create' | 'edit';
@@ -10,7 +11,9 @@ interface Props {
 const PublicationFormFooter: FC<Props> = (props) => {
   const { type, formRef } = props;
 
-  if (type === 'create') return <FormFooter formRef={formRef} />;
+  if (type === 'create') return <CreatePublicationFormFooter formRef={formRef} />;
+
+  if (type === 'edit') return <EditPublicationFormFooter formRef={formRef} />;
 
   return null;
 };
