@@ -9,7 +9,6 @@ import { PAGE_TITLE } from './constants';
 
 const CreatePublicationPage: FC = () => {
   async function handleSubmit(values: CreatePublicationData) {
-    console.log('oiiiiii');
     console.log(values);
   }
 
@@ -17,9 +16,7 @@ const CreatePublicationPage: FC = () => {
     <Page title={PAGE_TITLE}>
       <FormPageHeader />
 
-      <div className="mx-auto w-full max-w-5xl px-6">
-        <PublicationForm type="create" header="Qual pet você está anunciando?" onSubmit={handleSubmit} />
-      </div>
+      <PublicationForm type="create" header="Qual pet você está anunciando?" onSubmit={handleSubmit} />
     </Page>
   );
 };

@@ -25,7 +25,7 @@ const PublicationForm: FC<Props> = (props) => {
   const { values, errors, handleChange, handleSubmit } = useFormik({
     initialValues: loadInitialValues(),
     validationSchema: publicationFormSchema,
-    onSubmit: async (values) => onSubmit({ ...values }),
+    onSubmit: async (values) => onSubmit({ ...clearEmptyValues(values) }),
   });
 
   function createEmptyValues(): CreatePublicationData {
@@ -36,6 +36,18 @@ const PublicationForm: FC<Props> = (props) => {
       }),
       {} as CreatePublicationData,
     );
+  }
+
+  function clearEmptyValues(values: CreatePublicationData): CreatePublicationData {
+    return Object.keys(values).reduce((accumulate, currentValue) => {
+      const field = currentValue as keyof CreatePublicationData;
+      return values[field]
+        ? {
+            ...accumulate,
+            [currentValue]: values[field],
+          }
+        : accumulate;
+    }, {} as CreatePublicationData);
   }
 
   function loadInitialValues() {
@@ -58,7 +70,7 @@ const PublicationForm: FC<Props> = (props) => {
   }
 
   return (
-    <div>
+    <div className="mx-auto w-full max-w-5xl px-6">
       <div className="mb-8 mt-12">
         <h2 className="text-2xl font-bold text-primary-dark">{header}</h2>
         <p>As informações com (*) são obrigatórias</p>
@@ -89,14 +101,14 @@ const PublicationForm: FC<Props> = (props) => {
 
             {/* TODO: missing select component */}
 
-            {/* RadioGroup use is breaking tests of this page and I dont know the reason */}
+            {/* TODO: fix RadioGroup use because use is breaking tests of this page and I don't know the reason */}
             {/* <RadioGroup id="gender" name="gender" label="Sexo" isRequired options={genderOptions} /> */}
 
-            <Input type="text" label="Raça" placeholder="Ex: Puddle" isRequired {...getInputProps('breed')} />
+            <Input type="text" label="Raça" placeholder="Ex: Puddle" {...getInputProps('breed')} />
 
             <div className="flex gap-4">
-              <Input type="text" label="Peso" placeholder="Ex: 10 Kg" isRequired {...getInputProps('weightInGrams')} />
-              <Input type="text" label="Idade" placeholder="Ex: 5 meses" isRequired {...getInputProps('ageInYears')} />
+              <Input type="text" label="Peso" placeholder="Ex: 10 Kg" {...getInputProps('weightInGrams')} />
+              <Input type="text" label="Idade" placeholder="Ex: 5 meses" {...getInputProps('ageInYears')} />
             </div>
 
             <Checkbox title="Características" options={FeatureOptions} />
