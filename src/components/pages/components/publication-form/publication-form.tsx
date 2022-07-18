@@ -5,12 +5,13 @@ import React, { FC, FormEventHandler, useState } from 'react';
 import Checkbox from '@/components/common/checkbox/checkbox';
 import FileInput from '@/components/common/file-input/file-input';
 import Input from '@/components/common/input/input';
+import RadioGroup from '@/components/common/radio-group/radio-group';
 import TextArea from '@/components/common/text-area/text-area';
 import Publication from '@/models/publication/publication';
 import { CreatePublicationData } from '@/services/adottami-client/publication-client/types';
 
 import PublicationFormFooter from '../publication-form-footer/publication-form-footer';
-import { FeatureOptions, InputKeys } from './contants';
+import { FeatureOptions, genderOptions, InputKeys } from './contants';
 import { publicationFormSchema } from './schemas/publication-form-schema';
 
 interface Props {
@@ -109,7 +110,7 @@ const PublicationForm: FC<Props> = (props) => {
             {/* TODO: the select component is missing */}
 
             {/* TODO: fix RadioGroup usage because usage is breaking tests on this page and I don't know why */}
-            {/* <RadioGroup id="gender" name="gender" label="Sexo" isRequired options={genderOptions} /> */}
+            <RadioGroup id="gender" label="Sexo" isRequired options={genderOptions} />
 
             <Input type="text" label="Raça" placeholder="Ex: Puddle" {...getInputProps('breed')} />
 
