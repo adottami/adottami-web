@@ -1,11 +1,13 @@
+import ResizeObserver from 'resize-observer-polyfill';
+import '@testing-library/jest-dom';
+import '@testing-library/jest-dom/extend-expect';
+
 import createNextHeadMock from './mocks/next-head';
 import testServer from './test-server';
 import testQueryClient from './utils/test-query-client';
-import '@testing-library/jest-dom';
-import '@testing-library/jest-dom/extend-expect';
 import './utils/screen-queries';
 
-global.ResizeObserver = require('resize-observer-polyfill');
+global.ResizeObserver = ResizeObserver;
 
 beforeAll(async () => {
   testServer.listen();
