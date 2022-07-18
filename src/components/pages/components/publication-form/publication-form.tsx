@@ -6,6 +6,7 @@ import Checkbox from '@/components/common/checkbox/checkbox';
 import FileInput from '@/components/common/file-input/file-input';
 import Input from '@/components/common/input/input';
 import TextArea from '@/components/common/text-area/text-area';
+import Publication from '@/models/publication/publication';
 import { CreatePublicationData } from '@/services/adottami-client/publication-client/types';
 
 import PublicationFormFooter from '../publication-form-footer/publication-form-footer';
@@ -16,6 +17,7 @@ interface Props {
   header: string;
   onSubmit: (values: CreatePublicationData) => Promise<void>;
   type: 'create' | 'edit';
+  previousValues?: Publication;
 }
 
 const PublicationForm: FC<Props> = (props) => {
@@ -50,8 +52,13 @@ const PublicationForm: FC<Props> = (props) => {
     }, {} as CreatePublicationData);
   }
 
+  // TODO: this function should be created on edit publication page task
+  function createLoadedValues(): CreatePublicationData {
+    return {} as CreatePublicationData;
+  }
+
   function loadInitialValues() {
-    return createEmptyValues();
+    return type === 'create' ? createEmptyValues() : createLoadedValues();
   }
 
   const onHandleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
