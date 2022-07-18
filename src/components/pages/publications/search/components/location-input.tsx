@@ -33,7 +33,7 @@ const LocationInput: FC = () => {
     <form onSubmit={handleSendForm} className="flex w-full flex-col gap-4 md:flex-row md:justify-between">
       <Input variant="searchLocation" placeholder="Estado" id="state" type="text" name="state" />
       <Input variant="searchLocation" placeholder="Cidade" id="city" type="text" name="city" />
-      <Button type="submit" variant="positive">
+      <Button type="submit" variant="positive" data-testid="search-button">
         <MagnifyingGlass size={20} />
         <span className="text-sm  md:hidden md:text-md 2xl:text-md">Buscar</span>
       </Button>
