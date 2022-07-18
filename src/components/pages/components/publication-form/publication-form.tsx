@@ -99,9 +99,9 @@ const PublicationForm: FC<Props> = (props) => {
               {...getInputProps('description')}
             />
 
-            {/* TODO: missing select component */}
+            {/* TODO: the select component is missing */}
 
-            {/* TODO: fix RadioGroup use because use is breaking tests of this page and I don't know the reason */}
+            {/* TODO: fix RadioGroup usage because usage is breaking tests on this page and I don't know why */}
             {/* <RadioGroup id="gender" name="gender" label="Sexo" isRequired options={genderOptions} /> */}
 
             <Input type="text" label="Raça" placeholder="Ex: Puddle" {...getInputProps('breed')} />

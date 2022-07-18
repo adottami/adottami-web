@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
 import Page from '@/components/common/page/page';
-import FormPageHeader from '@/components/pages/components/form-page-header/form-pageheader';
+import FormPageHeader from '@/components/pages/components/form-page-header/form-page-header';
 import PublicationForm from '@/components/pages/components/publication-form/publication-form';
 import { CreatePublicationData } from '@/services/adottami-client/publication-client/types';
 
