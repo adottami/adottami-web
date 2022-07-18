@@ -1,4 +1,6 @@
+import Image from 'next/image';
 import { Check } from 'phosphor-react';
+import profile from 'public/images/image-profile-not-found.png';
 import { FC } from 'react';
 
 import Button from '@/components/common/button/button';
@@ -33,6 +35,11 @@ const MyCadastre: FC<Props> = () => {
     <DefaultSection title="Meu cadastro" description="Configure o seu cadastro.">
       <Box title="Dados da conta">
         <form className="flex flex-col gap-4">
+          <div className="flex w-16 flex-col items-center gap-4">
+            <Image src={profile} alt="Foto de perfil" width={64} height={64} className="rounded-full" />
+            <InlineLink onClick={() => console.log('Alterar foto de perfil')}>Alterar</InlineLink>
+          </div>
+
           <Input label="Nome completo" isRequired />
           <Input label="Telefone" isRequired />
 
@@ -41,9 +48,10 @@ const MyCadastre: FC<Props> = () => {
           </div>
         </form>
       </Box>
+
       <Box>
         {accountOptions.map((account, index) => (
-          <>
+          <div>
             <div className="flex justify-between">
               <div className="flex gap-2">
                 <strong>{account.label}</strong>
@@ -56,14 +64,14 @@ const MyCadastre: FC<Props> = () => {
                 )}
               </div>
 
-              <InlineLink href="/">{account.buttonLabel}</InlineLink>
+              <InlineLink onClick={account.onClick}>{account.buttonLabel}</InlineLink>
             </div>
             {index < accountOptions.length - 1 && (
               <div className="my-8">
                 <Separator />
               </div>
             )}
-          </>
+          </div>
         ))}
       </Box>
     </DefaultSection>
