@@ -9,6 +9,7 @@ const MyCadastre: FC<Props> = () => {
   return (
     <DefaultSection title="Meu cadastro" description="Configure o seu cadastro.">
       <Box>teste</Box>
+      <Box>teste</Box>
     </DefaultSection>
   );
 };

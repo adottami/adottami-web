@@ -15,7 +15,7 @@ const DefaultSection: FCC<Props> = (props) => {
         <p className="text-md text-neutral-500">{description}</p>
       </div>
 
-      {children}
+      <div className="flex flex-col gap-6">{children}</div>
     </div>
   );
 };

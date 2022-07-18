@@ -33,26 +33,28 @@ const AccountSettingsPage: FC = () => {
 
   return (
     <Page title={PAGE_TITLE}>
-      <Header isAuth username="Matheus" />
+      <div className="h-screen">
+        <Header isAuth username="Matheus" />
 
-      <div className="mx-auto mt-14 mb-auto flex flex w-full max-w-2xl justify-between gap-8">
-        <div className="mt-4">
-          <nav>
-            <ul className="flex flex-col gap-4">
-              {navBarOptions.map((option) => (
-                <li className={`flex gap-4 rounded-full ${optionColors(option.isSelected)} cursor-pointer py-2 px-4`}>
-                  {option.icon}
-                  {option.label}
-                </li>
-              ))}
-            </ul>
-          </nav>
+        <div className="relative mx-auto mt-14 mb-24 flex w-full max-w-2xl justify-between gap-8">
+          <div className="mt-4">
+            <nav>
+              <ul className="flex flex-col gap-4">
+                {navBarOptions.map((option) => (
+                  <li className={`flex gap-4 rounded-full ${optionColors(option.isSelected)} cursor-pointer py-2 px-4`}>
+                    {option.icon}
+                    {option.label}
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </div>
+
+          {selectedPage === 'my-cadastre' ? <MyCadastre /> : <LoginAndSecurity />}
         </div>
 
-        {selectedPage === 'my-cadastre' ? <MyCadastre /> : <LoginAndSecurity />}
+        <Footer />
       </div>
-
-      <Footer />
     </Page>
   );
 };
