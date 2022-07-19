@@ -112,10 +112,8 @@ const PublicationForm: FC<Props> = (props) => {
               {...getInputProps('description')}
             />
 
-            {/* TODO: the select component is missing */}
             <Select label="Categoria" isRequired options={CategoryOptions} name="category" onChange={setCategory} />
 
-            {/* TODO: fix RadioGroup usage because usage is breaking tests on this page and I don't know why */}
             <RadioGroup label="Sexo" isRequired options={genderOptions} id="gender" onChange={setGender} />
 
             <Input type="text" label="Raça" placeholder="Ex: Puddle" {...getInputProps('breed')} />
@@ -125,7 +123,13 @@ const PublicationForm: FC<Props> = (props) => {
               <Input type="text" label="Idade" placeholder="Ex: 5 meses" {...getInputProps('ageInYears')} />
             </div>
 
-            <Checkbox title="Características" options={FeatureOptions} />
+            <Checkbox
+              handleChange={handleChange}
+              name="characteristics"
+              id="characteristics"
+              title="Características"
+              options={FeatureOptions}
+            />
 
             <div className="flex flex-col gap-4">
               <Input type="text" label="Localização" placeholder="CEP" isRequired {...getInputProps('zipCode')} />
