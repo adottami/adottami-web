@@ -3,7 +3,7 @@ import { CreatePublicationData } from '@/services/adottami-client/publication-cl
 
 type FormKey = keyof CreatePublicationData;
 
-export const InputKeys = [
+export const INPUT_KEYS: FormKey[] = [
   'name',
   'description',
   'breed',
@@ -14,14 +14,15 @@ export const InputKeys = [
   'city',
   'category',
   'gender',
-] as FormKey[];
+];
 
-export const genderOptions = [
+export const GENDER_OPTIONS: RadioProps[] = [
   { id: 'macho', label: 'Macho' },
   { id: 'fêmea', label: 'Fêmea' },
-] as RadioProps[];
+];
 
-export const FeatureOptions = [
+// this constant will be removed during integration phase
+export const FEATURE_OPTIONS = [
   'Brincalhão',
   'Dócil',
   'Calmo',
@@ -32,6 +33,7 @@ export const FeatureOptions = [
   'Vermifugado',
   'Vive bem em apartamento',
   'Vive bem em casa com quintal',
-] as string[];
+];
 
-export const CategoryOptions = ['cachorro', 'coelho', 'gato'];
+// this constant will be removed during integration phase
+export const CATEGORY_OPTIONS = ['cachorro', 'coelho', 'gato'];

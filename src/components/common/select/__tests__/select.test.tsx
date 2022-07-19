@@ -3,7 +3,7 @@ import { render } from '@testing-library/react';
 import Select from '../select';
 
 describe('Select', () => {
-  it('should have radio input disabled correctly', () => {
+  it('should render a select component correctly', () => {
     render(<Select />);
   });
 });

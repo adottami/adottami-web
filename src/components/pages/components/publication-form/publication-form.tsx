@@ -13,7 +13,7 @@ import { CreatePublicationData } from '@/services/adottami-client/publication-cl
 import { zipCode } from '@/utils/mask';
 
 import PublicationFormFooter from '../publication-form-footer/publication-form-footer';
-import { CategoryOptions, FeatureOptions, genderOptions, InputKeys } from './contants';
+import { CATEGORY_OPTIONS, FEATURE_OPTIONS, GENDER_OPTIONS, INPUT_KEYS } from './contants';
 import { publicationFormSchema } from './schemas/publication-form-schema';
 
 interface Props {
@@ -43,7 +43,7 @@ const PublicationForm: FC<Props> = (props) => {
   });
 
   function createEmptyValues(): CreatePublicationData {
-    return InputKeys.reduce(
+    return INPUT_KEYS.reduce(
       (accumulate, currentValue) => ({
         ...accumulate,
         [currentValue]: '',
@@ -81,9 +81,9 @@ const PublicationForm: FC<Props> = (props) => {
     handleSubmit(e);
   };
 
-  function getInputProps(field: keyof CreatePublicationData, maskFN?: (value: string) => string) {
+  function getInputProps(field: keyof CreatePublicationData, maskFunction?: (value: string) => string) {
     const value = values[field] as string;
-    const formattedValue = typeof maskFN === 'function' ? maskFN(value) : value;
+    const formattedValue = typeof maskFunction === 'function' ? maskFunction(value) : value;
 
     return {
       id: field,
@@ -131,7 +131,7 @@ const PublicationForm: FC<Props> = (props) => {
               label="Categoria"
               isRequired
               defaultValue={categoryDefaultValue}
-              options={CategoryOptions}
+              options={CATEGORY_OPTIONS}
               name="category"
               onChange={setCategory}
             />
@@ -139,7 +139,7 @@ const PublicationForm: FC<Props> = (props) => {
             <RadioGroup
               label="Sexo"
               isRequired
-              options={genderOptions}
+              options={GENDER_OPTIONS}
               id="gender"
               onChange={setGender}
               errorMessage="Gênero é obrigatório"
@@ -158,7 +158,7 @@ const PublicationForm: FC<Props> = (props) => {
               name="characteristics"
               id="characteristics"
               title="Características"
-              options={FeatureOptions}
+              options={FEATURE_OPTIONS}
             />
 
             <div className="flex flex-col gap-4">
