@@ -12,10 +12,10 @@ const CreatePublicationFormFooter: FC<Props> = () => {
         <p>
           A Adottami não compartilha seus dados com empresas. O uso de seus dados pode ser consultado em nossos{' '}
           <InlineLink href="/publications/create">Termos de uso</InlineLink> e{' '}
-          <InlineLink href="/publications/create">Política de privacidade</InlineLink>
+          <InlineLink href="/publications/create">Política de privacidade.</InlineLink>
         </p>
 
-        <p>Ao enviar seu anúncio, você estará concordando com ambos</p>
+        <p>Ao enviar seu anúncio, você estará concordando com ambos.</p>
       </div>
 
       <div className="w-44">
