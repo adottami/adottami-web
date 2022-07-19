@@ -9,5 +9,4 @@ export const publicationFormSchema = Yup.object().shape({
   zipCode: Yup.string().required('CEP é obrigatório'),
   city: Yup.string().required('Cidade é obrigatória'),
   state: Yup.string().required('Estado é obrigatório'),
-  category: Yup.string().required('Categoria é obrigatória'),
 });

@@ -27,11 +27,12 @@ const PublicationForm: FC<Props> = (props) => {
   const [showErrors, setShowErrors] = useState<boolean>(false);
 
   const [gender, setGender] = useState<string>('');
+  const [category, setCategory] = useState<string>('');
 
   const { values, errors, handleChange, handleSubmit } = useFormik({
     initialValues: loadInitialValues(),
     validationSchema: publicationFormSchema,
-    onSubmit: async (values) => onSubmit({ ...clearEmptyValues(values), gender }),
+    onSubmit: async (values) => onSubmit({ ...clearEmptyValues(values), gender, category }),
   });
 
   function createEmptyValues(): CreatePublicationData {
@@ -112,13 +113,7 @@ const PublicationForm: FC<Props> = (props) => {
             />
 
             {/* TODO: the select component is missing */}
-            <Select
-              label="Categoria"
-              defaultValue="Selecione uma categoria"
-              isRequired
-              options={CategoryOptions}
-              {...getInputProps('category')}
-            />
+            <Select label="Categoria" isRequired options={CategoryOptions} name="category" onChange={setCategory} />
 
             {/* TODO: fix RadioGroup usage because usage is breaking tests on this page and I don't know why */}
             <RadioGroup label="Sexo" isRequired options={genderOptions} id="gender" onChange={setGender} />

@@ -1,18 +1,26 @@
-import { CaretDown, XCircle } from 'phosphor-react';
-import React, { FC, SelectHTMLAttributes } from 'react';
+import * as SelectPrimitive from '@radix-ui/react-select';
+import { CaretDown, CaretUp, Check } from 'phosphor-react';
+import React, { FC, useState } from 'react';
 
 interface Props {
   name?: string;
   label?: string;
   isRequired?: boolean;
   options?: string[];
-  errorMessage?: string;
+  onChange?: (value: string) => void;
 }
 
-const Select: FC<Props & SelectHTMLAttributes<HTMLSelectElement>> = (props) => {
-  const { id, name, label, isRequired, value, defaultValue = 'Selecione', options = [], errorMessage, ...rest } = props;
+const Select: FC<Props> = (props) => {
+  const { name, label, isRequired, onChange, options = [], ...rest } = props;
 
-  const values = [defaultValue as string, ...options];
+  const [selectedValue, setSelectedValue] = useState<string>('Selecione');
+
+  function handleChangeValue(value: string) {
+    setSelectedValue(value);
+    if (typeof onChange === 'function') {
+      onChange(value);
+    }
+  }
 
   return (
     <div>
@@ -21,42 +29,59 @@ const Select: FC<Props & SelectHTMLAttributes<HTMLSelectElement>> = (props) => {
           {label} {isRequired && ' *'}
         </label>
       )}
-
-      <div className="flex items-center">
-        <select
-          name={name}
-          id={id}
+      <SelectPrimitive.Root value={selectedValue} onValueChange={handleChangeValue} {...rest}>
+        <SelectPrimitive.SelectTrigger
           className={`flex w-full items-center justify-between gap-2 rounded-lg border-2 border-neutral-100 p-4 text-base ${
-            value !== defaultValue || !value ? 'text-primary-dark' : 'text-neutral-500'
-          } bg-white outline-none focus:border-secondary-medium`}
-          style={{ WebkitAppearance: 'none' }}
-          defaultValue="Selecione"
-          {...rest}
+            selectedValue !== 'Selecione' ? 'text-primary-dark' : 'text-neutral-500'
+          } outline-none focus:border-secondary-medium`}
+          aria-label="Food"
         >
-          {values.map((option) => (
-            <option
-              key={option}
-              value={option}
+          <SelectPrimitive.Value />
+          <SelectPrimitive.Icon className="text-primary-dark">
+            <CaretDown size={24} />
+          </SelectPrimitive.Icon>
+        </SelectPrimitive.SelectTrigger>
+
+        <SelectPrimitive.Content className="overflow-hidden rounded bg-white outline-none drop-shadow-md">
+          <SelectPrimitive.ScrollUpButton className="flex h-6 cursor-default items-center justify-center bg-white text-secondary-medium outline-none">
+            <CaretUp size={24} />
+          </SelectPrimitive.ScrollUpButton>
+
+          <SelectPrimitive.Viewport className="p-2">
+            <SelectPrimitive.Item
               className="flex items-center justify-between rounded px-2 text-primary-dark outline-none hover:bg-secondary-medium/[0.15] hover:text-secondary-medium"
+              value="Selecione"
+              key="Selecione"
+              onClick={() => setSelectedValue('Selecione')}
             >
-              {option}
-            </option>
-          ))}
-        </select>
+              <SelectPrimitive.ItemText>Selecione</SelectPrimitive.ItemText>
 
-        <div className="text-primary-dark" style={{ marginLeft: '-36px' }}>
-          <CaretDown size={20} />
-        </div>
-      </div>
+              <SelectPrimitive.ItemIndicator>
+                <Check />
+              </SelectPrimitive.ItemIndicator>
+            </SelectPrimitive.Item>
 
-      {errorMessage && (
-        <div className="mt-1 flex items-center justify-between sm:mt-2">
-          <div className="flex items-center text-tertiary-medium">
-            <XCircle size={24} />
-            <span className="ml-1 text-sm">{errorMessage}</span>
-          </div>
-        </div>
-      )}
+            {options.map((option) => (
+              <SelectPrimitive.Item
+                onClick={() => setSelectedValue(option)}
+                className="flex items-center justify-between rounded px-2 text-primary-dark outline-none hover:bg-secondary-medium/[0.15] hover:text-secondary-medium"
+                value={option}
+                key={option}
+              >
+                <SelectPrimitive.ItemText>{option}</SelectPrimitive.ItemText>
+
+                <SelectPrimitive.ItemIndicator>
+                  <Check />
+                </SelectPrimitive.ItemIndicator>
+              </SelectPrimitive.Item>
+            ))}
+          </SelectPrimitive.Viewport>
+
+          <SelectPrimitive.ScrollDownButton className="flex h-6 cursor-default items-center justify-center bg-white text-secondary-medium">
+            <CaretDown size={24} />
+          </SelectPrimitive.ScrollDownButton>
+        </SelectPrimitive.Content>
+      </SelectPrimitive.Root>
     </div>
   );
 };
