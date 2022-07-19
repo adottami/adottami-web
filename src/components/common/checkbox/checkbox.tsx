@@ -6,7 +6,7 @@ interface Props {
   options: string[];
   name?: string;
   id?: string;
-  handleChange?: (e: ChangeEvent<any>) => void;
+  handleChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 const Checkbox: FC<Props> = ({ title, options, name, id, handleChange }) => {
