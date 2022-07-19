@@ -27,14 +27,22 @@ const PublicationForm: FC<Props> = (props) => {
   const { header, type, onSubmit } = props;
   const [showErrors, setShowErrors] = useState<boolean>(false);
 
+  const categoryDefaultValue = 'Selecione uma categoria';
   const [gender, setGender] = useState<string>('');
-  const [category, setCategory] = useState<string>('');
+  const [category, setCategory] = useState<string>(categoryDefaultValue);
+  const [categoryHasError, setCategoryHasError] = useState<boolean>();
 
   const { values, errors, handleChange, handleSubmit } = useFormik({
     initialValues: loadInitialValues(),
     validationSchema: publicationFormSchema,
-    onSubmit: async (values) => onSubmit({ ...normalizeValues(values), gender, category }),
+    onSubmit: (values) => onSubmit({ ...normalizeValues(values), gender, category }),
   });
+
+  async function validatedUnformikedFields() {
+    if (!category || category === categoryDefaultValue || categoryHasError) {
+      setCategoryHasError(true);
+    }
+  }
 
   function createEmptyValues(): CreatePublicationData {
     return InputKeys.reduce(
@@ -72,6 +80,7 @@ const PublicationForm: FC<Props> = (props) => {
 
   const onHandleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     setShowErrors(true);
+    validatedUnformikedFields();
     handleSubmit(e);
   };
 
@@ -119,7 +128,17 @@ const PublicationForm: FC<Props> = (props) => {
               {...getInputProps('description')}
             />
 
-            <Select label="Categoria" isRequired options={CategoryOptions} name="category" onChange={setCategory} />
+            <Select
+              hasError={categoryHasError}
+              setHasError={setCategoryHasError}
+              errorMessage="Categoria é obrigatória"
+              label="Categoria"
+              isRequired
+              defaultValue={categoryDefaultValue}
+              options={CategoryOptions}
+              name="category"
+              onChange={setCategory}
+            />
 
             <RadioGroup label="Sexo" isRequired options={genderOptions} id="gender" onChange={setGender} />
 

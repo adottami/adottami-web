@@ -1,5 +1,5 @@
 import * as SelectPrimitive from '@radix-ui/react-select';
-import { CaretDown, CaretUp, Check } from 'phosphor-react';
+import { CaretDown, CaretUp, Check, XCircle } from 'phosphor-react';
 import React, { FC, useState } from 'react';
 
 interface Props {
@@ -7,19 +7,36 @@ interface Props {
   label?: string;
   isRequired?: boolean;
   options?: string[];
+  defaultValue?: string;
   onChange?: (value: string) => void;
+  errorMessage?: string;
+  hasError?: boolean;
+  setHasError?: (hasError: boolean) => void;
 }
 
 const Select: FC<Props> = (props) => {
-  const { name, label, isRequired, onChange, options = [], ...rest } = props;
+  const {
+    name,
+    label,
+    isRequired,
+    onChange,
+    options = [],
+    errorMessage,
+    defaultValue = 'Selecione',
+    hasError,
+    setHasError,
+  } = props;
 
-  const [selectedValue, setSelectedValue] = useState<string>('Selecione');
+  const [selectedValue, setSelectedValue] = useState<string>(defaultValue);
 
   function handleChangeValue(value: string) {
     setSelectedValue(value);
     if (typeof onChange === 'function') {
       onChange(value);
     }
+
+    if (!isRequired || typeof setHasError !== 'function') return;
+    value === defaultValue ? setHasError(true) : setHasError(false);
   }
 
   return (
@@ -29,10 +46,10 @@ const Select: FC<Props> = (props) => {
           {label} {isRequired && ' *'}
         </label>
       )}
-      <SelectPrimitive.Root value={selectedValue} onValueChange={handleChangeValue} {...rest}>
+      <SelectPrimitive.Root value={selectedValue} onValueChange={handleChangeValue}>
         <SelectPrimitive.SelectTrigger
           className={`flex w-full items-center justify-between gap-2 rounded-lg border-2 border-neutral-100 p-4 text-base ${
-            selectedValue !== 'Selecione' ? 'text-primary-dark' : 'text-neutral-500'
+            selectedValue !== defaultValue ? 'text-primary-dark' : 'text-neutral-500'
           } outline-none focus:border-secondary-medium`}
           aria-label="Food"
         >
@@ -48,20 +65,7 @@ const Select: FC<Props> = (props) => {
           </SelectPrimitive.ScrollUpButton>
 
           <SelectPrimitive.Viewport className="p-2">
-            <SelectPrimitive.Item
-              className="flex items-center justify-between rounded px-2 text-primary-dark outline-none hover:bg-secondary-medium/[0.15] hover:text-secondary-medium"
-              value="Selecione"
-              key="Selecione"
-              onClick={() => setSelectedValue('Selecione')}
-            >
-              <SelectPrimitive.ItemText>Selecione</SelectPrimitive.ItemText>
-
-              <SelectPrimitive.ItemIndicator>
-                <Check />
-              </SelectPrimitive.ItemIndicator>
-            </SelectPrimitive.Item>
-
-            {options.map((option) => (
+            {[defaultValue, ...options].map((option) => (
               <SelectPrimitive.Item
                 onClick={() => setSelectedValue(option)}
                 className="flex items-center justify-between rounded px-2 text-primary-dark outline-none hover:bg-secondary-medium/[0.15] hover:text-secondary-medium"
@@ -82,6 +86,15 @@ const Select: FC<Props> = (props) => {
           </SelectPrimitive.ScrollDownButton>
         </SelectPrimitive.Content>
       </SelectPrimitive.Root>
+
+      {hasError && errorMessage && (
+        <div className="mt-1 flex items-center justify-between text-tertiary-medium sm:mt-2">
+          <div className="flex items-center">
+            <XCircle size={24} />
+            <span className="ml-1 text-sm ">{errorMessage}</span>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
