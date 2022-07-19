@@ -100,6 +100,7 @@ const PublicationForm: FC<Props> = (props) => {
               ]}
               variant="image"
               name="images"
+              maxFiles={5}
             />
 
             <Input type="text" label="Nome" placeholder="Ex: Tom" isRequired {...getInputProps('name')} />
