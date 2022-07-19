@@ -10,7 +10,7 @@ import Select from '@/components/common/select/select';
 import TextArea from '@/components/common/text-area/text-area';
 import Publication from '@/models/publication/publication';
 import { CreatePublicationData } from '@/services/adottami-client/publication-client/types';
-import { applyZipCodeMask, undoZipCodeMask } from '@/utils/mask';
+import { zipCode } from '@/utils/mask';
 
 import PublicationFormFooter from '../publication-form-footer/publication-form-footer';
 import { CategoryOptions, FeatureOptions, genderOptions, InputKeys } from './contants';
@@ -57,7 +57,7 @@ const PublicationForm: FC<Props> = (props) => {
         : accumulate;
     }, {} as CreatePublicationData);
 
-    normalizedValues.zipCode = undoZipCodeMask(normalizedValues.zipCode);
+    normalizedValues.zipCode = zipCode.undoMask(normalizedValues.zipCode);
     return normalizedValues;
   }
 
@@ -144,7 +144,7 @@ const PublicationForm: FC<Props> = (props) => {
                 label="Localização"
                 placeholder="CEP"
                 isRequired
-                {...getInputProps('zipCode', applyZipCodeMask)}
+                {...getInputProps('zipCode', zipCode.applyMask)}
               />
               <Input type="text" placeholder="Estado" isRequired {...getInputProps('state')} />
               <Input type="text" placeholder="Município" isRequired {...getInputProps('city')} />

@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 
-import { zipCodeReg } from '@/utils/mask';
+import { zipCode } from '@/utils/mask';
 
 export const publicationFormSchema = Yup.object().shape({
   name: Yup.string().required('Nome é obrigatório'),
@@ -8,7 +8,7 @@ export const publicationFormSchema = Yup.object().shape({
   breed: Yup.string(),
   weightInGrams: Yup.string(),
   ageInYears: Yup.string(),
-  zipCode: Yup.string().matches(zipCodeReg, 'CEP inválido').required('CEP é obrigatório'),
+  zipCode: Yup.string().matches(zipCode.regex, 'CEP inválido').required('CEP é obrigatório'),
   city: Yup.string().required('Cidade é obrigatória'),
   state: Yup.string().required('Estado é obrigatório'),
 });

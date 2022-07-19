@@ -8,13 +8,8 @@ export function undoPhoneMask(value: string) {
   return value.replace(/\D/g, '');
 }
 
-export const zipCodeReg = /^([\d]{5})-([\d]{3})/;
-
-export function applyZipCodeMask(value: string) {
-  const pattern = '99999-999';
-  return VMasker.toPattern(value.replace(/\D/g, ''), pattern);
-}
-
-export function undoZipCodeMask(value: string) {
-  return value.replace(/\D/g, '');
-}
+export const zipCode = {
+  regex: /^([\d]{5})-([\d]{3})/,
+  applyMask: (value: string) => VMasker.toPattern(value.replace(/\D/g, ''), '99999-999'),
+  undoMask: (value: string) => value.replace(/\D/g, ''),
+};
