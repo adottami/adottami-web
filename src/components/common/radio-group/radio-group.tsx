@@ -8,9 +8,10 @@ interface Props {
   label: string;
   options: RadioProps[];
   isRequired?: boolean;
+  onChange?: (value: string) => void;
 }
 
-const RadioGroup: FC<Props> = ({ id, label, options, isRequired }) => {
+const RadioGroup: FC<Props> = ({ id, label, options, isRequired, onChange }) => {
   return (
     <div role="radiogroup">
       <label htmlFor={id} className="mb-1 flex flex-row items-center gap-1 text-md font-bold text-primary-dark">
@@ -18,7 +19,13 @@ const RadioGroup: FC<Props> = ({ id, label, options, isRequired }) => {
         <span>{isRequired ? '*' : ''}</span>
       </label>
 
-      <RadioBox.Root id={id} name={label} className="flex flex-wrap gap-4" required={isRequired}>
+      <RadioBox.Root
+        id={id}
+        name={label}
+        onValueChange={onChange}
+        className="flex flex-wrap gap-4"
+        required={isRequired}
+      >
         {options.map(({ id, label, isDisabled }) => (
           <RadioInput key={id} id={id} label={label} isDisabled={isDisabled} />
         ))}

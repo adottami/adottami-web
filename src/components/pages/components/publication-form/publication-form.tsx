@@ -26,10 +26,12 @@ const PublicationForm: FC<Props> = (props) => {
   const { header, type, onSubmit } = props;
   const [showErrors, setShowErrors] = useState<boolean>(false);
 
+  const [gender, setGender] = useState<string>('');
+
   const { values, errors, handleChange, handleSubmit } = useFormik({
     initialValues: loadInitialValues(),
     validationSchema: publicationFormSchema,
-    onSubmit: async (values) => onSubmit({ ...clearEmptyValues(values) }),
+    onSubmit: async (values) => onSubmit({ ...clearEmptyValues(values), gender }),
   });
 
   function createEmptyValues(): CreatePublicationData {
@@ -119,7 +121,7 @@ const PublicationForm: FC<Props> = (props) => {
             />
 
             {/* TODO: fix RadioGroup usage because usage is breaking tests on this page and I don't know why */}
-            <RadioGroup label="Sexo" isRequired options={genderOptions} {...getInputProps('gender')} />
+            <RadioGroup label="Sexo" isRequired options={genderOptions} id="gender" onChange={setGender} />
 
             <Input type="text" label="Raça" placeholder="Ex: Puddle" {...getInputProps('breed')} />
 
