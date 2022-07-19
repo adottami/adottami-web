@@ -1,12 +1,12 @@
 import Image from 'next/image';
-import { Check } from 'phosphor-react';
+// import { Check } from 'phosphor-react';
 import profile from 'public/images/image-profile-not-found.png';
 import React, { FC } from 'react';
 
 import Button from '@/components/common/button/button';
 import InlineLink from '@/components/common/inline-link/inline-link';
 import Input from '@/components/common/input/input';
-import Separator from '@/components/common/separator/separator';
+// import Separator from '@/components/common/separator/separator';
 
 import Box from '../box';
 import DefaultSection from '../default-section';
@@ -14,22 +14,22 @@ import DefaultSection from '../default-section';
 interface Props {}
 
 const MyCadastre: FC<Props> = () => {
-  const accountOptions = [
-    {
-      label: 'E-mail',
-      value: 'matheus.oliveira@gmail.com',
-      isVerified: true,
-      buttonLabel: 'Alterar',
-      onClick: () => console.log('cliquei em alterar'),
-    },
-    {
-      label: 'Google',
-      value: 'Desconectado',
-      isVerified: false,
-      buttonLabel: 'Conectar',
-      onClick: () => console.log('cliquei em conectar'),
-    },
-  ];
+  // const accountOptions = [
+  //   {
+  //     label: 'E-mail',
+  //     value: 'matheus.oliveira@gmail.com',
+  //     isVerified: true,
+  //     buttonLabel: 'Alterar',
+  //     onClick: () => console.log('cliquei em alterar'),
+  //   },
+  //   {
+  //     label: 'Google',
+  //     value: 'Desconectado',
+  //     isVerified: false,
+  //     buttonLabel: 'Conectar',
+  //     onClick: () => console.log('cliquei em conectar'),
+  //   },
+  // ];
 
   return (
     <DefaultSection title="Meu cadastro" description="Configure o seu cadastro.">
@@ -49,7 +49,8 @@ const MyCadastre: FC<Props> = () => {
         </form>
       </Box>
 
-      <Box>
+      {/* Comment to remove if this functions can not be finished */}
+      {/* <Box>
         {accountOptions.map((account, index) => (
           <React.Fragment key={account.label}>
             <div className="flex flex-wrap justify-between gap-2 text-sm md:text-base">
@@ -73,7 +74,7 @@ const MyCadastre: FC<Props> = () => {
             )}
           </React.Fragment>
         ))}
-      </Box>
+      </Box> */}
     </DefaultSection>
   );
 };
