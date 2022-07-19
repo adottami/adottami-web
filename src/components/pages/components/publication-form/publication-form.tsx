@@ -123,7 +123,7 @@ const PublicationForm: FC<Props> = (props) => {
 
             <RadioGroup label="Sexo" isRequired options={genderOptions} id="gender" onChange={setGender} />
 
-            <Input type="text" label="Raça" placeholder="Ex: Puddle" {...getInputProps('breed')} />
+            <Input maxLength={8} type="text" label="Raça" placeholder="Ex: Puddle" {...getInputProps('breed')} />
 
             <div className="flex gap-4">
               <Input type="text" label="Peso" placeholder="Ex: 10 Kg" {...getInputProps('weightInGrams')} />
