@@ -157,7 +157,7 @@ const PublicationForm: FC<Props> = (props) => {
                 {...getInputProps('zipCode', zipCode.applyMask)}
               />
               <Input type="text" placeholder="Estado" isRequired {...getInputProps('state')} />
-              <Input type="text" placeholder="Município" isRequired {...getInputProps('city')} />
+              <Input type="text" placeholder="Cidade" isRequired {...getInputProps('city')} />
             </div>
 
             <div className="flex flex-col gap-4">
