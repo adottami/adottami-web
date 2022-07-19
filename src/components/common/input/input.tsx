@@ -38,7 +38,7 @@ const Input: FC<Props> = ({
             disabled={disabled}
             type={type}
             required={isRequired}
-            className="flex h-[46px] w-full rounded-pill border-2 border-neutral-100 bg-surface-primary pl-12 pr-4 text-sm text-primary-dark placeholder:text-neutral-500 focus:border-2 focus:border-black focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 md:h-[54px] md:text-md 2xl:text-md"
+            className="flex h-[46px] w-full rounded-pill border-2 border-neutral-100 bg-surface-primary pl-12 pr-4 text-sm text-primary-dark placeholder:text-neutral-500 focus:border-2 focus:border-secondary-dark focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 md:h-[54px] md:text-md 2xl:text-md"
             {...rest}
           />
         </div>
