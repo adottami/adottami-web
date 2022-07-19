@@ -10,6 +10,7 @@ import Select from '@/components/common/select/select';
 import TextArea from '@/components/common/text-area/text-area';
 import Publication from '@/models/publication/publication';
 import { CreatePublicationData } from '@/services/adottami-client/publication-client/types';
+import { applyZipCodeMask, undoZipCodeMask } from '@/utils/mask';
 
 import PublicationFormFooter from '../publication-form-footer/publication-form-footer';
 import { CategoryOptions, FeatureOptions, genderOptions, InputKeys } from './contants';
@@ -32,7 +33,7 @@ const PublicationForm: FC<Props> = (props) => {
   const { values, errors, handleChange, handleSubmit } = useFormik({
     initialValues: loadInitialValues(),
     validationSchema: publicationFormSchema,
-    onSubmit: async (values) => onSubmit({ ...clearEmptyValues(values), gender, category }),
+    onSubmit: async (values) => onSubmit({ ...normalizeValues(values), gender, category }),
   });
 
   function createEmptyValues(): CreatePublicationData {
@@ -45,10 +46,9 @@ const PublicationForm: FC<Props> = (props) => {
     );
   }
 
-  function clearEmptyValues(values: CreatePublicationData): CreatePublicationData {
-    return Object.keys(values).reduce((accumulate, currentValue) => {
+  function normalizeValues(values: CreatePublicationData): CreatePublicationData {
+    const normalizedValues = Object.keys(values).reduce((accumulate, currentValue) => {
       const field = currentValue as keyof CreatePublicationData;
-      console.log('field', field, values[field]);
       return values[field]
         ? {
             ...accumulate,
@@ -56,6 +56,9 @@ const PublicationForm: FC<Props> = (props) => {
           }
         : accumulate;
     }, {} as CreatePublicationData);
+
+    normalizedValues.zipCode = undoZipCodeMask(normalizedValues.zipCode);
+    return normalizedValues;
   }
 
   // TODO: this function should be created on edit publication page task
@@ -72,11 +75,14 @@ const PublicationForm: FC<Props> = (props) => {
     handleSubmit(e);
   };
 
-  function getInputProps(field: keyof CreatePublicationData) {
+  function getInputProps(field: keyof CreatePublicationData, maskFN?: (value: string) => string) {
+    const value = values[field] as string;
+    const formattedValue = typeof maskFN === 'function' ? maskFN(value) : value;
+
     return {
       id: field,
       name: field,
-      value: values[field] as string,
+      value: formattedValue,
       errorMessage: showErrors ? (errors[field] as string) : '',
       onChange: handleChange,
     };
@@ -133,7 +139,13 @@ const PublicationForm: FC<Props> = (props) => {
             />
 
             <div className="flex flex-col gap-4">
-              <Input type="text" label="Localização" placeholder="CEP" isRequired {...getInputProps('zipCode')} />
+              <Input
+                type="text"
+                label="Localização"
+                placeholder="CEP"
+                isRequired
+                {...getInputProps('zipCode', applyZipCodeMask)}
+              />
               <Input type="text" placeholder="Estado" isRequired {...getInputProps('state')} />
               <Input type="text" placeholder="Município" isRequired {...getInputProps('city')} />
             </div>
