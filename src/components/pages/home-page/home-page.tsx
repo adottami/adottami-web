@@ -43,21 +43,23 @@ const HomePage: FC = () => (
             alt="Seção decorativa"
             layout="fill"
             objectFit="contain"
+            quality={100}
             data-testid={homePageTestIds.firstSection.decorativeImage()}
           />
         </div>
       </section>
-      <section className="flex h-full w-full items-center justify-center px-6 md:gap-6 md:px-12 lg:px-24 tablet:h-screen">
+      <section className="flex h-full w-full px-6 py-12 sm:items-center sm:justify-center md:gap-6 md:px-12 md:py-20 lg:px-24 lg:py-40 tablet:h-screen">
         <div className="relative hidden h-full w-2/5 tablet:flex">
           <Image
             src="/images/how-adottami-works.png"
             alt="Entenda como a Adottami funciona"
             layout="fill"
             objectFit="contain"
+            quality={100}
           />
         </div>
         <div className="w-full md:w-1/2 tablet:w-1/3">
-          <h2 className="text-xl font-bold leading-none text-primary-dark md:text-2xl lg:text-3xl">
+          <h2 className="mb-4 text-xl font-bold leading-none text-primary-dark md:text-2xl lg:text-3xl">
             {HOW_ADOTTAMI_WORKS}
           </h2>
           <p className="text-md text-primary-dark lg:text-lg">{FIRST_DESCRIPTION_OF_HOW_IT_WORKS}</p>
