@@ -11,21 +11,10 @@ interface Props {
   onChange?: (value: string) => void;
   errorMessage?: string;
   hasError?: boolean;
-  setHasError?: (hasError: boolean) => void;
 }
 
 const Select: FC<Props> = (props) => {
-  const {
-    name,
-    label,
-    isRequired,
-    onChange,
-    options = [],
-    errorMessage,
-    defaultValue = 'Selecione',
-    hasError,
-    setHasError,
-  } = props;
+  const { name, label, isRequired, onChange, options = [], errorMessage, defaultValue = 'Selecione', hasError } = props;
 
   const [selectedValue, setSelectedValue] = useState<string>(defaultValue);
 
@@ -34,9 +23,6 @@ const Select: FC<Props> = (props) => {
     if (typeof onChange === 'function') {
       onChange(value);
     }
-
-    if (!isRequired || typeof setHasError !== 'function') return;
-    value === defaultValue ? setHasError(true) : setHasError(false);
   }
 
   return (

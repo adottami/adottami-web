@@ -30,7 +30,6 @@ const PublicationForm: FC<Props> = (props) => {
 
   const categoryDefaultValue = 'Selecione uma categoria';
   const [category, setCategory] = useState<string>(categoryDefaultValue);
-  const [categoryHasError, setCategoryHasError] = useState<boolean>();
 
   const [gender, setGender] = useState<string>('');
 
@@ -38,16 +37,10 @@ const PublicationForm: FC<Props> = (props) => {
     initialValues: loadInitialValues(),
     validationSchema: publicationFormSchema,
     onSubmit: (values) => {
-      if (!gender || categoryHasError) return;
+      if (!gender || category === categoryDefaultValue) return;
       onSubmit({ ...normalizeValues(values), gender, category });
     },
   });
-
-  function validatedUnformikedFields() {
-    if (!category || category === categoryDefaultValue || categoryHasError) {
-      setCategoryHasError(true);
-    }
-  }
 
   function createEmptyValues(): CreatePublicationData {
     return InputKeys.reduce(
@@ -85,7 +78,6 @@ const PublicationForm: FC<Props> = (props) => {
 
   const onHandleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     setShowErrors(true);
-    validatedUnformikedFields();
     handleSubmit(e);
   };
 
@@ -134,8 +126,7 @@ const PublicationForm: FC<Props> = (props) => {
             />
 
             <Select
-              hasError={categoryHasError}
-              setHasError={setCategoryHasError}
+              hasError={category === categoryDefaultValue && showErrors}
               errorMessage="Categoria é obrigatória"
               label="Categoria"
               isRequired
