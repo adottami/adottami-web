@@ -31,7 +31,7 @@ const Button: FC<Props> = ({
       variant === 'primary' && 'bg-secondary-medium focus:border-secondary-light',
       variant === 'secondary' && 'bg-tertiary-medium focus:border-tertiary-light',
       variant === 'positive' &&
-        'w-full items-center justify-center gap-3 rounded-pill bg-positive-medium !p-0 text-surface-primary focus:border-2 focus:border-black focus:outline-none md:w-32 2xl:!h-[56px] ',
+        'w-full items-center justify-center gap-3 rounded-pill bg-positive-medium !p-0 text-surface-primary focus:border-2 focus:border-positive-dark focus:outline-none md:w-32 2xl:!h-[56px] ',
       '2xl:h-[64px] 2xl:p-8 2xl:text-md',
       'md:h-[54px] md:p-6 md:text-md',
       !children && 'px-2',
