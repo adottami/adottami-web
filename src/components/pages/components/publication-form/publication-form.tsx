@@ -17,14 +17,14 @@ import { CATEGORY_OPTIONS, FEATURE_OPTIONS, GENDER_OPTIONS, INITIAL_VALUES } fro
 import { publicationFormSchema } from './schemas/publication-form-schema';
 
 interface Props {
-  header: string;
+  title: string;
   onSubmit: (values: CreatePublicationData) => Promise<void>;
   type: 'create' | 'edit';
   previousValues?: Publication;
 }
 
 const PublicationForm: FC<Props> = (props) => {
-  const { header, type, onSubmit } = props;
+  const { title, type, onSubmit } = props;
 
   const [showErrors, setShowErrors] = useState<boolean>(false);
 
@@ -83,7 +83,7 @@ const PublicationForm: FC<Props> = (props) => {
   return (
     <div className="mx-auto w-full max-w-5xl px-6">
       <div className="mb-8 mt-12">
-        <h2 className="text-2xl font-bold text-primary-dark">{header}</h2>
+        <h2 className="text-2xl font-bold text-primary-dark">{title}</h2>
         <p>As informações com (*) são obrigatórias</p>
       </div>
 
