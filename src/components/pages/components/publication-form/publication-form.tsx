@@ -25,20 +25,25 @@ interface Props {
 
 const PublicationForm: FC<Props> = (props) => {
   const { header, type, onSubmit } = props;
+
   const [showErrors, setShowErrors] = useState<boolean>(false);
 
   const categoryDefaultValue = 'Selecione uma categoria';
-  const [gender, setGender] = useState<string>('');
   const [category, setCategory] = useState<string>(categoryDefaultValue);
   const [categoryHasError, setCategoryHasError] = useState<boolean>();
+
+  const [gender, setGender] = useState<string>('');
 
   const { values, errors, handleChange, handleSubmit } = useFormik({
     initialValues: loadInitialValues(),
     validationSchema: publicationFormSchema,
-    onSubmit: (values) => onSubmit({ ...normalizeValues(values), gender, category }),
+    onSubmit: (values) => {
+      if (!gender || categoryHasError) return;
+      onSubmit({ ...normalizeValues(values), gender, category });
+    },
   });
 
-  async function validatedUnformikedFields() {
+  function validatedUnformikedFields() {
     if (!category || category === categoryDefaultValue || categoryHasError) {
       setCategoryHasError(true);
     }
@@ -140,7 +145,15 @@ const PublicationForm: FC<Props> = (props) => {
               onChange={setCategory}
             />
 
-            <RadioGroup label="Sexo" isRequired options={genderOptions} id="gender" onChange={setGender} />
+            <RadioGroup
+              label="Sexo"
+              isRequired
+              options={genderOptions}
+              id="gender"
+              onChange={setGender}
+              errorMessage="Gênero é obrigatório"
+              hasError={!gender && showErrors}
+            />
 
             <Input maxLength={8} type="text" label="Raça" placeholder="Ex: Puddle" {...getInputProps('breed')} />
 
