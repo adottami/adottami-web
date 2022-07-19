@@ -13,7 +13,7 @@ import { CreatePublicationData } from '@/services/adottami-client/publication-cl
 import { zipCode } from '@/utils/mask';
 
 import PublicationFormFooter from '../publication-form-footer/publication-form-footer';
-import { CATEGORY_OPTIONS, FEATURE_OPTIONS, GENDER_OPTIONS, INPUT_KEYS } from './contants';
+import { CATEGORY_OPTIONS, FEATURE_OPTIONS, GENDER_OPTIONS, INITIAL_VALUES, INPUT_KEYS } from './contants';
 import { publicationFormSchema } from './schemas/publication-form-schema';
 
 interface Props {
@@ -34,7 +34,7 @@ const PublicationForm: FC<Props> = (props) => {
   const [gender, setGender] = useState<string>('');
 
   const { values, errors, handleChange, handleSubmit } = useFormik({
-    initialValues: loadInitialValues(),
+    initialValues: type === 'create' ? INITIAL_VALUES : normalizePreviousValues(),
     validationSchema: publicationFormSchema,
     onSubmit: (values) => {
       if (!gender || category === categoryDefaultValue) return;
@@ -42,14 +42,9 @@ const PublicationForm: FC<Props> = (props) => {
     },
   });
 
-  function createEmptyValues(): CreatePublicationData {
-    return INPUT_KEYS.reduce(
-      (accumulate, currentValue) => ({
-        ...accumulate,
-        [currentValue]: '',
-      }),
-      {} as CreatePublicationData,
-    );
+  // TODO: this function should be created on edit publication page task
+  function normalizePreviousValues(): CreatePublicationData {
+    return {} as CreatePublicationData;
   }
 
   function normalizeValues(values: CreatePublicationData): CreatePublicationData {
@@ -65,15 +60,6 @@ const PublicationForm: FC<Props> = (props) => {
 
     normalizedValues.zipCode = zipCode.undoMask(normalizedValues.zipCode);
     return normalizedValues;
-  }
-
-  // TODO: this function should be created on edit publication page task
-  function createLoadedValues(): CreatePublicationData {
-    return {} as CreatePublicationData;
-  }
-
-  function loadInitialValues() {
-    return type === 'create' ? createEmptyValues() : createLoadedValues();
   }
 
   const onHandleSubmit: FormEventHandler<HTMLFormElement> = (e) => {

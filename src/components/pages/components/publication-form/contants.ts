@@ -16,6 +16,14 @@ export const INPUT_KEYS: FormKey[] = [
   'gender',
 ];
 
+export const INITIAL_VALUES = INPUT_KEYS.reduce(
+  (accumulate, currentValue) => ({
+    ...accumulate,
+    [currentValue]: '',
+  }),
+  {} as CreatePublicationData,
+);
+
 export const GENDER_OPTIONS: RadioProps[] = [
   { id: 'macho', label: 'Macho' },
   { id: 'fêmea', label: 'Fêmea' },
