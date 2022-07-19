@@ -34,7 +34,7 @@ const NavBar: FC<Props> = (props) => {
     <nav className="mt-4 hidden lg:flex">
       <ul className="flex flex-col gap-4">
         {navBarOptions.map((option) => (
-          <li>
+          <li key={option.label}>
             <button
               type="button"
               onClick={option.onClick}
