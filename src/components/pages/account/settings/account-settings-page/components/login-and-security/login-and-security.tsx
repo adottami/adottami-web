@@ -19,8 +19,8 @@ const LoginAndSecurity: FC<Props> = () => {
       <AccountSettingsSection
         title="Alteração de senha"
         description={[
-          <p>Escolha uma senha forte que você não esteja usando em nenhum outro lugar.</p>,
-          <p>Troque sua senha a cada 6 meses para aumentar a segurança da sua conta.</p>,
+          <p key="first line">Escolha uma senha forte que você não esteja usando em nenhum outro lugar.</p>,
+          <p key="second line">Troque sua senha a cada 6 meses para aumentar a segurança da sua conta.</p>,
         ]}
       >
         <form className="flex flex-col gap-4">
