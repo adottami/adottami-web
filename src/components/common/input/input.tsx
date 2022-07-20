@@ -63,8 +63,8 @@ const Input: FC<Props> = ({
             ) : (
               <button
                 onClick={() => setPasswordIsVisible(true)}
-                type="button"
                 disabled={disabled}
+                type="button"
                 className="absolute top-1/2 right-4 -translate-y-1/2 focus:rounded-base disabled:opacity-50"
                 data-testid="turn-visible"
               >
