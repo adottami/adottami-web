@@ -3,6 +3,20 @@ import { CreatePublicationData } from '@/services/adottami-client/publication-cl
 
 type FormKey = keyof CreatePublicationData;
 
+export const FORM_LABELS = [
+  'Fotos',
+  'Nome',
+  'Descrição',
+  'Categoria',
+  'Sexo',
+  'Raça',
+  'Peso',
+  'Idade',
+  'Características',
+  'Localização',
+  'Contato',
+];
+
 export const INPUT_KEYS: FormKey[] = [
   'name',
   'description',

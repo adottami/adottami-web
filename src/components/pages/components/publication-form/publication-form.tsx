@@ -44,7 +44,8 @@ const PublicationForm: FC<Props> = (props) => {
 
   // TODO: this function should be created on edit publication page task
   function normalizePreviousValues(): CreatePublicationData {
-    return {} as CreatePublicationData;
+    return INITIAL_VALUES; // TODO: this return should be removed when function implemented
+    // return {} as CreatePublicationData;
   }
 
   function normalizeValues(values: CreatePublicationData): CreatePublicationData {

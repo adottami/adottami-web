@@ -29,7 +29,8 @@ const Select: FC<Props> = (props) => {
     <div>
       {label && (
         <label className="mb-2 block text-base font-bold text-primary-dark md:text-md" htmlFor={name}>
-          {label} {isRequired && ' *'}
+          {label}
+          {isRequired && <span> *</span>}
         </label>
       )}
       <SelectPrimitive.Root value={selectedValue} onValueChange={handleChangeValue}>

@@ -26,7 +26,7 @@ describe('Select', () => {
     const label = 'test_select_label';
 
     render(<Select label={label} isRequired />);
-    expect(screen.getByText(`${label} *`)).toBeInTheDocument();
+    expect(screen.getByText('*')).toBeInTheDocument();
   });
 
   it('should render a select component with an error message correctly', () => {
