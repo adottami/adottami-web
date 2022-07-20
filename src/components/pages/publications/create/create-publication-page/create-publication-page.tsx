@@ -16,7 +16,7 @@ const CreatePublicationPage: FC = () => {
     <Page title={PAGE_TITLE}>
       <FormPageHeader />
 
-      <PublicationForm defaultPublication title="Qual pet você está anunciando?" onSubmit={handleSubmit} />
+      <PublicationForm type="create" title="Qual pet você está anunciando?" onSubmit={handleSubmit} />
     </Page>
   );
 };

@@ -12,20 +12,19 @@ import Publication from '@/models/publication/publication';
 import { CreatePublicationData } from '@/services/adottami-client/publication-client/types';
 import { zipCode } from '@/utils/mask';
 
-import CreatePublicationFormFooter from '../../publications/create/create-publication-page/components/form-footer';
-import EditPublicationFormFooter from '../../publications/edit/edit-publication-page/components/form-footer';
+import PublicationFormFooter from './components/publication-form-footer/publication-form-footer';
 import { CATEGORY_OPTIONS, FEATURE_OPTIONS, GENDER_OPTIONS, INITIAL_VALUES } from './contants';
 import { publicationFormSchema } from './schemas/publication-form-schema';
 
 interface Props {
   title: string;
   onSubmit: (values: CreatePublicationData) => Promise<void>;
-  defaultPublication?: boolean;
+  type: 'create' | 'edit';
   previousValues?: Publication;
 }
 
 const PublicationForm: FC<Props> = (props) => {
-  const { title, defaultPublication, onSubmit } = props;
+  const { title, type, onSubmit } = props;
 
   const [showErrors, setShowErrors] = useState<boolean>(false);
 
@@ -35,7 +34,7 @@ const PublicationForm: FC<Props> = (props) => {
   const [gender, setGender] = useState<string>('');
 
   const { values, errors, handleChange, handleSubmit } = useFormik({
-    initialValues: defaultPublication ? INITIAL_VALUES : normalizePreviousValues(),
+    initialValues: type === 'create' ? INITIAL_VALUES : normalizePreviousValues(),
     validationSchema: publicationFormSchema,
     onSubmit: (values) => {
       if (!gender || category === categoryDefaultValue) return;
@@ -183,7 +182,7 @@ const PublicationForm: FC<Props> = (props) => {
           </div>
         </div>
 
-        {defaultPublication ? <CreatePublicationFormFooter /> : <EditPublicationFormFooter />}
+        <PublicationFormFooter type={type} />
       </form>
     </div>
   );
