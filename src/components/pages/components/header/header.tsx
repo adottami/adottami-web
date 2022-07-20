@@ -67,9 +67,9 @@ const Header: FC<Props> = ({ isAuth, avatarPhoto = profile, username = null }) =
                 text="Meus Anúncios"
               />
               <MenuCard icon={<Heart size={24} weight="regular" />} href="/#" text="Favoritos" />
-              <li>
+              <div>
                 {isAuth ? (
-                  <>
+                  <li>
                     <div className="flex items-center">
                       <Image src={avatarPhoto} alt="Foto de perfil" className="rounded-full" />
                       <Link href="#" className="text-lg font-medium">
@@ -78,11 +78,11 @@ const Header: FC<Props> = ({ isAuth, avatarPhoto = profile, username = null }) =
                       <CaretDown size={20} className="hover:text-secondary-medium" onMouseOver={handleMouseOver} />
                     </div>
                     {isHovering && <CardMenuDesktop mouseOut={handleMouseOut} />}
-                  </>
+                  </li>
                 ) : (
                   <MenuCard icon={<User size={24} weight="regular" />} href="/sign-in" text="Entrar" />
                 )}
-              </li>
+              </div>
             </ul>
           </nav>
           <div>
