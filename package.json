@@ -12,7 +12,7 @@
     "style:check": "yarn style --check",
     "style:format": "yarn style --write",
     "test": "node --expose-gc --no-compilation-cache ./node_modules/jest/bin/jest --logHeapUsage",
-    "test:ci": "yarn test --maxWorkers=1",
+    "test:ci": "yarn test --maxWorkers=100%",
     "types:check": "tsc --pretty --noEmit",
     "pre:commit": "lint-staged",
     "pre:push": "concurrently \"yarn types:check\" \"yarn lint . --max-warnings 0\" \"yarn style:check .\" \"yarn test --maxWorkers=50%\"",
