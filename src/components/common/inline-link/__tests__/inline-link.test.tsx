@@ -14,4 +14,10 @@ describe('Inline link', () => {
 
     expect(screen.getByText('cadastre-se').getAttribute('href')).toEqual('/register');
   });
+
+  it('should have render without href as a button', () => {
+    render(<InlineLink>cadastre-se</InlineLink>);
+
+    expect(screen.getByRole('button', { name: 'cadastre-se' })).toBeInTheDocument();
+  });
 });
