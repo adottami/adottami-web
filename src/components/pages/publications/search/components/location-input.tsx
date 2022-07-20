@@ -4,15 +4,12 @@ import { FC, FormEvent, useEffect, useState } from 'react';
 import Button from '@/components/common/button/button';
 import Input from '@/components/common/input/input';
 
+import { LOCATION_INITIAL_STATE } from './constants';
+
 interface Location {
   state: string;
   city: string;
 }
-
-const LOCATION_INITIAL_STATE = {
-  state: '',
-  city: '',
-};
 
 const LocationInput: FC = () => {
   const [locationValue, setLocationsValue] = useState<Location>(LOCATION_INITIAL_STATE);
