@@ -5,7 +5,7 @@ import FormPageHeader from '@/components/pages/components/form-page-header/form-
 import PublicationForm from '@/components/pages/components/publication-form/publication-form';
 import { CreatePublicationData } from '@/services/adottami-client/publication-client/types';
 
-import { PAGE_TITLE } from './constants';
+import { FORM_TITLE, PAGE_TITLE } from './constants';
 
 const CreatePublicationPage: FC = () => {
   async function handleSubmit(values: CreatePublicationData) {
@@ -16,7 +16,7 @@ const CreatePublicationPage: FC = () => {
     <Page title={PAGE_TITLE}>
       <FormPageHeader />
 
-      <PublicationForm type="create" title="Qual pet você está anunciando?" onSubmit={handleSubmit} />
+      <PublicationForm type="create" title={FORM_TITLE} onSubmit={handleSubmit} />
     </Page>
   );
 };
