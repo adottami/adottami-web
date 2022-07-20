@@ -11,7 +11,7 @@ interface Props {
 const MenuCard: FC<Props> = ({ icon, href, text }) => {
   const router = useRouter();
   return (
-    <li
+    <div
       className={`flex items-center ${
         router.pathname === href ? 'text-secondary-medium' : 'text-neutral-800'
       } hover:text-secondary-medium`}
@@ -26,7 +26,7 @@ const MenuCard: FC<Props> = ({ icon, href, text }) => {
           {text}
         </a>
       </Link>
-    </li>
+    </div>
   );
 };
 
