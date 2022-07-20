@@ -6,7 +6,7 @@ import { HTMLButtonProps } from '@/types/html';
 
 import { buttonTestIds } from './constants';
 
-type ButtonVariant = 'primary' | 'secondary';
+type ButtonVariant = 'primary' | 'secondary' | 'positive';
 
 export interface Props extends HTMLButtonProps {
   variant?: ButtonVariant;
@@ -30,6 +30,8 @@ const Button: FC<Props> = ({
       ' relative flex h-[46px] items-center justify-center gap-3 rounded-pill border-2 border-transparent p-5 text-sm font-bold text-white shadow-current hover:opacity-80  disabled:cursor-not-allowed disabled:opacity-50',
       variant === 'primary' && 'bg-secondary-medium focus:border-secondary-light',
       variant === 'secondary' && 'bg-tertiary-medium focus:border-tertiary-light',
+      variant === 'positive' &&
+        'w-full items-center justify-center gap-3 rounded-pill bg-positive-medium !p-0 text-surface-primary focus:border-2 focus:border-positive-dark focus:outline-none md:w-32 2xl:!h-[56px] ',
       '2xl:h-[64px] 2xl:p-8 2xl:text-md',
       'md:h-[54px] md:p-6 md:text-md',
       !children && 'px-2',
