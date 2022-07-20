@@ -16,8 +16,8 @@ describe('Inline link', () => {
   });
 
   it('should have render without href as a button', () => {
-    render(<InlineLink onClick={() => console.log('test function')}>cadastre-se</InlineLink>);
+    render(<InlineLink>cadastre-se</InlineLink>);
 
-    expect(screen.getByText('cadastre-se')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'cadastre-se' })).toBeInTheDocument();
   });
 });
