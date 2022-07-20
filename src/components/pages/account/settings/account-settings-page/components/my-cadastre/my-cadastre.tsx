@@ -10,6 +10,7 @@ import Input from '@/components/common/input/input';
 
 import AccountSettingsSection from '../account-settings-section';
 import DefaultSection from '../default-section';
+import { SECTION_TITLE } from './constants';
 
 interface Props {}
 
@@ -32,7 +33,7 @@ const MyCadastre: FC<Props> = () => {
   // ];
 
   return (
-    <DefaultSection title="Meu cadastro" description="Configure o seu cadastro.">
+    <DefaultSection title={SECTION_TITLE} description="Configure o seu cadastro.">
       <AccountSettingsSection title="Dados da conta">
         <form className="flex flex-col gap-4">
           <div className="flex w-16 flex-col items-center gap-4">
