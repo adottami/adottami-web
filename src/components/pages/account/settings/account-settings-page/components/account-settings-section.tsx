@@ -4,7 +4,7 @@ interface Props {
   title?: string;
 }
 
-const Box: FCC<Props> = (props) => {
+const AccountSettingsSection: FCC<Props> = (props) => {
   const { children, title } = props;
 
   return (
@@ -15,4 +15,4 @@ const Box: FCC<Props> = (props) => {
   );
 };
 
-export default Box;
+export default AccountSettingsSection;

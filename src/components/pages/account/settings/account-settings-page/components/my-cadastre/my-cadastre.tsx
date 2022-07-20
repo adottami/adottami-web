@@ -8,7 +8,7 @@ import InlineLink from '@/components/common/inline-link/inline-link';
 import Input from '@/components/common/input/input';
 // import Separator from '@/components/common/separator/separator';
 
-import Box from '../box';
+import AccountSettingsSection from '../account-settings-section';
 import DefaultSection from '../default-section';
 
 interface Props {}
@@ -33,7 +33,7 @@ const MyCadastre: FC<Props> = () => {
 
   return (
     <DefaultSection title="Meu cadastro" description="Configure o seu cadastro.">
-      <Box title="Dados da conta">
+      <AccountSettingsSection title="Dados da conta">
         <form className="flex flex-col gap-4">
           <div className="flex w-16 flex-col items-center gap-4">
             <Image src={profile} alt="Foto de perfil" width={64} height={64} className="rounded-full" />
@@ -47,10 +47,10 @@ const MyCadastre: FC<Props> = () => {
             <Button type="submit">Salvar alterações</Button>
           </div>
         </form>
-      </Box>
+      </AccountSettingsSection>
 
       {/* Comment to remove if this functions can not be finished */}
-      {/* <Box>
+      {/* <AccountSettingsSection>
         {accountOptions.map((account, index) => (
           <React.Fragment key={account.label}>
             <div className="flex flex-wrap justify-between gap-2 text-sm md:text-base">
@@ -74,7 +74,7 @@ const MyCadastre: FC<Props> = () => {
             )}
           </React.Fragment>
         ))}
-      </Box> */}
+      </AccountSettingsSection> */}
     </DefaultSection>
   );
 };
