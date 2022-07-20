@@ -20,7 +20,7 @@ interface Props {
   title: string;
   onSubmit: (values: CreatePublicationData) => Promise<void>;
   type: 'create' | 'edit';
-  previousValues?: Publication;
+  defaultPublication?: Publication;
 }
 
 const PublicationForm: FC<Props> = (props) => {
