@@ -1,13 +1,11 @@
 import { render, screen } from '@testing-library/react';
 
-import { CreatePublicationData } from '@/services/adottami-client/publication-client/types';
-
 import { FORM_LABELS } from '../contants';
 import PublicationForm from '../publication-form';
 
 describe('Publication form tests', () => {
   const title = 'test-publication-form-title';
-  const onSubmit = async (v: CreatePublicationData) => console.log(v);
+  const onSubmit = jest.fn();
 
   function renderPublicationForm() {
     render(<PublicationForm title={title} type="create" onSubmit={onSubmit} />);
