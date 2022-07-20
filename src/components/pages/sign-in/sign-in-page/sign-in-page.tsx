@@ -14,7 +14,7 @@ import Separator from '@/components/common/separator/separator';
 import AdottamiLogo from '@/components/icons/adottami-logo';
 import useAPI from '@/hooks/api/use-api/use-api';
 
-import { PAGE_TITLE, TOAST_CONFIGS } from './constants';
+import { PAGE_TITLE, singInPageTestIds, TOAST_CONFIGS } from './constants';
 import { authenticationSchema } from './schema/authentication-schema';
 
 const SignInPage: FC = () => {
@@ -57,10 +57,16 @@ const SignInPage: FC = () => {
           <AdottamiLogo className="h-6 w-auto md:h-8 2xl:h-10" />
           <div className="w-full md:w-3/4 xl:w-4/6">
             <div className="flex flex-col gap-4 md:gap-6">
-              <h3 className="w-full text-xl font-bold text-primary-dark md:text-2xl">Acesse a sua conta</h3>
+              <h3
+                data-testid={singInPageTestIds.title()}
+                className="w-full text-xl font-bold text-primary-dark md:text-2xl"
+              >
+                Acesse a sua conta
+              </h3>
               <form onSubmit={onSubmit} className="flex flex-col gap-6 md:gap-8">
                 <div className="flex flex-col gap-2">
                   <Input
+                    data-testid={singInPageTestIds.emailInput()}
                     name="email"
                     type="text"
                     label="E-mail"
@@ -71,6 +77,7 @@ const SignInPage: FC = () => {
                     onChange={handleChange}
                   />
                   <Input
+                    data-testid={singInPageTestIds.passwordInput()}
                     name="password"
                     variant="password"
                     label="Senha"
@@ -81,7 +88,9 @@ const SignInPage: FC = () => {
                     onChange={handleChange}
                   />
                 </div>
-                <Button type="submit">Entrar</Button>
+                <Button type="submit" data-testid={singInPageTestIds.button()}>
+                  Entrar
+                </Button>
               </form>
               <div className="flex flex-col gap-4 md:gap-6">
                 <p className="text-center text-sm text-neutral-500 md:text-md">
@@ -99,6 +108,7 @@ const SignInPage: FC = () => {
         </div>
         <div className="hidden h-auto w-1/2 items-center justify-center bg-surface-secondary px-[6rem] md:flex">
           <Image
+            data-testid={singInPageTestIds.decorativeImage()}
             src={banner}
             width={528}
             className="h-full object-cover"
