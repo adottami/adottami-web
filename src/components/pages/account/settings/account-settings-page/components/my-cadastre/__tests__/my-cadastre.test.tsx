@@ -15,7 +15,7 @@ describe('My cadastre section', () => {
 
   it('should render section with all fields labels correctly', () => {
     render(<MyCadastre />);
-    FIELD_LABELS.forEach((fieldLabel) => expect(screen.getByText(fieldLabel)).toBeInTheDocument());
+    FIELD_LABELS.forEach((fieldLabel) => expect(screen.getByRole('label', { name: fieldLabel })).toBeInTheDocument());
   });
 
   it('should render section with correctly button', () => {
