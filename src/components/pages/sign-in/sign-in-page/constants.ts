@@ -7,3 +7,11 @@ export const TOAST_CONFIGS = {
   pauseOnHover: true,
   draggable: true,
 };
+
+export const singInPageTestIds = {
+  decorativeImage: () => 'sign-in-decorative-image-test-id',
+  title: () => 'sign-in-title-test-id',
+  emailInput: () => 'sign-in-email-input-test-id',
+  passwordInput: () => 'sign-in-password-input-test-id',
+  button: () => 'sign-in-button-test-id',
+};
