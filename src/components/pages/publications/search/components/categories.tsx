@@ -2,12 +2,12 @@ import { FC } from 'react';
 
 import CategoryIcon from '@/components/icons/category-icon';
 
-import { categoriesInfo } from './constants';
+import { LOCATION_INFO } from './constants';
 
 const Categories: FC = () => {
   return (
     <div className="flex h-full gap-4 md:flex-wrap">
-      {categoriesInfo.map(({ variant, name }) => (
+      {LOCATION_INFO.map(({ variant, name }) => (
         <button
           type="button"
           data-testid={`categorie-${variant}`}

@@ -1,4 +1,4 @@
-export const categoriesInfo = [
+export const LOCATION_INFO = [
   {
     variant: 'dog',
     name: 'Cachorro',
