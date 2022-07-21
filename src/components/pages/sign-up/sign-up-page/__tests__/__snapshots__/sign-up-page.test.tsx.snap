@@ -386,18 +386,24 @@ Object {
                 >
                   Ao continuar, você concorda com os 
                   <a
-                    class="flex w-fit cursor-pointer items-center gap-1 text-sm leading-4 text-secondary-medium no-underline decoration-secondary-medium transition duration-300 ease-out hover:text-secondary-dark hover:underline md:text-md"
+                    class="w-fit cursor-pointer text-sm leading-4 text-secondary-medium no-underline decoration-secondary-medium transition duration-300 ease-out hover:text-secondary-dark hover:underline md:text-md"
                     href="/#"
                   >
                     Termos de Uso
+                    <span
+                      class="ml-1"
+                    />
                   </a>
                    e a
                    
                   <a
-                    class="flex w-fit cursor-pointer items-center gap-1 text-sm leading-4 text-secondary-medium no-underline decoration-secondary-medium transition duration-300 ease-out hover:text-secondary-dark hover:underline md:text-md"
+                    class="w-fit cursor-pointer text-sm leading-4 text-secondary-medium no-underline decoration-secondary-medium transition duration-300 ease-out hover:text-secondary-dark hover:underline md:text-md"
                     href="/#"
                   >
                     Política de Privacidade
+                    <span
+                      class="ml-1"
+                    />
                   </a>
                    da Adottami, e também, em receber comunicações via e-mail.
                 </p>
@@ -409,10 +415,13 @@ Object {
                 >
                   Já tem uma conta? 
                   <a
-                    class="flex w-fit cursor-pointer items-center gap-1 text-sm leading-4 text-secondary-medium no-underline decoration-secondary-medium transition duration-300 ease-out hover:text-secondary-dark hover:underline md:text-md"
+                    class="w-fit cursor-pointer text-sm leading-4 text-secondary-medium no-underline decoration-secondary-medium transition duration-300 ease-out hover:text-secondary-dark hover:underline md:text-md"
                     href="/sign-in"
                   >
                     Login
+                    <span
+                      class="ml-1"
+                    />
                   </a>
                 </p>
               </div>
@@ -831,18 +840,24 @@ Object {
               >
                 Ao continuar, você concorda com os 
                 <a
-                  class="flex w-fit cursor-pointer items-center gap-1 text-sm leading-4 text-secondary-medium no-underline decoration-secondary-medium transition duration-300 ease-out hover:text-secondary-dark hover:underline md:text-md"
+                  class="w-fit cursor-pointer text-sm leading-4 text-secondary-medium no-underline decoration-secondary-medium transition duration-300 ease-out hover:text-secondary-dark hover:underline md:text-md"
                   href="/#"
                 >
                   Termos de Uso
+                  <span
+                    class="ml-1"
+                  />
                 </a>
                  e a
                  
                 <a
-                  class="flex w-fit cursor-pointer items-center gap-1 text-sm leading-4 text-secondary-medium no-underline decoration-secondary-medium transition duration-300 ease-out hover:text-secondary-dark hover:underline md:text-md"
+                  class="w-fit cursor-pointer text-sm leading-4 text-secondary-medium no-underline decoration-secondary-medium transition duration-300 ease-out hover:text-secondary-dark hover:underline md:text-md"
                   href="/#"
                 >
                   Política de Privacidade
+                  <span
+                    class="ml-1"
+                  />
                 </a>
                  da Adottami, e também, em receber comunicações via e-mail.
               </p>
@@ -854,10 +869,13 @@ Object {
               >
                 Já tem uma conta? 
                 <a
-                  class="flex w-fit cursor-pointer items-center gap-1 text-sm leading-4 text-secondary-medium no-underline decoration-secondary-medium transition duration-300 ease-out hover:text-secondary-dark hover:underline md:text-md"
+                  class="w-fit cursor-pointer text-sm leading-4 text-secondary-medium no-underline decoration-secondary-medium transition duration-300 ease-out hover:text-secondary-dark hover:underline md:text-md"
                   href="/sign-in"
                 >
                   Login
+                  <span
+                    class="ml-1"
+                  />
                 </a>
               </p>
             </div>
