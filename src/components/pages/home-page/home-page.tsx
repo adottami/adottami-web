@@ -191,7 +191,7 @@ const HomePage: FC = () => (
         <div className="relative hidden h-full w-1/2 tablet:flex">
           <Image
             src="/images/how-adottami-works.png"
-            alt="Entenda como a Adottami funciona"
+            alt="Entenda como o Adottami funciona"
             layout="fill"
             objectFit="contain"
             quality={100}
