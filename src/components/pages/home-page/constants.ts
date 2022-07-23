@@ -1,6 +1,7 @@
 export const PAGE_TITLE = 'Página inicial';
 export const SLOGAN_MESSAGE = 'Nós ajudamos você a encontrar o seu novo amigo.';
 
+export const HOW_ADOTTAMI_WORKS_HEADING_ID = 'how-adottami-works';
 export const HOW_ADOTTAMI_WORKS = 'Entenda como o Adottami funciona';
 export const FIRST_DESCRIPTION_OF_HOW_IT_WORKS =
   '1- ONGs ou protetores fazem o seu cadastro gratuitamente e no mesmo instante já podem anúnciar os animais com detalhes sobre suas características e personalidade;';
