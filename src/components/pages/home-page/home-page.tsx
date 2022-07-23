@@ -174,7 +174,7 @@ const HomePage: FC = () => {
           <div className="flex flex-col items-center justify-center ">
             <div className="flex w-full justify-between sm:max-w-[50%] tablet:max-w-none">
               <h2 className="text-lg font-medium lg:text-2xl">Anúncios recentes</h2>
-              <InlineLink href="#" rightIcon>
+              <InlineLink href="/publications/search" rightIcon>
                 Ver mais
               </InlineLink>
             </div>
