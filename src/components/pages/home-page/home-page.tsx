@@ -6,6 +6,8 @@ import InlineLink from '@/components/common/inline-link/inline-link';
 import Page from '@/components/common/page/page';
 
 import {
+  ADOPTING_ANIMAL_IS_ACT_OF_LOVE_TEXT,
+  ADOPTING_ANIMAL_IS_ACT_OF_LOVE_TITLE,
   FIRST_DESCRIPTION_OF_HOW_IT_WORKS,
   homePageTestIds,
   HOW_ADOTTAMI_WORKS,
@@ -67,6 +69,23 @@ const HomePage: FC = () => (
             <p className="text-md text-primary-dark lg:text-lg">{SECOND_DESCRIPTION_OF_HOW_IT_WORKS}</p>
             <p className="text-md text-primary-dark lg:text-lg">{THIRD_DESCRIPTION_OF_HOW_IT_WORKS}</p>
           </div>
+        </div>
+      </section>
+      <section className="flex h-full w-full px-6 py-12 sm:items-center sm:justify-center md:gap-6 md:px-12 md:py-20 lg:px-24 lg:py-40 tablet:h-screen">
+        <div className="flex w-full flex-col sm:w-1/2">
+          <h2 className="mb-4 text-xl font-bold leading-none text-primary-dark md:text-2xl lg:text-3xl">
+            {ADOPTING_ANIMAL_IS_ACT_OF_LOVE_TITLE}
+          </h2>
+          <p className="text-md text-primary-dark lg:text-lg">{ADOPTING_ANIMAL_IS_ACT_OF_LOVE_TEXT}</p>
+        </div>
+        <div className="relative hidden h-full w-1/2 tablet:flex">
+          <Image
+            src="/images/adopting-animal-is-act-of-love.png"
+            alt="Adotar um animal é um ato de amor"
+            layout="fill"
+            objectFit="contain"
+            quality={100}
+          />
         </div>
       </section>
     </div>
