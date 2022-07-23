@@ -154,6 +154,7 @@ const HomePage: FC = () => (
             layout="fill"
             objectFit="contain"
             quality={100}
+            priority
             data-testid={homePageTestIds.firstSection.decorativeImage()}
           />
         </div>
