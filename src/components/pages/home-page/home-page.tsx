@@ -170,7 +170,7 @@ const HomePage: FC = () => {
           </div>
         </section>
 
-        <section className="flex w-full px-6 py-4 sm:items-center sm:justify-center md:gap-6 md:px-12  lg:px-24  tablet:h-screen">
+        <section className="w-full px-6 py-4 md:px-12  lg:px-24 ">
           <div className="flex flex-col items-center justify-center ">
             <div className="flex w-full justify-between sm:max-w-[50%] tablet:max-w-none">
               <h2 className="text-lg font-medium lg:text-2xl">Anúncios recentes</h2>
