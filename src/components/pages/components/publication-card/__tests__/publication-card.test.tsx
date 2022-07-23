@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 
+import { LINK_TO_DETAILS_PAGE_LABEL } from '../constants';
 import PublicationCard from '../publication-card';
 import { publicationFemaleMock, publicationMaleMock } from './mock/publication-mock';
 import { publicationCardTestIds } from './test-ids';
@@ -29,5 +30,12 @@ describe('Publication card', () => {
     render(<PublicationCard publication={publicationFemaleMock} isMenuVisible />);
 
     expect(screen.getByTestId(publicationCardTestIds.menuIconArchived())).toBeInTheDocument();
+  });
+
+  it('should have a link that leads to the publication details page', () => {
+    render(<PublicationCard publication={publicationMaleMock} />);
+
+    const linkToDetailsPage = screen.getByRole('link', { name: LINK_TO_DETAILS_PAGE_LABEL });
+    expect(linkToDetailsPage).toHaveAttribute('href', `/publications/details/${publicationMaleMock.id()}`);
   });
 });
