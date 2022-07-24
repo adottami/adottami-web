@@ -8,18 +8,21 @@ import SessionContextProvider from '@/contexts/session-context/session-context-p
 
 import '@/styles/global.css';
 import 'react-toastify/dist/ReactToastify.min.css';
+import MenuContextProvider from '@/contexts/account-menu-context/account-menu-context-provider';
 
 const App: FC<AppProps> = ({ Component, pageProps }) => {
   const queryClient = useRef(new QueryClient()).current;
 
   return (
     <QueryClientProvider client={queryClient}>
-      <APIContextProvider>
-        <SessionContextProvider>
-          <Component {...pageProps} />
-          <ToastContainer />
-        </SessionContextProvider>
-      </APIContextProvider>
+      <MenuContextProvider>
+        <APIContextProvider>
+          <SessionContextProvider>
+            <Component {...pageProps} />
+            <ToastContainer />
+          </SessionContextProvider>
+        </APIContextProvider>
+      </MenuContextProvider>
     </QueryClientProvider>
   );
 };
