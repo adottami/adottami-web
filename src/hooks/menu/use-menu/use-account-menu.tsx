@@ -1,6 +1,8 @@
-import MenuContext from '@/contexts/account-menu-context/account-menu-context';
+import MenuContext, { AccountMenuContextValue } from '@/contexts/account-menu-context/account-menu-context';
 
-function useAccountMenu() {
+type AccountMenu = AccountMenuContextValue;
+
+function useAccountMenu(): AccountMenu {
   return MenuContext.useContext();
 }
 
