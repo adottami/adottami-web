@@ -6,7 +6,7 @@ import { Search } from '../search-publications-page/types';
 import { LOCATION_INFO } from './constants';
 
 interface Props {
-  setSearchValues: (Func: (prevState: Search) => Search) => void;
+  setSearchValues: (newSearchValues: (prevState: Search) => Search) => void;
 }
 
 const Categories: FC<Props> = ({ setSearchValues }) => {

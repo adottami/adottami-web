@@ -7,7 +7,7 @@ import Input from '@/components/common/input/input';
 import { Search } from '../search-publications-page/types';
 
 interface Props {
-  setSearchValues: (Func: (prevState: Search) => Search) => void;
+  setSearchValues: (newSearchValues: (prevState: Search) => Search) => void;
 }
 
 const LocationInput: FC<Props> = ({ setSearchValues }) => {
