@@ -2,7 +2,7 @@ import { AxiosError } from 'axios';
 import Image, { StaticImageData } from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { CaretRight, Door, Heart, MagnifyingGlass, Shield, SquaresFour, User, X } from 'phosphor-react';
+import { CaretRight, Door, MagnifyingGlass, Shield, SquaresFour, User, X } from 'phosphor-react';
 import profile from 'public/images/image-profile-not-found.png';
 import { FC } from 'react';
 import { toast } from 'react-toastify';

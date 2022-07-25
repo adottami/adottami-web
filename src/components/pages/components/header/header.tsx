@@ -1,6 +1,6 @@
 import Image, { StaticImageData } from 'next/image';
 import Link from 'next/link';
-import { CaretDown, Heart, List, SquaresFour, User } from 'phosphor-react';
+import { CaretDown, List, SquaresFour, User } from 'phosphor-react';
 import profile from 'public/images/image-profile-not-found.png';
 import { FC, useState } from 'react';
 
