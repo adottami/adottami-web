@@ -2,7 +2,7 @@ import Image, { StaticImageData } from 'next/image';
 import Link from 'next/link';
 import { CaretDown, Heart, List, SquaresFour, User } from 'phosphor-react';
 import profile from 'public/images/image-profile-not-found.png';
-import { FC, useEffect, useState } from 'react';
+import { FC, useState } from 'react';
 
 import Button from '@/components/common/button/button';
 import Separator from '@/components/common/separator/separator';
@@ -14,22 +14,14 @@ import MenuCard from './menu-card';
 import ModalMenu from './modal-menu';
 
 export interface Props {
-  isAuth?: boolean;
   avatarPhoto?: string | StaticImageData;
-  username?: string | null;
 }
 
 const Header: FC<Props> = ({ avatarPhoto = profile }) => {
-  const [name, setName] = useState('');
   const { user } = useSession();
-  useEffect(() => {
-    if (user) {
-      setName(() => user.name());
-    }
-  }, [name, user]);
 
   const singleName = () => {
-    return name.split(' ')[0];
+    return user?.name().split(' ')[0];
   };
 
   const [menuHamburguerOpen, setMenuHamburguerOpen] = useState(false);
@@ -71,9 +63,7 @@ const Header: FC<Props> = ({ avatarPhoto = profile }) => {
           </Link>
         </div>
         <div className="flex items-center gap-16">
-          {menuHamburguerOpen === true && (
-            <ModalMenu isAuth={!!user?.name} setCloseModal={closeModal} username={name} />
-          )}
+          {menuHamburguerOpen === true && <ModalMenu setCloseModal={closeModal} />}
           <nav className="hidden lg:block">
             <ul className="flex gap-6 ">
               <MenuCard
@@ -83,7 +73,7 @@ const Header: FC<Props> = ({ avatarPhoto = profile }) => {
               />
               <MenuCard icon={<Heart size={24} weight="regular" />} href="#" text="Favoritos" />
               <div>
-                {user?.name ? (
+                {user ? (
                   <li>
                     <div className="flex items-center">
                       <Image src={avatarPhoto} alt="Foto de perfil" className="rounded-full" />
