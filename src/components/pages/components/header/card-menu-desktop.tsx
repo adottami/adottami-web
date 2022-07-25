@@ -5,7 +5,6 @@ import { FC } from 'react';
 import { toast } from 'react-toastify';
 
 import Separator from '@/components/common/separator/separator';
-import useAPI from '@/hooks/api/use-api/use-api';
 import useAccountMenu from '@/hooks/menu/use-menu/use-account-menu';
 import useSession from '@/hooks/session/use-session/use-session';
 
@@ -19,11 +18,8 @@ interface CardMenuDesktopProps {
 const CardMenuDesktop: FC<CardMenuDesktopProps> = ({ mouseOut }) => {
   const { logout } = useSession();
   const { setPage } = useAccountMenu();
-  const api = useAPI();
   const handleLogout = async () => {
     try {
-      await api.adottami.session.logout();
-
       await logout();
       router.push('/');
     } catch (error) {
