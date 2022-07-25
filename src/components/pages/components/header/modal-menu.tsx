@@ -1,7 +1,7 @@
 import { AxiosError } from 'axios';
 import Image, { StaticImageData } from 'next/image';
 import Link from 'next/link';
-import router from 'next/router';
+import { useRouter } from 'next/router';
 import { CaretRight, Door, Heart, MagnifyingGlass, Shield, SquaresFour, User, X } from 'phosphor-react';
 import profile from 'public/images/image-profile-not-found.png';
 import { FC } from 'react';
@@ -22,7 +22,7 @@ interface Props {
 const ModalMenu: FC<Props> = ({ setCloseModal, avatarPhoto = profile }) => {
   const { logout, user } = useSession();
   const { setPage } = useMenu();
-
+  const router = useRouter();
   const handleButtonLoginAndSecurity = () => {
     setCloseModal();
     setPage('security-and-login');

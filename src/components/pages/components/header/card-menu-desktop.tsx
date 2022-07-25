@@ -1,5 +1,5 @@
 import { AxiosError } from 'axios';
-import router from 'next/router';
+import { useRouter } from 'next/router';
 import { Door, Shield, User } from 'phosphor-react';
 import { FC } from 'react';
 import { toast } from 'react-toastify';
@@ -18,6 +18,7 @@ interface CardMenuDesktopProps {
 const CardMenuDesktop: FC<CardMenuDesktopProps> = ({ mouseOut }) => {
   const { logout } = useSession();
   const { setPage } = useAccountMenu();
+  const router = useRouter();
   const handleLogout = async () => {
     try {
       await logout();
