@@ -39,17 +39,17 @@ const CardMenuDesktop: FC<CardMenuDesktopProps> = ({ mouseOut }) => {
           icon={<User size={24} weight="regular" />}
           href="/account/settings"
           text="Meu cadastro"
-          actionFunction={() => setPage('my-cadastre')}
+          onClick={() => setPage('my-cadastre')}
         />
         <Separator />
         <MenuCard
           icon={<Shield size={24} weight="regular" />}
           href="/account/settings/"
           text="Login e segurança"
-          actionFunction={() => setPage('security-and-login')}
+          onClick={() => setPage('security-and-login')}
         />
         <Separator />
-        <MenuCard icon={<Door size={24} weight="regular" />} href="#" text="Sair" actionFunction={handleLogout} />
+        <MenuCard icon={<Door size={24} weight="regular" />} href="#" text="Sair" onClick={handleLogout} />
       </ul>
     </nav>
   );
