@@ -1,6 +1,7 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 
 import { expectPageTitleWithApplicationName } from '@/components/common/page/__tests__/utils';
+import { renderWithTestProviders } from '@tests/utils/render';
 
 import {
   FIRST_DESCRIPTION_OF_HOW_IT_WORKS,
@@ -13,9 +14,17 @@ import {
 } from '../constants';
 import HomePage from '../home-page';
 
+jest.mock('next/router', () => ({
+  useRouter() {
+    return {
+      pathname: '/',
+    };
+  },
+}));
+
 describe('Home page', () => {
   it('should render the first section correctly', () => {
-    render(<HomePage />);
+    renderWithTestProviders(<HomePage />);
     expectPageTitleWithApplicationName(PAGE_TITLE);
     expect(screen.getByText(SLOGAN_MESSAGE)).toBeInTheDocument();
     expect(screen.getByTestId(homePageTestIds.firstSection.decorativeImage())).toBeInTheDocument();
@@ -25,7 +34,7 @@ describe('Home page', () => {
   });
 
   it('should render `how adottami works` section correctly', () => {
-    render(<HomePage />);
+    renderWithTestProviders(<HomePage />);
     expect(screen.getByText(HOW_ADOTTAMI_WORKS)).toBeInTheDocument();
     expect(screen.getByText(FIRST_DESCRIPTION_OF_HOW_IT_WORKS)).toBeInTheDocument();
     expect(screen.getByText(SECOND_DESCRIPTION_OF_HOW_IT_WORKS)).toBeInTheDocument();
@@ -34,7 +43,7 @@ describe('Home page', () => {
   });
 
   it('should render `recent publications` section correctly', () => {
-    const { getByText } = render(<HomePage />);
+    const { getByText } = renderWithTestProviders(<HomePage />);
     expect(getByText('Anúncios recentes')).toBeInTheDocument();
     expect(getByText('Ver mais')).toBeInTheDocument();
     expect(screen.getByTestId('cards')).toBeInTheDocument();

@@ -16,7 +16,7 @@ const InlineLink: FunctionComponentWithChildren<Props> = (props) => {
   if (href) {
     return (
       <Link href={href} passHref>
-        <a className="flex w-fit cursor-pointer items-center gap-1 text-sm leading-4 text-secondary-medium no-underline decoration-secondary-medium transition duration-300 ease-out hover:text-secondary-dark hover:underline md:text-md">
+        <a className="inline-flex w-fit cursor-pointer items-center gap-1 text-sm leading-4 text-secondary-medium no-underline decoration-secondary-medium transition duration-300 ease-out hover:text-secondary-dark hover:underline md:text-md">
           {children}
           {rightIcon && <CaretRight />}
         </a>
@@ -28,7 +28,7 @@ const InlineLink: FunctionComponentWithChildren<Props> = (props) => {
     <button
       type="button"
       onClick={onClick}
-      className="flex w-fit cursor-pointer items-center gap-1 text-sm leading-4 text-secondary-medium no-underline decoration-secondary-medium transition duration-300 ease-out hover:text-secondary-dark hover:underline md:text-md"
+      className="inline-flex w-fit cursor-pointer items-center gap-1 text-sm leading-4 text-secondary-medium no-underline decoration-secondary-medium transition duration-300 ease-out hover:text-secondary-dark hover:underline md:text-md"
     >
       {children}
       {rightIcon && <CaretRight />}

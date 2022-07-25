@@ -5,6 +5,7 @@ import { FC } from 'react';
 import Button from '@/components/common/button/button';
 import InlineLink from '@/components/common/inline-link/inline-link';
 import Page from '@/components/common/page/page';
+import Header from '@/components/pages/components/header/header';
 import Publication from '@/models/publication/publication';
 
 import PublicationCard from '../components/publication-card/publication-card';
@@ -129,9 +130,9 @@ const recentPublications = {
 
 const HomePage: FC = () => {
   const router = useRouter();
-
   return (
     <Page title={PAGE_TITLE}>
+      <Header />
       <div className="flex h-full w-full flex-col items-center justify-center bg-surface-primary">
         <section className="flex h-full w-full px-6 py-12 sm:items-center sm:justify-center md:gap-6 md:px-12 md:py-20 lg:px-24 lg:py-40 tablet:h-screen">
           <div className="flex w-full flex-col sm:w-1/2">
