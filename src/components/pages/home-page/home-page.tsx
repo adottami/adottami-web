@@ -5,12 +5,11 @@ import { FC, useEffect, useState } from 'react';
 import Button from '@/components/common/button/button';
 import InlineLink from '@/components/common/inline-link/inline-link';
 import Page from '@/components/common/page/page';
-import PawIcon from '@/components/icons/paw-icon';
 import Header from '@/components/pages/components/header/header';
 import useAPI from '@/hooks/api/use-api/use-api';
-import useSession from '@/hooks/session/use-session/use-session';
 import Publication from '@/models/publication/publication';
 
+import EmptyData from '../components/empty-data/empty-data';
 import PublicationCard from '../components/publication-card/publication-card';
 import {
   FIRST_DESCRIPTION_OF_HOW_IT_WORKS,
@@ -35,8 +34,8 @@ const HomePage: FC = () => {
         state: 'Paraiba',
         orderBy: 'createdAt',
       });
-      // const lastRecentPublications = publications.slice(-3).reverse();
-      // setRecentPublications(() => lastRecentPublications);
+      const lastRecentPublications = publications.slice(-3).reverse();
+      setRecentPublications(() => lastRecentPublications);
     };
 
     getRecentPublications();
@@ -105,10 +104,7 @@ const HomePage: FC = () => {
                     );
                   })
                 ) : (
-                  <div className="flex h-[380ox] w-[300px] flex-col items-center justify-center rounded-xl border-2 border-neutral-100 bg-surface-primary lg:h-[400px] lg:w-full">
-                    <PawIcon />
-                    <p className="pt-9 text-xl	font-bold">Ainda não há anúncios publicados</p>
-                  </div>
+                  <EmptyData message="Ainda não há anúncios publicados" />
                 )}
               </div>
             </div>
