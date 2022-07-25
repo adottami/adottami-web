@@ -34,9 +34,8 @@ const SignInPage: FC = () => {
         password: values.password,
       };
       try {
-        await api.adottami.session.login(userData);
-        toast.success('Login realizado com sucesso!', TOAST_CONFIGS);
         await session.login(userData);
+        toast.success('Login realizado com sucesso!', TOAST_CONFIGS);
         router.push('/');
       } catch (error) {
         if (!(error instanceof AxiosError)) throw error;
