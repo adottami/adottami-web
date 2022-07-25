@@ -40,7 +40,6 @@ const HomePage: FC = () => {
 
     getRecentPublications();
   }, [api.adottami.publications]);
-  console.log(recentPublications);
   return (
     <Page title={PAGE_TITLE}>
       <Header />
