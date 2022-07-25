@@ -15,7 +15,7 @@ const AccountSettingsPage: FC = () => {
   return (
     <Page title={PAGE_TITLE}>
       <div className="h-screen">
-        <Header isAuth username="Matheus" />
+        <Header />
 
         <div className="mx-auto mt-14 mb-24 flex w-full max-w-4xl justify-between gap-8 px-8">
           <NavBar selectedPage={page} setSelectedPage={setPage} />
