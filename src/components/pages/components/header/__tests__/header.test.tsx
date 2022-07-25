@@ -18,7 +18,6 @@ describe('Header', () => {
     renderWithTestProviders(<Header />);
     expect(screen.getByText('Entrar')).toBeInTheDocument();
     expect(screen.getByText('Meus Anúncios')).toBeInTheDocument();
-    expect(screen.getByText('Favoritos')).toBeInTheDocument();
     expect(screen.getByText('Anunciar um pet')).toBeInTheDocument();
   });
 
