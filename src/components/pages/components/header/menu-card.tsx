@@ -13,14 +13,11 @@ const MenuCard: FC<Props> = ({ icon, href, text, actionFunction }) => {
   const router = useRouter();
 
   return (
-    <div
+    <button
       className={`flex items-center ${
         router.pathname === href ? 'text-secondary-medium' : 'text-neutral-800'
       } hover:text-secondary-medium`}
       onClick={actionFunction}
-      onKeyUp={actionFunction}
-      role="button"
-      tabIndex={0}
     >
       {icon}
       <Link href={href} passHref>
@@ -32,7 +29,7 @@ const MenuCard: FC<Props> = ({ icon, href, text, actionFunction }) => {
           {text}
         </a>
       </Link>
-    </div>
+    </button>
   );
 };
 
