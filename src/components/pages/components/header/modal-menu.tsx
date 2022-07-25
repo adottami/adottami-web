@@ -8,7 +8,6 @@ import { FC } from 'react';
 import { toast } from 'react-toastify';
 
 import Separator from '@/components/common/separator/separator';
-import useAPI from '@/hooks/api/use-api/use-api';
 import useMenu from '@/hooks/menu/use-menu/use-account-menu';
 import useSession from '@/hooks/session/use-session/use-session';
 
@@ -16,16 +15,13 @@ import { TOAST_CONFIGS } from './constants';
 import MenuCard from './menu-card';
 
 interface Props {
-  isAuth: boolean;
   avatarPhoto?: string | StaticImageData;
-  username: string | null;
   setCloseModal: () => void;
 }
 
-const ModalMenu: FC<Props> = ({ setCloseModal, isAuth, avatarPhoto = profile, username }) => {
-  const { logout } = useSession();
+const ModalMenu: FC<Props> = ({ setCloseModal, avatarPhoto = profile }) => {
+  const { logout, user } = useSession();
   const { setPage } = useMenu();
-  const api = useAPI();
 
   const handleButtonLoginAndSecurity = () => {
     setCloseModal();
@@ -34,8 +30,6 @@ const ModalMenu: FC<Props> = ({ setCloseModal, isAuth, avatarPhoto = profile, us
 
   const handleLogout = async () => {
     try {
-      await api.adottami.session.logout();
-
       await logout();
       router.push('/');
     } catch (error) {
@@ -49,7 +43,7 @@ const ModalMenu: FC<Props> = ({ setCloseModal, isAuth, avatarPhoto = profile, us
     }
   };
 
-  return isAuth ? (
+  return user ? (
     <nav className="fixed left-0 top-0 z-1 h-full w-full bg-surface-primary pt-6 pl-7 shadow-sm">
       <ul className="flex flex-col gap-6">
         <li className="self-end pr-2">
@@ -59,7 +53,7 @@ const ModalMenu: FC<Props> = ({ setCloseModal, isAuth, avatarPhoto = profile, us
           <div className="flex items-center">
             <Image src={avatarPhoto} alt="Foto de perfil" width={42} height={42} className="rounded-full" />
             <div className="pl-4">
-              <p>{username}</p>
+              <p>{user.name()}</p>
               <Link href="/account/settings" passHref>
                 <a
                   onClick={() => {
@@ -89,12 +83,12 @@ const ModalMenu: FC<Props> = ({ setCloseModal, isAuth, avatarPhoto = profile, us
         <Separator />
         <MenuCard
           icon={<Shield size={20} weight="thin" />}
-          href="/account/settings/"
+          href="/account/settings"
           text="Login e segurança"
-          actionFunction={handleButtonLoginAndSecurity}
+          onClick={handleButtonLoginAndSecurity}
         />
         <Separator />
-        <MenuCard icon={<Door size={20} weight="thin" />} href="#" text="Sair" actionFunction={handleLogout} />
+        <MenuCard icon={<Door size={20} weight="thin" />} href="#" text="Sair" onClick={handleLogout} />
       </ul>
     </nav>
   ) : (
