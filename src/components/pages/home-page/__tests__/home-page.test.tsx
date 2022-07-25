@@ -32,7 +32,14 @@ describe('Home page', () => {
     expect(screen.getByText(FIRST_DESCRIPTION_OF_HOW_IT_WORKS)).toBeInTheDocument();
     expect(screen.getByText(SECOND_DESCRIPTION_OF_HOW_IT_WORKS)).toBeInTheDocument();
     expect(screen.getByText(THIRD_DESCRIPTION_OF_HOW_IT_WORKS)).toBeInTheDocument();
-    expect(screen.getByAltText(/entenda como a adottami funciona/i)).toBeInTheDocument();
+    expect(screen.getByAltText(/entenda como o adottami funciona/i)).toBeInTheDocument();
+  });
+
+  it('should render `recent publications` section correctly', () => {
+    const { getByText } = render(<HomePage />);
+    expect(getByText('Anúncios recentes')).toBeInTheDocument();
+    expect(getByText('Ver mais')).toBeInTheDocument();
+    expect(screen.getByTestId('cards')).toBeInTheDocument();
   });
 
   it('should render `adopting an animal is act of love` section correctly', () => {
