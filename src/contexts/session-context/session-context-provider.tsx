@@ -17,7 +17,7 @@ const SessionContextProvider: FCC = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  const resetSessionAfterUnauthenticated = useCallback(() => {
+  const clearSession = useCallback(() => {
     setAdottamiClient(new AdottamiClient(null));
     setUser(null);
     storage.session.clear();
@@ -26,11 +26,11 @@ const SessionContextProvider: FCC = ({ children }) => {
   const createClientsAfterAuthenticated = useCallback(
     (authentication: AuthenticationCredentials) => {
       const adottamiClient = new AdottamiClient(authentication, {
-        listeners: { onUnexpectedLogout: resetSessionAfterUnauthenticated },
+        listeners: { onUnexpectedLogout: clearSession },
       });
       return { adottamiClient };
     },
-    [resetSessionAfterUnauthenticated],
+    [clearSession],
   );
 
   const login = useCallback(
@@ -59,11 +59,11 @@ const SessionContextProvider: FCC = ({ children }) => {
 
     try {
       await api.adottami.session.logout();
-      resetSessionAfterUnauthenticated();
+      clearSession();
     } finally {
       setIsLoading(false);
     }
-  }, [api.adottami.session, resetSessionAfterUnauthenticated]);
+  }, [api.adottami.session, clearSession]);
 
   useEffect(() => {
     async function restorePreviousSessionIfPresent() {
@@ -78,13 +78,16 @@ const SessionContextProvider: FCC = ({ children }) => {
 
         setAdottamiClient(adottamiClient);
         setUser(user);
+      } catch (error) {
+        console.error(error);
+        clearSession();
       } finally {
         setIsLoading(false);
       }
     }
 
     restorePreviousSessionIfPresent();
-  }, [createClientsAfterAuthenticated, setAdottamiClient]);
+  }, [createClientsAfterAuthenticated, clearSession, setAdottamiClient]);
 
   const session = useMemo<SessionContextValue>(
     () => ({ user, login, logout, isLoading }),
