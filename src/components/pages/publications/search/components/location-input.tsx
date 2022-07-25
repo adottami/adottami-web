@@ -1,21 +1,16 @@
 import { MagnifyingGlass } from 'phosphor-react';
-import { FC, FormEvent, useEffect, useState } from 'react';
+import { FC, FormEvent } from 'react';
 
 import Button from '@/components/common/button/button';
 import Input from '@/components/common/input/input';
 
-import { LOCATION_INITIAL_STATE } from './constants';
+import { Search } from '../search-publications-page/types';
 
-interface Location {
-  state: string;
-  city: string;
+interface Props {
+  setSearchValues: (Func: (prevState: Search) => Search) => void;
 }
 
-const LocationInput: FC = () => {
-  const [locationValue, setLocationsValue] = useState<Location>(LOCATION_INITIAL_STATE);
-
-  useEffect(() => {}, [locationValue]);
-
+const LocationInput: FC<Props> = ({ setSearchValues }) => {
   const handleSendForm = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const { state, city } = event.target as typeof event.target & {
@@ -23,7 +18,7 @@ const LocationInput: FC = () => {
       city: { value: string };
     };
 
-    setLocationsValue({ state: state.value, city: city.value });
+    setSearchValues((prevState) => ({ ...prevState, state: state.value, city: city.value }));
   };
 
   return (
