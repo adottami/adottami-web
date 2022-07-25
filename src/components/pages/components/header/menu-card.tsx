@@ -6,10 +6,10 @@ interface Props {
   icon: JSX.Element;
   href: string;
   text: string;
-  actionFunction?: () => void;
+  onClick?: () => void;
 }
 
-const MenuCard: FC<Props> = ({ icon, href, text, actionFunction }) => {
+const MenuCard: FC<Props> = ({ icon, href, text, onClick }) => {
   const router = useRouter();
 
   return (
@@ -17,7 +17,7 @@ const MenuCard: FC<Props> = ({ icon, href, text, actionFunction }) => {
       className={`flex items-center ${
         router.pathname === href ? 'text-secondary-medium' : 'text-neutral-800'
       } hover:text-secondary-medium`}
-      onClick={actionFunction}
+      onClick={onClick}
     >
       {icon}
       <Link href={href} passHref>
