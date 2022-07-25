@@ -71,7 +71,6 @@ const Header: FC<Props> = ({ avatarPhoto = profile }) => {
                 href="/publications/dashboard"
                 text="Meus Anúncios"
               />
-              <MenuCard icon={<Heart size={24} weight="regular" />} href="#" text="Favoritos" />
               <div>
                 {user ? (
                   <li>

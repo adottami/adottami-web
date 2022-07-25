@@ -79,7 +79,6 @@ const ModalMenu: FC<Props> = ({ setCloseModal, avatarPhoto = profile }) => {
         <MenuCard icon={<MagnifyingGlass size={20} weight="thin" />} href="/publications/search" text="Buscar pet" />
         <Separator />
         <MenuCard icon={<SquaresFour size={20} weight="thin" />} href="/publications/dashboard" text="Meus Anúncios" />
-        <MenuCard icon={<Heart size={20} weight="thin" />} href="#" text="Favoritos" />
         <Separator />
         <MenuCard
           icon={<Shield size={20} weight="thin" />}
@@ -101,7 +100,6 @@ const ModalMenu: FC<Props> = ({ setCloseModal, avatarPhoto = profile }) => {
         <MenuCard icon={<MagnifyingGlass size={20} weight="thin" />} href="/publications/search" text="Buscar pet" />
         <Separator />
         <MenuCard icon={<SquaresFour size={20} weight="thin" />} href="/publications/dashboard" text="Meus Anúncios" />
-        <MenuCard icon={<Heart size={20} weight="thin" />} href="#" text="Favoritos" />
       </ul>
     </nav>
   );
