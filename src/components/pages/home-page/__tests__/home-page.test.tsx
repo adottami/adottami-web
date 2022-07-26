@@ -43,9 +43,9 @@ describe('Home page', () => {
   });
 
   it('should render `recent publications` section correctly', () => {
-    const { getByText } = renderWithTestProviders(<HomePage />);
-    expect(getByText('Anúncios recentes')).toBeInTheDocument();
-    expect(getByText('Ver mais')).toBeInTheDocument();
+    renderWithTestProviders(<HomePage />);
+    expect(screen.getByText('Anúncios recentes')).toBeInTheDocument();
+    expect(screen.getByText('Ver mais')).toBeInTheDocument();
     expect(screen.getByTestId('cards')).toBeInTheDocument();
   });
 });
