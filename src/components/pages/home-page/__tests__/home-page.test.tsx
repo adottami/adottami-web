@@ -1,14 +1,9 @@
-import { act, screen, waitFor } from '@testing-library/react';
-import axios from 'axios';
+import { screen } from '@testing-library/react';
 
 import { expectPageTitleWithApplicationName } from '@/components/common/page/__tests__/utils';
-import globalConfig from '@/config/global-config/global-config';
-import useAPI from '@/hooks/api/use-api/use-api';
-import PublicationFactory from '@/models/publication/publication-factory';
 import { PublicationResponse } from '@/models/publication/types';
 import AdottamiClient from '@/services/adottami-client/adottami-client';
 import publicationResponseHandler from '@/services/adottami-client/publication-client/__tests__/mocks/publication-response-handler';
-import PublicationClient from '@/services/adottami-client/publication-client/publication-client';
 import { GetPublicationsOptions } from '@/services/adottami-client/publication-client/types';
 import { renderWithTestProviders } from '@tests/utils/render';
 
