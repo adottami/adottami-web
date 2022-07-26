@@ -1,5 +1,7 @@
 import { setupServer } from 'msw/node';
 
-const testServer = setupServer();
+import { handlers } from './mocks/handlers';
+
+const testServer = setupServer(...handlers);
 
 export default testServer;
