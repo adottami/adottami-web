@@ -4,6 +4,8 @@ import { expectPageTitleWithApplicationName } from '@/components/common/page/__t
 import { renderWithTestProviders } from '@tests/utils/render';
 
 import {
+  ADOPTING_ANIMAL_IS_ACT_OF_LOVE_TEXT,
+  ADOPTING_ANIMAL_IS_ACT_OF_LOVE_TITLE,
   FIRST_DESCRIPTION_OF_HOW_IT_WORKS,
   homePageTestIds,
   HOW_ADOTTAMI_WORKS,
@@ -47,5 +49,12 @@ describe('Home page', () => {
     expect(getByText('Anúncios recentes')).toBeInTheDocument();
     expect(getByText('Ver mais')).toBeInTheDocument();
     expect(screen.getByTestId('cards')).toBeInTheDocument();
+  });
+
+  it('should render `adopting an animal is act of love` section correctly', () => {
+    render(<HomePage />);
+    expect(screen.getByText(ADOPTING_ANIMAL_IS_ACT_OF_LOVE_TITLE)).toBeInTheDocument();
+    expect(screen.getByText(ADOPTING_ANIMAL_IS_ACT_OF_LOVE_TEXT)).toBeInTheDocument();
+    expect(screen.getByAltText(/adotar um animal é um ato de amor/i)).toBeInTheDocument();
   });
 });
