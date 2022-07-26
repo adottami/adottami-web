@@ -1,8 +1,8 @@
 import { AxiosError } from 'axios';
 import Image, { StaticImageData } from 'next/image';
 import Link from 'next/link';
-import router from 'next/router';
-import { CaretRight, Door, Heart, MagnifyingGlass, Shield, SquaresFour, User, X } from 'phosphor-react';
+import { useRouter } from 'next/router';
+import { CaretRight, Door, MagnifyingGlass, Shield, SquaresFour, User, X } from 'phosphor-react';
 import profile from 'public/images/image-profile-not-found.png';
 import { FC } from 'react';
 import { toast } from 'react-toastify';
@@ -22,7 +22,7 @@ interface Props {
 const ModalMenu: FC<Props> = ({ setCloseModal, avatarPhoto = profile }) => {
   const { logout, user } = useSession();
   const { setPage } = useMenu();
-
+  const router = useRouter();
   const handleButtonLoginAndSecurity = () => {
     setCloseModal();
     setPage('security-and-login');
@@ -79,7 +79,6 @@ const ModalMenu: FC<Props> = ({ setCloseModal, avatarPhoto = profile }) => {
         <MenuCard icon={<MagnifyingGlass size={20} weight="thin" />} href="/publications/search" text="Buscar pet" />
         <Separator />
         <MenuCard icon={<SquaresFour size={20} weight="thin" />} href="/publications/dashboard" text="Meus Anúncios" />
-        <MenuCard icon={<Heart size={20} weight="thin" />} href="#" text="Favoritos" />
         <Separator />
         <MenuCard
           icon={<Shield size={20} weight="thin" />}
@@ -101,7 +100,6 @@ const ModalMenu: FC<Props> = ({ setCloseModal, avatarPhoto = profile }) => {
         <MenuCard icon={<MagnifyingGlass size={20} weight="thin" />} href="/publications/search" text="Buscar pet" />
         <Separator />
         <MenuCard icon={<SquaresFour size={20} weight="thin" />} href="/publications/dashboard" text="Meus Anúncios" />
-        <MenuCard icon={<Heart size={20} weight="thin" />} href="#" text="Favoritos" />
       </ul>
     </nav>
   );
