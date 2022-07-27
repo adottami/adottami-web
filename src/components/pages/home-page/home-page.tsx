@@ -32,8 +32,6 @@ const HomePage: FC = () => {
   useEffect(() => {
     const getRecentPublications = async () => {
       const publications = await api.adottami.publications.get({
-        city: 'Campina Grande',
-        state: 'Paraiba',
         orderBy: 'createdAt',
         page: 1,
         perPage: 3,
