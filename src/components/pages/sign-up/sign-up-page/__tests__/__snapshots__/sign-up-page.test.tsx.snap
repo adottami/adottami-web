@@ -353,7 +353,7 @@ Object {
                   </div>
                 </div>
                 <button
-                  class=" relative flex h-[46px] items-center justify-center gap-3 rounded-pill border-2 border-transparent p-5 text-sm font-bold text-white shadow-current hover:opacity-80  disabled:cursor-not-allowed disabled:opacity-50 bg-secondary-medium focus:border-secondary-light 2xl:h-[64px] 2xl:p-8 2xl:text-md md:h-[54px] md:p-6 md:text-md"
+                  class="relative flex h-[46px] items-center justify-center gap-3 rounded-pill border-2 border-transparent p-5 text-sm font-bold text-white shadow-current hover:opacity-80  disabled:cursor-not-allowed disabled:opacity-50 bg-secondary-medium focus:border-secondary-light 2xl:h-[64px] 2xl:p-8 2xl:text-md md:h-[54px] md:p-6 md:text-md"
                   data-testid="primary-button-test-id"
                   type="submit"
                 >
@@ -384,9 +384,9 @@ Object {
                 <p
                   class="text-center text-sm text-neutral-500 md:text-md"
                 >
-                  Ao continuar, você concorda com os 
+                  Ao continuar, você concorda com os
                   <a
-                    class="w-fit cursor-pointer text-sm leading-4 text-secondary-medium no-underline decoration-secondary-medium transition duration-300 ease-out hover:text-secondary-dark hover:underline md:text-md"
+                    class="inline-flex w-fit cursor-pointer items-center gap-1 text-sm leading-4 text-secondary-medium no-underline decoration-secondary-medium transition duration-300 ease-out hover:text-secondary-dark hover:underline md:text-md"
                     href="/#"
                   >
                     Termos de Uso
@@ -395,13 +395,13 @@ Object {
                     />
                   </a>
                    e a
-                   
+
                   <a
+<<<<<<< HEAD
                     class="w-fit cursor-pointer text-sm leading-4 text-secondary-medium no-underline decoration-secondary-medium transition duration-300 ease-out hover:text-secondary-dark hover:underline md:text-md"
-                    href="/#"
-                  >
+=======
+                    class="inline-flex w-fit cursor-pointer items-center gap-1 text-sm leading-4 text-secondary-medium no-underline decoration-secondary-medium transition duration-300 ease-out hover:text-secondary-dark hover:underline md:text-md"
                     Política de Privacidade
-                    <span
                       class="ml-1"
                     />
                   </a>
@@ -413,9 +413,13 @@ Object {
                 <p
                   class="text-center text-sm text-neutral-800 md:text-md"
                 >
-                  Já tem uma conta? 
+                  Já tem uma conta?
                   <a
+<<<<<<< HEAD
                     class="w-fit cursor-pointer text-sm leading-4 text-secondary-medium no-underline decoration-secondary-medium transition duration-300 ease-out hover:text-secondary-dark hover:underline md:text-md"
+=======
+                    class="inline-flex w-fit cursor-pointer items-center gap-1 text-sm leading-4 text-secondary-medium no-underline decoration-secondary-medium transition duration-300 ease-out hover:text-secondary-dark hover:underline md:text-md"
+>>>>>>> 80d2990ad02d7ed2be8ad1e468cc98b05dcdbb06
                     href="/sign-in"
                   >
                     Login
@@ -807,7 +811,7 @@ Object {
                 </div>
               </div>
               <button
-                class=" relative flex h-[46px] items-center justify-center gap-3 rounded-pill border-2 border-transparent p-5 text-sm font-bold text-white shadow-current hover:opacity-80  disabled:cursor-not-allowed disabled:opacity-50 bg-secondary-medium focus:border-secondary-light 2xl:h-[64px] 2xl:p-8 2xl:text-md md:h-[54px] md:p-6 md:text-md"
+                class="relative flex h-[46px] items-center justify-center gap-3 rounded-pill border-2 border-transparent p-5 text-sm font-bold text-white shadow-current hover:opacity-80  disabled:cursor-not-allowed disabled:opacity-50 bg-secondary-medium focus:border-secondary-light 2xl:h-[64px] 2xl:p-8 2xl:text-md md:h-[54px] md:p-6 md:text-md"
                 data-testid="primary-button-test-id"
                 type="submit"
               >
@@ -838,9 +842,13 @@ Object {
               <p
                 class="text-center text-sm text-neutral-500 md:text-md"
               >
-                Ao continuar, você concorda com os 
+                Ao continuar, você concorda com os
                 <a
+<<<<<<< HEAD
                   class="w-fit cursor-pointer text-sm leading-4 text-secondary-medium no-underline decoration-secondary-medium transition duration-300 ease-out hover:text-secondary-dark hover:underline md:text-md"
+=======
+                  class="inline-flex w-fit cursor-pointer items-center gap-1 text-sm leading-4 text-secondary-medium no-underline decoration-secondary-medium transition duration-300 ease-out hover:text-secondary-dark hover:underline md:text-md"
+>>>>>>> 80d2990ad02d7ed2be8ad1e468cc98b05dcdbb06
                   href="/#"
                 >
                   Termos de Uso
@@ -849,9 +857,13 @@ Object {
                   />
                 </a>
                  e a
-                 
+
                 <a
+<<<<<<< HEAD
                   class="w-fit cursor-pointer text-sm leading-4 text-secondary-medium no-underline decoration-secondary-medium transition duration-300 ease-out hover:text-secondary-dark hover:underline md:text-md"
+=======
+                  class="inline-flex w-fit cursor-pointer items-center gap-1 text-sm leading-4 text-secondary-medium no-underline decoration-secondary-medium transition duration-300 ease-out hover:text-secondary-dark hover:underline md:text-md"
+>>>>>>> 80d2990ad02d7ed2be8ad1e468cc98b05dcdbb06
                   href="/#"
                 >
                   Política de Privacidade
@@ -867,9 +879,13 @@ Object {
               <p
                 class="text-center text-sm text-neutral-800 md:text-md"
               >
-                Já tem uma conta? 
+                Já tem uma conta?
                 <a
+<<<<<<< HEAD
                   class="w-fit cursor-pointer text-sm leading-4 text-secondary-medium no-underline decoration-secondary-medium transition duration-300 ease-out hover:text-secondary-dark hover:underline md:text-md"
+=======
+                  class="inline-flex w-fit cursor-pointer items-center gap-1 text-sm leading-4 text-secondary-medium no-underline decoration-secondary-medium transition duration-300 ease-out hover:text-secondary-dark hover:underline md:text-md"
+>>>>>>> 80d2990ad02d7ed2be8ad1e468cc98b05dcdbb06
                   href="/sign-in"
                 >
                   Login

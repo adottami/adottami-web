@@ -12,6 +12,7 @@ import { AuthenticationCredentials } from '@/services/adottami-client/types';
 import userResponseHandler from '@/services/adottami-client/user-client/__tests__/mocks/user-response-handler';
 import { HTTPResponseCode } from '@/services/types';
 import storage from '@/utils/storage-client/storage-client';
+import { ignoreConsole } from '@tests/utils/console';
 
 import SessionContext, { SessionContextValue } from '../session-context';
 import SessionContextProvider from '../session-context-provider';
@@ -151,7 +152,6 @@ describe('Session context provider', () => {
     describe('Session restoration', () => {
       it('should support restoring a previous session', async () => {
         storage.session.save({ userId: user.id(), authentication });
-
         userResponseHandler.mockGetById(user.id(), UserFactory.toResponse(user));
 
         renderSessionContext();
@@ -168,6 +168,31 @@ describe('Session context provider', () => {
         expect(session.isLoading).toBe(false);
         expect(api.adottami.accessToken()).toBe(authentication.accessToken);
         expect(api.adottami.refreshToken()).toBe(authentication.refreshToken);
+      });
+
+      it('should clear a previous session if it could not be restored', async () => {
+        storage.session.save({ userId: user.id(), authentication });
+        userResponseHandler.mockGetById(user.id(), null, { responseCode: HTTPResponseCode.NOT_FOUND });
+
+        const restoreConsole = ignoreConsole('error');
+
+        renderSessionContext();
+
+        expect(session.user).toBe(null);
+        expect(session.isLoading).toBe(true);
+        expect(api.adottami.accessToken()).toBe(undefined);
+        expect(api.adottami.refreshToken()).toBe(undefined);
+
+        await waitFor(() => {
+          expect(session.isLoading).toBe(false);
+        });
+
+        restoreConsole();
+
+        expect(session.user).toBe(null);
+        expect(api.adottami.accessToken()).toBe(undefined);
+        expect(api.adottami.refreshToken()).toBe(undefined);
+        expect(storage.session.read()).toBe(null);
       });
 
       it('should not restore a previous session if not present', async () => {

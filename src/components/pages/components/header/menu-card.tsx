@@ -6,16 +6,18 @@ interface Props {
   icon: JSX.Element;
   href: string;
   text: string;
+  onClick?: () => void;
 }
 
-const MenuCard: FC<Props> = ({ icon, href, text }) => {
+const MenuCard: FC<Props> = ({ icon, href, text, onClick }) => {
   const router = useRouter();
 
   return (
-    <div
+    <button
       className={`flex items-center ${
         router.pathname === href ? 'text-secondary-medium' : 'text-neutral-800'
       } hover:text-secondary-medium`}
+      onClick={onClick}
     >
       {icon}
       <Link href={href} passHref>
@@ -27,7 +29,7 @@ const MenuCard: FC<Props> = ({ icon, href, text }) => {
           {text}
         </a>
       </Link>
-    </div>
+    </button>
   );
 };
 

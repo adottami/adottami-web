@@ -1,24 +1,29 @@
 import Image, { StaticImageData } from 'next/image';
 import Link from 'next/link';
-import { CaretDown, Heart, List, SquaresFour, User } from 'phosphor-react';
+import { CaretDown, List, SquaresFour, User } from 'phosphor-react';
 import profile from 'public/images/image-profile-not-found.png';
 import { FC, useState } from 'react';
 
 import Button from '@/components/common/button/button';
 import Separator from '@/components/common/separator/separator';
 import AdottamiLogo from '@/components/icons/adottami-logo';
+import useSession from '@/hooks/session/use-session/use-session';
 
 import CardMenuDesktop from './card-menu-desktop';
 import MenuCard from './menu-card';
 import ModalMenu from './modal-menu';
 
 export interface Props {
-  isAuth: boolean;
   avatarPhoto?: string | StaticImageData;
-  username: string | null;
 }
 
-const Header: FC<Props> = ({ isAuth, avatarPhoto = profile, username = null }) => {
+const Header: FC<Props> = ({ avatarPhoto = profile }) => {
+  const { user } = useSession();
+
+  const singleName = () => {
+    return user?.name().split(' ')[0];
+  };
+
   const [menuHamburguerOpen, setMenuHamburguerOpen] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
 
@@ -58,7 +63,7 @@ const Header: FC<Props> = ({ isAuth, avatarPhoto = profile, username = null }) =
           </Link>
         </div>
         <div className="flex items-center gap-16">
-          {menuHamburguerOpen === true && <ModalMenu isAuth={isAuth} setCloseModal={closeModal} username={username} />}
+          {menuHamburguerOpen === true && <ModalMenu setCloseModal={closeModal} />}
           <nav className="hidden lg:block">
             <ul className="flex gap-6 ">
               <MenuCard
@@ -66,14 +71,13 @@ const Header: FC<Props> = ({ isAuth, avatarPhoto = profile, username = null }) =
                 href="/publications/dashboard"
                 text="Meus Anúncios"
               />
-              <MenuCard icon={<Heart size={24} weight="regular" />} href="/#" text="Favoritos" />
               <div>
-                {isAuth ? (
+                {user ? (
                   <li>
                     <div className="flex items-center">
                       <Image src={avatarPhoto} alt="Foto de perfil" className="rounded-full" />
                       <Link href="#" className="text-lg font-medium">
-                        <a className="ml-2.5 text-lg font-medium text-neutral-800">{username}</a>
+                        <a className="ml-2.5 text-lg font-medium text-neutral-800">{singleName()}</a>
                       </Link>
                       <CaretDown size={20} className="hover:text-secondary-medium" onMouseOver={handleMouseOver} />
                     </div>
