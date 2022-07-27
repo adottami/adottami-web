@@ -21,7 +21,7 @@ export const INPUT_KEYS: FormKey[] = [
   'name',
   'description',
   'breed',
-  'weightInGrams',
+  'weightInKilograms',
   'ageInYears',
   'zipCode',
   'state',
@@ -39,8 +39,8 @@ export const INITIAL_VALUES = INPUT_KEYS.reduce(
 );
 
 export const GENDER_OPTIONS: RadioProps[] = [
-  { id: 'macho', label: 'Macho' },
-  { id: 'fêmea', label: 'Fêmea' },
+  { value: 'Macho', label: 'Macho', isDisabled: false },
+  { value: 'Fêmea', label: 'Fêmea', isDisabled: false },
 ];
 
 // this constant will be removed during integration phase
@@ -58,4 +58,4 @@ export const FEATURE_OPTIONS = [
 ];
 
 // this constant will be removed during integration phase
-export const CATEGORY_OPTIONS = ['cachorro', 'coelho', 'gato'];
+export const CATEGORY_OPTIONS = ['Cachorro', 'Coelho', 'Gato'];
