@@ -4,7 +4,7 @@ export interface CreatePublicationData {
   category: string;
   gender: string;
   breed: string | null;
-  weightInGrams: number | null;
+  weightInKilograms: number | null;
   ageInYears: number | null;
   zipCode: string;
   city: string;
