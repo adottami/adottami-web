@@ -1,4 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
+import { XCircle } from 'phosphor-react';
 import { ChangeEvent, FC, useState } from 'react';
 
 interface Props {
@@ -6,10 +7,11 @@ interface Props {
   options: string[];
   name?: string;
   id?: string;
-  handleChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  errorMessage?: string;
 }
 
-const Checkbox: FC<Props> = ({ title, options, name, id, handleChange }) => {
+const Checkbox: FC<Props> = ({ title, options, name, id, onChange, errorMessage }) => {
   const [optionsChecked, setOptionsChecked] = useState<string[]>([]);
 
   function handleOptions(event: ChangeEvent<HTMLInputElement>) {
@@ -21,8 +23,8 @@ const Checkbox: FC<Props> = ({ title, options, name, id, handleChange }) => {
       setOptionsChecked((optionsChecked) => optionsChecked.filter((option) => option !== target.value));
     }
 
-    if (typeof handleChange === 'function') {
-      handleChange(event);
+    if (typeof onChange === 'function') {
+      onChange(event);
     }
   }
 
@@ -49,6 +51,14 @@ const Checkbox: FC<Props> = ({ title, options, name, id, handleChange }) => {
             </div>
           );
         })}
+        {errorMessage && (
+          <div className="mt-1 flex items-center justify-between text-tertiary-medium sm:mt-2">
+            <div className="flex items-center">
+              <XCircle size={24} />
+              <span className="ml-1 text-sm ">{errorMessage}</span>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
