@@ -6,15 +6,15 @@ import RadioInput, { RadioProps } from './radio-input';
 
 interface Props {
   id: string;
+  name?: string;
   label: string;
   options: RadioProps[];
   isRequired?: boolean;
   onChange?: (value: string) => void;
   errorMessage?: string;
-  hasError?: boolean;
 }
 
-const RadioGroup: FC<Props> = ({ id, label, options, isRequired, onChange, errorMessage, hasError }) => {
+const RadioGroup: FC<Props> = ({ id, name, label, options, isRequired, onChange, errorMessage }) => {
   return (
     <div role="radiogroup">
       <label htmlFor={id} className="mb-1 flex flex-row items-center gap-1 text-md font-bold text-primary-dark">
@@ -24,17 +24,17 @@ const RadioGroup: FC<Props> = ({ id, label, options, isRequired, onChange, error
 
       <RadioBox.Root
         id={id}
-        name={label}
+        name={name}
         onValueChange={onChange}
         className="flex flex-wrap gap-4"
         required={isRequired}
       >
-        {options.map(({ id, label, isDisabled }) => (
-          <RadioInput key={id} id={id} label={label} isDisabled={isDisabled} />
+        {options.map(({ label, value, isDisabled }) => (
+          <RadioInput key={label} id={id} label={label} isDisabled={isDisabled} value={value} />
         ))}
       </RadioBox.Root>
 
-      {hasError && errorMessage && (
+      {errorMessage && (
         <div className="mt-1 flex items-center justify-between text-tertiary-medium sm:mt-2">
           <div className="flex items-center">
             <XCircle size={24} />
