@@ -35,9 +35,11 @@ const HomePage: FC = () => {
         city: 'Campina Grande',
         state: 'Paraiba',
         orderBy: 'createdAt',
+        page: 1,
+        perPage: 3,
       });
-      const lastRecentPublications = publications.slice(-3).reverse();
-      setRecentPublications(() => lastRecentPublications);
+      const lastRecentPublications = publications.reverse();
+      setRecentPublications(lastRecentPublications);
     };
 
     getRecentPublications();
