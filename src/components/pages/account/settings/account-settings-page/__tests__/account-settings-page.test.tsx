@@ -1,6 +1,7 @@
-import { act, render, screen } from '@testing-library/react';
+import { act, screen } from '@testing-library/react';
 
 import { expectPageTitleWithApplicationName } from '@/components/common/page/__tests__/utils';
+import { renderWithTestProviders } from '@tests/utils/render';
 
 import AccountSettingsPage from '../account-settings-page';
 import { SECTION_TITLE as LOGIN_AND_SECURITY_SECTION_TITLE } from '../components/login-and-security/constants';
@@ -17,12 +18,12 @@ jest.mock('next/router', () => ({
 
 describe('Account settings page', () => {
   it('should render correctly', () => {
-    render(<AccountSettingsPage />);
+    renderWithTestProviders(<AccountSettingsPage />);
     expectPageTitleWithApplicationName(PAGE_TITLE);
   });
 
   it('should render account settings page on my cadastre section correctly', () => {
-    render(<AccountSettingsPage />);
+    renderWithTestProviders(<AccountSettingsPage />);
     act(() => {
       screen.getByRole('button', { name: MY_CADASTRE_SECTION_TITLE }).click();
     });
@@ -30,7 +31,7 @@ describe('Account settings page', () => {
   });
 
   it('should render account settings page on login and security section correctly', () => {
-    render(<AccountSettingsPage />);
+    renderWithTestProviders(<AccountSettingsPage />);
     act(() => {
       screen.getByRole('button', { name: LOGIN_AND_SECURITY_SECTION_TITLE }).click();
     });
