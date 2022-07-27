@@ -8,6 +8,7 @@ import Page from '@/components/common/page/page';
 import Header from '@/components/pages/components/header/header';
 import Publication from '@/models/publication/publication';
 
+import Footer from '../components/footer/footer';
 import PublicationCard from '../components/publication-card/publication-card';
 import {
   ADOPTING_ANIMAL_IS_ACT_OF_LOVE_TEXT,
@@ -240,6 +241,7 @@ const HomePage: FC = () => {
           </div>
         </section>
       </div>
+      <Footer />
     </Page>
   );
 };
