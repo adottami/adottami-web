@@ -1,6 +1,6 @@
 import { useFormik } from 'formik';
 import { EnvelopeSimple, Phone } from 'phosphor-react';
-import React, { FC, FormEventHandler, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 
 import Checkbox from '@/components/common/checkbox/checkbox';
 import FileInput from '@/components/common/file-input/file-input';
@@ -8,6 +8,8 @@ import Input from '@/components/common/input/input';
 import RadioGroup from '@/components/common/radio-group/radio-group';
 import Select from '@/components/common/select/select';
 import TextArea from '@/components/common/text-area/text-area';
+import useApi from '@/hooks/api/use-api/use-api';
+import useSession from '@/hooks/session/use-session/use-session';
 import Publication from '@/models/publication/publication';
 import { CreatePublicationData } from '@/services/adottami-client/publication-client/types';
 import { zipCode } from '@/utils/mask';
@@ -23,63 +25,55 @@ interface Props {
   defaultPublication?: Publication;
 }
 
-const PublicationForm: FC<Props> = (props) => {
-  const { title, type, onSubmit } = props;
+const PublicationForm: FC<Props> = ({ title, type, onSubmit }) => {
+  const { user } = useSession();
+  const api = useApi();
 
   const [showErrors, setShowErrors] = useState<boolean>(false);
 
-  const categoryDefaultValue = 'Selecione uma categoria';
-  const [category, setCategory] = useState<string>(categoryDefaultValue);
-
   const [gender, setGender] = useState<string>('');
+  const [category, setCategory] = useState<string>('');
+  const [characteristicsOptions, setCharacteristicsOptions] = useState<string[]>([]);
 
   const { values, errors, handleChange, handleSubmit } = useFormik({
-    initialValues: type === 'create' ? INITIAL_VALUES : normalizePreviousValues(),
+    initialValues: type === 'create' ? INITIAL_VALUES : INITIAL_VALUES,
     validationSchema: publicationFormSchema,
     onSubmit: (values) => {
-      if (!gender || category === categoryDefaultValue) return;
-      onSubmit({ ...normalizeValues(values), gender, category });
+      const userData = {
+        name: values.name,
+        description: values.description,
+        gender,
+        category,
+        breed: values.breed,
+        weightInKilograms: values.weightInKilograms,
+        ageInYears: values.ageInYears,
+        zipCode: zipCode.undoMask(values.zipCode),
+        city: values.city,
+        state: values.state,
+        isArchived: values.isArchived,
+        hidePhoneNumber: Boolean(values.hidePhoneNumber.toString()),
+        characteristics: values.characteristics,
+      };
+      console.log(userData);
     },
   });
 
-  // TODO: this function should be created on edit publication page task
-  function normalizePreviousValues(): CreatePublicationData {
-    return INITIAL_VALUES; // TODO: this return should be removed when function implemented
-    // return {} as CreatePublicationData;
-  }
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await api.adottami.publications.getCharacteristics();
+        setCharacteristicsOptions(response.map((characteristic) => characteristic.name));
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    fetchData();
+  }, [api]);
 
-  function normalizeValues(values: CreatePublicationData): CreatePublicationData {
-    const normalizedValues = Object.keys(values).reduce((accumulate, currentValue) => {
-      const field = currentValue as keyof CreatePublicationData;
-      return values[field]
-        ? {
-            ...accumulate,
-            [currentValue]: values[field],
-          }
-        : accumulate;
-    }, {} as CreatePublicationData);
-
-    normalizedValues.zipCode = zipCode.undoMask(normalizedValues.zipCode);
-    return normalizedValues;
-  }
-
-  const onHandleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
+  const onHandleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     setShowErrors(true);
     handleSubmit(e);
   };
-
-  function getInputProps(field: keyof CreatePublicationData, maskFunction?: (value: string) => string) {
-    const value = values[field] as string;
-    const formattedValue = typeof maskFunction === 'function' ? maskFunction(value) : value;
-
-    return {
-      id: field,
-      name: field,
-      value: formattedValue,
-      errorMessage: showErrors ? (errors[field] as string) : '',
-      onChange: handleChange,
-    };
-  }
 
   return (
     <div className="mx-auto w-full max-w-5xl px-6">
@@ -92,72 +86,125 @@ const PublicationForm: FC<Props> = (props) => {
         <div className="rounded-xl border-2 border-neutral-100 p-6">
           <div className="flex flex-col gap-4 md:w-3/6">
             <FileInput
+              name="images"
               label="Fotos"
+              variant="image"
               description={[
                 <React.Fragment key="first">Adicione até </React.Fragment>,
                 <strong key="second">5 fotos</strong>,
               ]}
-              variant="image"
-              name="images"
               maxFiles={5}
             />
 
-            <Input type="text" label="Nome" placeholder="Ex: Tom" isRequired {...getInputProps('name')} />
+            <Input
+              name="name"
+              type="text"
+              label="Nome"
+              placeholder="Ex: Tom"
+              value={values.name}
+              isRequired
+              errorMessage={showErrors ? errors.name : ''}
+              onChange={handleChange}
+            />
 
             <TextArea
-              isRequired
+              name="description"
               type="text"
               label="Descrição"
               placeholder="Descreva a história do pet"
-              {...getInputProps('description')}
+              value={values.description}
+              isRequired
+              errorMessage={showErrors ? errors.description : ''}
+              onChange={handleChange}
             />
 
             <Select
-              hasError={category === categoryDefaultValue && showErrors}
-              errorMessage="Categoria é obrigatória"
-              label="Categoria"
-              isRequired
-              defaultValue={categoryDefaultValue}
-              options={CATEGORY_OPTIONS}
               name="category"
+              label="Categoria"
+              options={CATEGORY_OPTIONS}
+              isRequired
               onChange={setCategory}
+              errorMessage={showErrors && category === '' ? 'Categoria é obrigatorio' : ''}
             />
 
             <RadioGroup
-              label="Sexo"
-              isRequired
-              options={GENDER_OPTIONS}
               id="gender"
+              name="gender"
+              label="Sexo"
+              options={GENDER_OPTIONS}
+              isRequired
+              errorMessage={showErrors && gender === '' ? 'Sexo é obrigatorio' : ''}
               onChange={setGender}
-              errorMessage="Gênero é obrigatório"
-              hasError={!gender && showErrors}
             />
 
-            <Input maxLength={8} type="text" label="Raça" placeholder="Ex: Puddle" {...getInputProps('breed')} />
+            <Input
+              name="breed"
+              type="text"
+              label="Raça"
+              placeholder="Ex: Puddle"
+              value={values.breed || ''}
+              onChange={handleChange}
+              errorMessage={showErrors ? errors.breed : ''}
+            />
 
             <div className="flex gap-4">
-              <Input type="text" label="Peso" placeholder="Ex: 10 Kg" {...getInputProps('weightInGrams')} />
-              <Input type="text" label="Idade" placeholder="Ex: 5 meses" {...getInputProps('ageInYears')} />
+              <Input
+                name="weightInKilograms"
+                type="number"
+                label="Peso"
+                placeholder="Ex: 10 Kg"
+                value={values.weightInKilograms || ''}
+                onChange={handleChange}
+                errorMessage={showErrors ? errors.weightInKilograms : ''}
+              />
+              <Input
+                name="ageInYears"
+                type="number"
+                label="Idade"
+                placeholder="Ex: 5 anos"
+                value={values.ageInYears || ''}
+                onChange={handleChange}
+                errorMessage={showErrors ? errors.breed : ''}
+              />
             </div>
 
             <Checkbox
-              handleChange={handleChange}
               name="characteristics"
               id="characteristics"
               title="Características"
-              options={FEATURE_OPTIONS}
+              options={characteristicsOptions}
+              onChange={handleChange}
             />
 
             <div className="flex flex-col gap-4">
               <Input
+                name="zipCode"
                 type="text"
                 label="Localização"
                 placeholder="CEP"
+                value={zipCode.applyMask(values.zipCode)}
                 isRequired
-                {...getInputProps('zipCode', zipCode.applyMask)}
+                onChange={handleChange}
+                errorMessage={showErrors ? errors.zipCode : ''}
               />
-              <Input type="text" placeholder="Estado" isRequired {...getInputProps('state')} />
-              <Input type="text" placeholder="Cidade" isRequired {...getInputProps('city')} />
+              <Input
+                name="state"
+                type="text"
+                placeholder="Estado"
+                value={values.state}
+                isRequired
+                onChange={handleChange}
+                errorMessage={showErrors ? errors.state : ''}
+              />
+              <Input
+                name="city"
+                type="text"
+                placeholder="Cidade"
+                value={values.city}
+                isRequired
+                onChange={handleChange}
+                errorMessage={showErrors ? errors.city : ''}
+              />
             </div>
 
             <div className="flex flex-col gap-4">
@@ -167,7 +214,7 @@ const PublicationForm: FC<Props> = (props) => {
                 <span className="rounded-full bg-tertiary-medium p-2 text-white">
                   <EnvelopeSimple size={20} />
                 </span>
-                matheus.oliveira@gmail.com
+                {user ? user.email() : ''}
               </div>
 
               <div className="flex flex-col gap-4 md:flex-row md:items-center md:gap-6">
@@ -175,9 +222,14 @@ const PublicationForm: FC<Props> = (props) => {
                   <span className="rounded-full bg-tertiary-medium p-2 text-white">
                     <Phone size={20} />
                   </span>
-                  83987196021
+                  {user ? user.phoneNumber() : ''}
                 </div>
-                <Checkbox options={['Ocultar meu telefone neste anúncio']} />
+                <Checkbox
+                  name="hidePhoneNumber"
+                  options={['Ocultar meu telefone neste anúncio']}
+                  onChange={handleChange}
+                  errorMessage={showErrors ? errors.hidePhoneNumber : ''}
+                />
               </div>
             </div>
           </div>
