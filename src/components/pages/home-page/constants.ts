@@ -10,6 +10,10 @@ export const SECOND_DESCRIPTION_OF_HOW_IT_WORKS =
 export const THIRD_DESCRIPTION_OF_HOW_IT_WORKS =
   '3- Quando acharem aquele especial, é só entrar em contato com o anunciante e pronto, é só combinar com o anunciante como buscar o mais novo membro da família!';
 
+export const ADOPTING_ANIMAL_IS_ACT_OF_LOVE_TITLE = 'Adotar um animal é um ato de amor';
+export const ADOPTING_ANIMAL_IS_ACT_OF_LOVE_TEXT =
+  'A adoção é um ato de amor e responsabilidade. Para adotar, basta se comprometer com um bichinho que dependerá sempre de você, cuidar dele, dar afeto e um lar seguro. O amor é uma obrigação para adotar um coração.';
+
 export const homePageTestIds = {
   firstSection: {
     decorativeImage: () => 'home-page-decorative-image-test-id',
