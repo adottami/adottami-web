@@ -10,12 +10,17 @@ interface Props {
   defaultValue?: string;
   onChange?: (value: string) => void;
   errorMessage?: string;
-  hasError?: boolean;
 }
 
-const Select: FC<Props> = (props) => {
-  const { name, label, isRequired, onChange, options = [], errorMessage, defaultValue = 'Selecione', hasError } = props;
-
+const Select: FC<Props> = ({
+  name,
+  label,
+  isRequired,
+  onChange,
+  options = [],
+  errorMessage,
+  defaultValue = 'Selecione',
+}) => {
   const [selectedValue, setSelectedValue] = useState<string>(defaultValue);
 
   function handleChangeValue(value: string) {
@@ -74,7 +79,7 @@ const Select: FC<Props> = (props) => {
         </SelectPrimitive.Content>
       </SelectPrimitive.Root>
 
-      {hasError && errorMessage && (
+      {errorMessage && (
         <div className="mt-1 flex items-center justify-between text-tertiary-medium sm:mt-2">
           <div className="flex items-center">
             <XCircle size={24} />
