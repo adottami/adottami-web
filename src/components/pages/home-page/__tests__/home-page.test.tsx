@@ -28,38 +28,38 @@ jest.mock('next/router', () => ({
 }));
 
 describe('Home page', () => {
+  const publications = [
+    createPublication({
+      name: 'Leleco',
+      images: [
+        {
+          id: '1',
+          url: 'imagem.png',
+        },
+      ],
+    }),
+    createPublication({
+      name: 'Lilica',
+      images: [
+        {
+          id: '1',
+          url: 'imagem.png',
+        },
+      ],
+    }),
+    createPublication({
+      name: 'Nunu',
+      images: [
+        {
+          id: '1',
+          url: 'imagem.png',
+        },
+      ],
+    }),
+  ];
+  const publicationResponses = publications.map((publication) => PublicationFactory.toResponse(publication));
   beforeEach(() => {
-    const publications = [
-      createPublication({
-        name: 'Leleco',
-        images: [
-          {
-            id: '1',
-            url: 'imagem.png',
-          },
-        ],
-      }),
-      createPublication({
-        name: 'Lilica',
-        images: [
-          {
-            id: '1',
-            url: 'imagem.png',
-          },
-        ],
-      }),
-      createPublication({
-        name: 'Nunu',
-        images: [
-          {
-            id: '1',
-            url: 'imagem.png',
-          },
-        ],
-      }),
-    ];
-    const publicationsResponses = publications.map((publication) => PublicationFactory.toResponse(publication));
-    publicationResponseHandler.mockGet(publicationsResponses);
+    publicationResponseHandler.mockGet(publicationResponses);
   });
 
   it('should render the first section correctly', async () => {
