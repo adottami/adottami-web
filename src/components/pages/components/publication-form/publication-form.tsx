@@ -1,6 +1,8 @@
+import { AxiosError } from 'axios';
 import { useFormik } from 'formik';
 import { EnvelopeSimple, Phone } from 'phosphor-react';
 import React, { FC, useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 
 import Checkbox from '@/components/common/checkbox/checkbox';
 import FileInput from '@/components/common/file-input/file-input';
@@ -12,16 +14,17 @@ import useApi from '@/hooks/api/use-api/use-api';
 import useSession from '@/hooks/session/use-session/use-session';
 import Publication from '@/models/publication/publication';
 import { PublicationCharacteristic } from '@/models/publication/types';
-import { CreatePublicationData } from '@/services/adottami-client/publication-client/types';
+import { CreatePublicationData, EditPublicationData } from '@/services/adottami-client/publication-client/types';
 import { zipCode } from '@/utils/mask';
 
+import { TOAST_CONFIGS } from '../header/constants';
 import PublicationFormFooter from './components/publication-form-footer/publication-form-footer';
 import { CATEGORY_OPTIONS, GENDER_OPTIONS, INITIAL_VALUES } from './contants';
 import { publicationFormSchema } from './schemas/publication-form-schema';
 
 interface Props {
   title: string;
-  onSubmit: (values: CreatePublicationData) => Promise<void>;
+  onSubmit: (values: CreatePublicationData | EditPublicationData) => Promise<Publication>;
   type: 'create' | 'edit';
   defaultPublication?: Publication;
 }
@@ -32,6 +35,7 @@ const PublicationForm: FC<Props> = ({ title, type, onSubmit }) => {
 
   const [showErrors, setShowErrors] = useState<boolean>(false);
 
+  const [images, setImages] = useState<File[]>([]);
   const [gender, setGender] = useState<string>('');
   const [category, setCategory] = useState<string>('');
   const [characteristics, setCharacteristics] = useState<PublicationCharacteristic[]>([]);
@@ -40,8 +44,16 @@ const PublicationForm: FC<Props> = ({ title, type, onSubmit }) => {
   const { values, errors, handleChange, handleSubmit } = useFormik({
     initialValues: type === 'create' ? INITIAL_VALUES : INITIAL_VALUES,
     validationSchema: publicationFormSchema,
-    onSubmit: (values) => {
-      onSubmit(formatFieldsToRequestBody(values));
+    onSubmit: async (values) => {
+      const publication = await onSubmit(formatFieldsToRequestBody(values));
+
+      try {
+        await updatePublicationImages(publication);
+        toast.success('Imagens publicadas com sucesso', TOAST_CONFIGS);
+      } catch (error) {
+        if (!(error instanceof AxiosError)) throw error;
+        toast.error('Erro ao publicar as imagens da publicação', TOAST_CONFIGS);
+      }
     },
   });
 
@@ -58,6 +70,10 @@ const PublicationForm: FC<Props> = ({ title, type, onSubmit }) => {
 
     loadCharacteristics();
   }, [api]);
+
+  async function updatePublicationImages(publication: Publication) {
+    api.adottami.publications.editImages(publication.id(), images);
+  }
 
   function formatFieldsToRequestBody(values: CreatePublicationData) {
     const characteristicsIds = values.characteristics.map((characteristc) => {
@@ -86,6 +102,10 @@ const PublicationForm: FC<Props> = ({ title, type, onSubmit }) => {
     return data;
   }
 
+  function handleChangeImages(images: File[]) {
+    setImages(images);
+  }
+
   const onHandleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     setShowErrors(true);
     handleSubmit(e);
@@ -109,6 +129,7 @@ const PublicationForm: FC<Props> = ({ title, type, onSubmit }) => {
                 <React.Fragment key="first">Adicione até </React.Fragment>,
                 <strong key="second">5 fotos</strong>,
               ]}
+              onImageChange={handleChangeImages}
               maxFiles={5}
             />
 
