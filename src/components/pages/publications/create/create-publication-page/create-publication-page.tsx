@@ -3,13 +3,15 @@ import { FC } from 'react';
 import Page from '@/components/common/page/page';
 import FormPageHeader from '@/components/pages/components/form-page-header/form-page-header';
 import PublicationForm from '@/components/pages/components/publication-form/publication-form';
+import Publication from '@/models/publication/publication';
 import { CreatePublicationData } from '@/services/adottami-client/publication-client/types';
 
 import { FORM_TITLE, PAGE_TITLE } from './constants';
 
 const CreatePublicationPage: FC = () => {
-  async function handleSubmit(values: CreatePublicationData) {
+  async function handleSubmit(values: CreatePublicationData): Promise<Publication> {
     console.log(values);
+    return {} as Publication;
   }
 
   return (
