@@ -52,7 +52,7 @@ describe('Home page', () => {
   });
 
   it('should render `adopting an animal is act of love` section correctly', () => {
-    render(<HomePage />);
+    renderWithTestProviders(<HomePage />);
     expect(screen.getByText(ADOPTING_ANIMAL_IS_ACT_OF_LOVE_TITLE)).toBeInTheDocument();
     expect(screen.getByText(ADOPTING_ANIMAL_IS_ACT_OF_LOVE_TEXT)).toBeInTheDocument();
     expect(screen.getByAltText(/adotar um animal é um ato de amor/i)).toBeInTheDocument();
