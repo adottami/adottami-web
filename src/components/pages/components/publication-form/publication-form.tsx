@@ -161,7 +161,9 @@ const PublicationForm: FC<Props> = ({ title, type, onSubmit }) => {
               options={CATEGORY_OPTIONS}
               isRequired
               onChange={setCategory}
-              errorMessage={showErrors && category === '' ? 'Categoria é obrigatorio' : ''}
+              errorMessage={
+                (showErrors && category === '') || category === 'Selecione' ? 'Categoria é obrigatorio' : ''
+              }
             />
 
             <RadioGroup
