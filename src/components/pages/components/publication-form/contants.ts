@@ -1,6 +1,8 @@
 import { RadioProps } from '@/components/common/radio-group/radio-input';
 import { CreatePublicationData } from '@/services/adottami-client/publication-client/types';
 
+import { PublicationFormData } from './types';
+
 type FormKey = keyof CreatePublicationData;
 
 export const FORM_LABELS = [
@@ -30,12 +32,12 @@ export const INPUT_KEYS: FormKey[] = [
   'gender',
 ];
 
-export const INITIAL_VALUES = INPUT_KEYS.reduce(
+export const INITIAL_VALUES: PublicationFormData = INPUT_KEYS.reduce(
   (accumulate, currentValue) => ({
     ...accumulate,
     [currentValue]: '',
   }),
-  {} as CreatePublicationData,
+  {} as PublicationFormData,
 );
 
 export const GENDER_OPTIONS: RadioProps[] = [

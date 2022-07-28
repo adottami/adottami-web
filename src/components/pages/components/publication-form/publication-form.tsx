@@ -21,6 +21,7 @@ import { TOAST_CONFIGS } from '../header/constants';
 import PublicationFormFooter from './components/publication-form-footer/publication-form-footer';
 import { CATEGORY_OPTIONS, GENDER_OPTIONS, INITIAL_VALUES } from './contants';
 import { publicationFormSchema } from './schemas/publication-form-schema';
+import { PublicationFormData } from './types';
 
 interface Props {
   title: string;
@@ -46,14 +47,7 @@ const PublicationForm: FC<Props> = ({ title, type, onSubmit }) => {
     validationSchema: publicationFormSchema,
     onSubmit: async (values) => {
       const publication = await onSubmit(formatFieldsToRequestBody(values));
-
-      try {
-        await updatePublicationImages(publication);
-        toast.success('Imagens publicadas com sucesso', TOAST_CONFIGS);
-      } catch (error) {
-        if (!(error instanceof AxiosError)) throw error;
-        toast.error('Erro ao publicar as imagens da publicação', TOAST_CONFIGS);
-      }
+      await updatePublicationImages(publication);
     },
   });
 
@@ -72,14 +66,18 @@ const PublicationForm: FC<Props> = ({ title, type, onSubmit }) => {
   }, [api]);
 
   async function updatePublicationImages(publication: Publication) {
-    await api.adottami.publications.editImages(publication.id(), images);
+    try {
+      await api.adottami.publications.editImages(publication.id(), images);
+      toast.success('Imagens publicadas com sucesso', TOAST_CONFIGS);
+    } catch (error) {
+      if (!(error instanceof AxiosError)) throw error;
+      toast.error('Erro ao publicar as imagens da publicação', TOAST_CONFIGS);
+    }
   }
 
-  function formatFieldsToRequestBody(values: CreatePublicationData) {
-    values.characteristics.map((characteristc) => {
-      const formCharacteristic = characteristc as unknown as string;
-      const characteristicId = characteristics.find((char) => char.name === formCharacteristic)?.id as string;
-
+  function formatFieldsToRequestBody(values: PublicationFormData) {
+    const characteristicsId = values.characteristics.map((characteristcName) => {
+      const characteristicId = characteristics.find((char) => char.name === characteristcName)?.id ?? '';
       return { id: characteristicId };
     });
 
@@ -96,7 +94,7 @@ const PublicationForm: FC<Props> = ({ title, type, onSubmit }) => {
       state: values.state,
       isArchived: !!values.isArchived,
       hidePhoneNumber: Boolean(values.hidePhoneNumber?.toString()),
-      characteristics: values.characteristics,
+      characteristics: characteristicsId,
     };
 
     return data;
@@ -267,7 +265,6 @@ const PublicationForm: FC<Props> = ({ title, type, onSubmit }) => {
                   name="hidePhoneNumber"
                   options={['Ocultar meu telefone neste anúncio']}
                   onChange={handleChange}
-                  errorMessage={showErrors ? errors.hidePhoneNumber : ''}
                 />
               </div>
             </div>
