@@ -1,5 +1,6 @@
 import { AxiosError } from 'axios';
 import { useFormik } from 'formik';
+import { useRouter } from 'next/router';
 import { EnvelopeSimple, Phone } from 'phosphor-react';
 import React, { FC, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
@@ -31,8 +32,9 @@ interface Props {
 }
 
 const PublicationForm: FC<Props> = ({ title, type, onSubmit }) => {
-  const { user } = useSession();
+  const { user, isLoading } = useSession();
   const api = useApi();
+  const router = useRouter();
 
   const [showErrors, setShowErrors] = useState<boolean>(false);
 
@@ -52,6 +54,14 @@ const PublicationForm: FC<Props> = ({ title, type, onSubmit }) => {
   });
 
   useEffect(() => {
+    if (!user && !isLoading) {
+      toast.error('Por favor, faça login para poder anunciar um pet', TOAST_CONFIGS);
+      router.push(`/sign-in`);
+      return;
+    }
+
+    if (!user) return;
+
     async function loadCharacteristics() {
       try {
         const response = await api.adottami.publications.getCharacteristics();
@@ -63,7 +73,7 @@ const PublicationForm: FC<Props> = ({ title, type, onSubmit }) => {
     }
 
     loadCharacteristics();
-  }, [api, user]);
+  }, [api, router, user, isLoading]);
 
   async function updatePublicationImages(publication: Publication | undefined) {
     if (!publication?.id?.()) {
@@ -72,6 +82,7 @@ const PublicationForm: FC<Props> = ({ title, type, onSubmit }) => {
 
     try {
       await api.adottami.publications.editImages(publication.id(), images);
+
       toast.success('Imagens publicadas com sucesso', TOAST_CONFIGS);
     } catch (error) {
       if (!(error instanceof AxiosError)) throw error;

@@ -20,10 +20,7 @@ const CreatePublicationPage: FC = () => {
     try {
       const createdPublication = await api.adottami.publications.create(values);
       toast.success('Publicação criada com sucesso!', TOAST_CONFIGS);
-      setTimeout(() => {
-        router.push('/publications/dashboard');
-      }, TOAST_CONFIGS.autoClose);
-
+      router.push('/publications/dashboard');
       return createdPublication;
     } catch {
       toast.error('Erro na criação da publicação', TOAST_CONFIGS);
