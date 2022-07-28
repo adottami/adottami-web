@@ -57,8 +57,8 @@ const PublicationForm: FC<Props> = ({ title, type, onSubmit }) => {
         const response = await api.adottami.publications.getCharacteristics();
         setCharacteristics(response);
         setCharacteristicsOptions(response.map((characteristic) => characteristic.name));
-      } catch (error) {
-        console.error(error);
+      } catch {
+        toast.error('Erro ao carregar as categorias, por favor recarregue a página', TOAST_CONFIGS);
       }
     }
 
@@ -66,8 +66,12 @@ const PublicationForm: FC<Props> = ({ title, type, onSubmit }) => {
   }, [api]);
 
   async function updatePublicationImages(publication: Publication) {
+    if (!publication.id?.()) {
+      return;
+    }
+
     try {
-      await api.adottami.publications.editImages(publication.id?.(), images);
+      await api.adottami.publications.editImages(publication.id(), images);
       toast.success('Imagens publicadas com sucesso', TOAST_CONFIGS);
     } catch (error) {
       if (!(error instanceof AxiosError)) throw error;
@@ -76,7 +80,7 @@ const PublicationForm: FC<Props> = ({ title, type, onSubmit }) => {
   }
 
   function formatFieldsToRequestBody(values: PublicationFormData) {
-    const characteristicsId = values.characteristics.map((characteristcName) => {
+    const characteristicsId = values.characteristics?.map((characteristcName) => {
       const characteristicId = characteristics.find((char) => char.name === characteristcName)?.id ?? '';
       return { id: characteristicId };
     });
@@ -94,7 +98,7 @@ const PublicationForm: FC<Props> = ({ title, type, onSubmit }) => {
       state: values.state,
       isArchived: !!values.isArchived,
       hidePhoneNumber: values.hidePhoneNumber?.length === 1,
-      characteristics: characteristicsId,
+      characteristics: characteristicsId || [],
     };
 
     return data;

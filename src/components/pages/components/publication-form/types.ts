@@ -10,6 +10,6 @@ export interface PublicationFormData {
   city: string;
   state: string;
   isArchived: boolean;
-  hidePhoneNumber: string[];
-  characteristics: string[];
+  hidePhoneNumber: string[] | undefined;
+  characteristics: string[] | undefined;
 }
