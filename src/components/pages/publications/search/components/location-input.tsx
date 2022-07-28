@@ -17,7 +17,6 @@ const LocationInput: FC<Props> = ({ setSearchValues }) => {
       state: { value: string };
       city: { value: string };
     };
-
     setSearchValues((prevState) => ({ ...prevState, state: state.value, city: city.value }));
   };
 
