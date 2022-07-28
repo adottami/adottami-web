@@ -162,7 +162,7 @@ const PublicationForm: FC<Props> = ({ title, type, onSubmit }) => {
               isRequired
               onChange={setCategory}
               errorMessage={
-                (showErrors && category === '') || category === 'Selecione' ? 'Categoria é obrigatorio' : ''
+                showErrors && (category === '' || category === 'Selecione') ? 'Categoria é obrigatorio' : ''
               }
             />
 
