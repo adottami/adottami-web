@@ -1,9 +1,7 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { styled, keyframes } from '@stitches/react';
-import { ArchiveBox, DotsThree, PencilSimpleLine, Trash } from 'phosphor-react';
+import { DotsThree, PencilSimpleLine, Trash } from 'phosphor-react';
 import React, { FC } from 'react';
-
-import UnarchiveBox from '@/components/icons/unarchive-box';
 
 const [slideUpAndFade, slideRightAndFade, slideDownAndFade, slideLeftAndFade] = [
   keyframes({
@@ -45,7 +43,6 @@ const DropdownMenuContent = styled(DropdownMenu.Content, {
 
 interface Props {
   isVisible?: boolean;
-  isArchived?: boolean;
 }
 
 interface Item {
@@ -55,16 +52,12 @@ interface Item {
 }
 
 const CardMenu: FC<Props> = (props) => {
-  const { isVisible, isArchived } = props;
+  const { isVisible } = props;
 
   const items = [
     {
       label: 'Editar',
       icon: <PencilSimpleLine size={24} />,
-    },
-    {
-      label: isArchived ? 'Desarquivar' : 'Arquivar',
-      icon: isArchived ? <UnarchiveBox /> : <ArchiveBox size={24} />,
     },
     {
       label: 'Remover',
@@ -91,6 +84,7 @@ const CardMenu: FC<Props> = (props) => {
             <DropdownMenu.Item
               key={item.label}
               className="flex cursor-pointer items-center gap-x-3 py-2 px-4 text-neutral-500 outline-none duration-200 hover:bg-neutral-100 hover:text-secondary-medium"
+              onClick={(event) => event.preventDefault()}
             >
               {item.icon}
               <span className="text-base">{item.label}</span>
