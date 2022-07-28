@@ -31,7 +31,7 @@ export const publicationMaleMock = new Publication({
   characteristics: [{ id: '1', name: 'teste' }],
   description: 'Um animal qualquer',
   isArchived: false,
-  weightInKilograms: 1200,
+  weightInGrams: 1200,
   zipCode: '1111',
 });
 
@@ -58,6 +58,6 @@ export const publicationFemaleMock = new Publication({
   characteristics: [{ id: '1', name: 'teste' }],
   description: 'Um animal qualquer',
   isArchived: true,
-  weightInKilograms: 1200,
+  weightInGrams: 1200,
   zipCode: '1111',
 });

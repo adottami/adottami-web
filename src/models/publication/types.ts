@@ -17,7 +17,7 @@ export interface PublicationResponse {
   category: string;
   gender: string;
   breed: string | null;
-  weightInKilograms: number | null;
+  weightInGrams: number | null;
   ageInYears: number | null;
   zipCode: string;
   city: string;
@@ -35,7 +35,7 @@ export interface PublicationFields {
   category: string;
   gender: string;
   breed: string | null;
-  weightInKilograms: number | null;
+  weightInGrams: number | null;
   ageInYears: number | null;
   zipCode: string;
   city: string;

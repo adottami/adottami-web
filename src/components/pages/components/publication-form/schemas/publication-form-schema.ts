@@ -6,7 +6,7 @@ export const publicationFormSchema = Yup.object().shape({
   name: Yup.string().required('Nome é obrigatório'),
   description: Yup.string().required('Descrição é obrigatória'),
   breed: Yup.string(),
-  weightInKilograms: Yup.number(),
+  weightInGrams: Yup.number(),
   ageInYears: Yup.number(),
   zipCode: Yup.string().matches(zipCode.regex, 'CEP inválido').required('CEP é obrigatório'),
   city: Yup.string().required('Cidade é obrigatória'),

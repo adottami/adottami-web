@@ -8,7 +8,7 @@ class Publication {
   private _category: string;
   private _gender: string;
   private _breed: string | null;
-  private _weightInKilograms: number | null;
+  private _weightInGrams: number | null;
   private _ageInYears: number | null;
   private _zipCode: string;
   private _city: string;
@@ -25,7 +25,7 @@ class Publication {
     this._category = fields.category;
     this._gender = fields.gender;
     this._breed = fields.breed;
-    this._weightInKilograms = fields.weightInKilograms;
+    this._weightInGrams = fields.weightInGrams;
     this._ageInYears = fields.ageInYears;
     this._zipCode = fields.zipCode;
     this._city = fields.city;
@@ -60,8 +60,8 @@ class Publication {
     return this._breed;
   }
 
-  weightInKilograms(): number | null {
-    return this._weightInKilograms;
+  weightInGrams(): number | null {
+    return this._weightInGrams;
   }
 
   ageInYears(): number | null {
