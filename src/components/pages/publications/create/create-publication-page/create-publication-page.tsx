@@ -1,4 +1,4 @@
-import Router from 'next/router';
+import { useRouter } from 'next/router';
 import { FC } from 'react';
 import { toast } from 'react-toastify';
 
@@ -14,13 +14,14 @@ import { FORM_TITLE, PAGE_TITLE } from './constants';
 
 const CreatePublicationPage: FC = () => {
   const api = useAPI();
+  const router = useRouter();
 
   async function handleSubmit(values: CreatePublicationData): Promise<Publication | undefined> {
     try {
       const createdPublication = await api.adottami.publications.create(values);
       toast.success('Publicação criada com sucesso!', TOAST_CONFIGS);
       setTimeout(() => {
-        Router.push('/publications/dashboard');
+        router.push('/publications/dashboard');
       }, TOAST_CONFIGS.autoClose);
 
       return createdPublication;
