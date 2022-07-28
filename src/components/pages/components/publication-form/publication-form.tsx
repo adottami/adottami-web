@@ -11,6 +11,7 @@ import TextArea from '@/components/common/text-area/text-area';
 import useApi from '@/hooks/api/use-api/use-api';
 import useSession from '@/hooks/session/use-session/use-session';
 import Publication from '@/models/publication/publication';
+import { PublicationCharacteristic } from '@/models/publication/types';
 import { CreatePublicationData } from '@/services/adottami-client/publication-client/types';
 import { zipCode } from '@/utils/mask';
 
@@ -25,7 +26,7 @@ interface Props {
   defaultPublication?: Publication;
 }
 
-const PublicationForm: FC<Props> = ({ title, type /* onSubmit */ }) => {
+const PublicationForm: FC<Props> = ({ title, type, onSubmit }) => {
   const { user } = useSession();
   const api = useApi();
 
@@ -33,28 +34,14 @@ const PublicationForm: FC<Props> = ({ title, type /* onSubmit */ }) => {
 
   const [gender, setGender] = useState<string>('');
   const [category, setCategory] = useState<string>('');
+  const [characteristics, setCharacteristics] = useState<PublicationCharacteristic[]>([]);
   const [characteristicsOptions, setCharacteristicsOptions] = useState<string[]>([]);
 
   const { values, errors, handleChange, handleSubmit } = useFormik({
     initialValues: type === 'create' ? INITIAL_VALUES : INITIAL_VALUES,
     validationSchema: publicationFormSchema,
     onSubmit: (values) => {
-      const userData = {
-        name: values.name,
-        description: values.description,
-        gender,
-        category,
-        breed: values.breed,
-        weightInKilograms: values.weightInKilograms,
-        ageInYears: values.ageInYears,
-        zipCode: zipCode.undoMask(values.zipCode),
-        city: values.city,
-        state: values.state,
-        isArchived: values.isArchived,
-        hidePhoneNumber: Boolean(values.hidePhoneNumber.toString()),
-        characteristics: values.characteristics,
-      };
-      console.log(userData);
+      onSubmit(formatFieldsToRequestBody(values));
     },
   });
 
@@ -62,6 +49,7 @@ const PublicationForm: FC<Props> = ({ title, type /* onSubmit */ }) => {
     async function loadCharacteristics() {
       try {
         const response = await api.adottami.publications.getCharacteristics();
+        setCharacteristics(response);
         setCharacteristicsOptions(response.map((characteristic) => characteristic.name));
       } catch (error) {
         console.error(error);
@@ -70,6 +58,33 @@ const PublicationForm: FC<Props> = ({ title, type /* onSubmit */ }) => {
 
     loadCharacteristics();
   }, [api]);
+
+  function formatFieldsToRequestBody(values: CreatePublicationData) {
+    const characteristicsIds = values.characteristics.map((characteristc) => {
+      const formCharacteristic = characteristc as unknown as string;
+      const characteristicId = characteristics.find((char) => char.name === formCharacteristic)?.id as string;
+
+      return { id: characteristicId };
+    });
+
+    const data: CreatePublicationData = {
+      name: values.name,
+      description: values.description,
+      gender,
+      category,
+      breed: values.breed || null,
+      weightInKilograms: values.weightInKilograms || null,
+      ageInYears: values.ageInYears || null,
+      zipCode: zipCode.undoMask(values.zipCode),
+      city: values.city,
+      state: values.state,
+      isArchived: !!values.isArchived,
+      hidePhoneNumber: Boolean(values.hidePhoneNumber?.toString()),
+      characteristics: characteristicsIds,
+    };
+
+    return data;
+  }
 
   const onHandleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     setShowErrors(true);
