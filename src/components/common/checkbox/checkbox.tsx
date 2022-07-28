@@ -7,7 +7,7 @@ interface Props {
   options: string[];
   name?: string;
   id?: string;
-  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
   errorMessage?: string;
 }
 
@@ -23,9 +23,7 @@ const Checkbox: FC<Props> = ({ title, options, name, id, onChange, errorMessage 
       setOptionsChecked((optionsChecked) => optionsChecked.filter((option) => option !== target.value));
     }
 
-    if (typeof onChange === 'function') {
-      onChange(event);
-    }
+    onChange?.(event);
   }
 
   return (
