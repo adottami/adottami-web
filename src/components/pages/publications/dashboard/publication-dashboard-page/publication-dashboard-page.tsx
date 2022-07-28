@@ -46,11 +46,11 @@ const PublicationDashboardPage: FC = () => {
           </p>
         </div>
         {myPublications.length !== 0 ? (
-          <div className="grid grid-cols-1 gap-4 rounded-xl border-2 border-neutral-100 bg-surface-primary p-4 lg:w-full tablet:grid-cols-3 tablet:p-6">
+          <div className="grid grid-cols-1 gap-4 rounded-xl border-2 border-neutral-100 bg-surface-primary p-4  lg:w-full lg:grid-cols-3 tablet:p-6">
             {myPublications.map((publication) => {
               return (
                 <div key={publication.id()} className="w-[281px] pt-1 lg:w-full">
-                  <PublicationCard publication={publication} />
+                  <PublicationCard isMenuVisible publication={publication} />
                 </div>
               );
             })}
