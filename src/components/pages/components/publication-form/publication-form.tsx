@@ -59,7 +59,7 @@ const PublicationForm: FC<Props> = ({ title, type /* onSubmit */ }) => {
   });
 
   useEffect(() => {
-    async function fetchData() {
+    async function loadCharacteristics() {
       try {
         const response = await api.adottami.publications.getCharacteristics();
         setCharacteristicsOptions(response.map((characteristic) => characteristic.name));
@@ -67,7 +67,8 @@ const PublicationForm: FC<Props> = ({ title, type /* onSubmit */ }) => {
         console.error(error);
       }
     }
-    fetchData();
+
+    loadCharacteristics();
   }, [api]);
 
   const onHandleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
