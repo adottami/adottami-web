@@ -44,4 +44,4 @@ export const GENDER_OPTIONS: RadioProps[] = [
 ];
 
 // this constant will be removed during integration phase
-export const CATEGORY_OPTIONS = ['Cachorro', 'Gato', 'Coelho', 'Gato', 'Hamster', 'Passaro', 'Peixe', 'Outros'];
+export const CATEGORY_OPTIONS = ['Cachorro', 'Gato', 'Coelho', 'Hamster', 'Passaro', 'Peixe', 'Outros'];
