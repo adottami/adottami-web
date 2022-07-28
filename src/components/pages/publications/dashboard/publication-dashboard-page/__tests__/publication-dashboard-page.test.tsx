@@ -1,4 +1,4 @@
-import { screen } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 
 import { expectPageTitleWithApplicationName } from '@/components/common/page/__tests__/utils';
 import createPublication from '@/models/publication/__tests__/factories/publication-factory';
@@ -64,13 +64,16 @@ describe('Publication dashboard page', () => {
 
   it('should render correctly', async () => {
     renderWithTestProviders(<PublicationDashboardPage />);
-    const myAds = await screen.findAllByText('Meus anúncios');
 
+    const myAds = await screen.findAllByText('Meus anúncios');
     expectPageTitleWithApplicationName(PAGE_TITLE);
-    expect(await screen.findByText('Leleco')).toBeInTheDocument();
-    expect(await screen.findByText('Lilica')).toBeInTheDocument();
-    expect(await screen.findByText('Nunu')).toBeInTheDocument();
-    expect(await screen.findByText('Augusto')).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText('Leleco')).toBeInTheDocument();
+      expect(screen.getByText('Lilica')).toBeInTheDocument();
+      expect(screen.getByText('Nunu')).toBeInTheDocument();
+      expect(screen.getByText('Augusto')).toBeInTheDocument();
+    });
+
     expect(screen.getByText('Publicados (4)')).toBeInTheDocument();
 
     expect(myAds.length).toEqual(2);
