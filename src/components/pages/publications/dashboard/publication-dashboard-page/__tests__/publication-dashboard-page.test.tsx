@@ -13,6 +13,7 @@ jest.mock('next/router', () => ({
   useRouter() {
     return {
       pathname: 'publications/dashboard',
+      push: jest.fn(),
     };
   },
 }));
