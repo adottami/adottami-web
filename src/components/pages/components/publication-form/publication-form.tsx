@@ -15,7 +15,7 @@ import { CreatePublicationData } from '@/services/adottami-client/publication-cl
 import { zipCode } from '@/utils/mask';
 
 import PublicationFormFooter from './components/publication-form-footer/publication-form-footer';
-import { CATEGORY_OPTIONS, FEATURE_OPTIONS, GENDER_OPTIONS, INITIAL_VALUES } from './contants';
+import { CATEGORY_OPTIONS, GENDER_OPTIONS, INITIAL_VALUES } from './contants';
 import { publicationFormSchema } from './schemas/publication-form-schema';
 
 interface Props {
