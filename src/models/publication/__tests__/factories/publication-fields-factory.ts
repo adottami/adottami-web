@@ -12,7 +12,7 @@ function createPublicationFields(partialFields: Partial<PublicationFields> = {})
     category: 'Cat',
     gender: 'Male',
     breed: null,
-    weightInGrams: null,
+    weightInKilograms: null,
     ageInYears: null,
     zipCode: '00000000',
     city: 'City',
