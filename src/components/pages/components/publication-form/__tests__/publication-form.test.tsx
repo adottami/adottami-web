@@ -1,4 +1,6 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
+
+import { renderWithTestProviders } from '@tests/utils/render';
 
 import { FORM_LABELS } from '../contants';
 import PublicationForm from '../publication-form';
@@ -8,7 +10,7 @@ describe('Publication form tests', () => {
   const onSubmit = jest.fn();
 
   function renderPublicationForm() {
-    render(<PublicationForm title={title} type="create" onSubmit={onSubmit} />);
+    renderWithTestProviders(<PublicationForm title={title} type="create" onSubmit={onSubmit} />);
   }
 
   it('should render publication form correctly', () => {
@@ -23,12 +25,12 @@ describe('Publication form tests', () => {
   });
 
   it('should render publication form with correctly footer, for create version', () => {
-    render(<PublicationForm title={title} type="create" onSubmit={onSubmit} />);
+    renderWithTestProviders(<PublicationForm title={title} type="create" onSubmit={onSubmit} />);
     expect(screen.getByRole('button', { name: 'Publicar anúncio' })).toBeInTheDocument();
   });
 
   it('should render publication form with correctly footer, for edit version', () => {
-    render(<PublicationForm title={title} type="edit" onSubmit={onSubmit} />);
+    renderWithTestProviders(<PublicationForm title={title} type="edit" onSubmit={onSubmit} />);
     expect(screen.getByRole('button', { name: 'Salvar alterações' })).toBeInTheDocument();
   });
 });
