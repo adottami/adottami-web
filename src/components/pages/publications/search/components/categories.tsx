@@ -11,7 +11,7 @@ interface Props {
 
 const Categories: FC<Props> = ({ setSearchValues }) => {
   const handleSetCategorieValue = (variant: string) => {
-    setSearchValues((prevState) => ({ ...prevState, categorie: variant }));
+    setSearchValues((prevState) => ({ ...prevState, categories: [variant] }));
   };
 
   return (
