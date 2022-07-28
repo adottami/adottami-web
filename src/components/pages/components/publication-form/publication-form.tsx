@@ -67,7 +67,7 @@ const PublicationForm: FC<Props> = ({ title, type, onSubmit }) => {
 
   async function updatePublicationImages(publication: Publication) {
     try {
-      await api.adottami.publications.editImages(publication.id(), images);
+      await api.adottami.publications.editImages(publication.id?.(), images);
       toast.success('Imagens publicadas com sucesso', TOAST_CONFIGS);
     } catch (error) {
       if (!(error instanceof AxiosError)) throw error;
@@ -93,7 +93,7 @@ const PublicationForm: FC<Props> = ({ title, type, onSubmit }) => {
       city: values.city,
       state: values.state,
       isArchived: !!values.isArchived,
-      hidePhoneNumber: Boolean(values.hidePhoneNumber?.toString()),
+      hidePhoneNumber: values.hidePhoneNumber?.length === 1,
       characteristics: characteristicsId,
     };
 
