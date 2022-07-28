@@ -3,7 +3,7 @@ import { withBaseAdottamiURL } from '@/services/adottami-client/utils';
 import { TrackedRequest, trackRequests } from '@tests/utils/requests';
 
 import { PUBLICATIONS_ENDPOINT, PUBLICATION_CHARACTERISTICS_ENDPOINT } from '../../constants';
-import { getPublicationEndpoint } from '../../utils';
+import { getPublicationEndpoint, getPublicationImagesEndpoint } from '../../utils';
 
 class PublicationResponseHandler {
   mockCreate(publicationResponse: PublicationResponse): TrackedRequest[] {
@@ -40,7 +40,7 @@ class PublicationResponseHandler {
   }
 
   mockEditImages(publicationId: string): TrackedRequest[] {
-    const editRequests = trackRequests(withBaseAdottamiURL(getPublicationEndpoint(publicationId)), 'patch');
+    const editRequests = trackRequests(withBaseAdottamiURL(getPublicationImagesEndpoint(publicationId)), 'patch');
     return editRequests;
   }
 
