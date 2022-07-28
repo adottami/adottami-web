@@ -14,7 +14,7 @@ import useApi from '@/hooks/api/use-api/use-api';
 import useSession from '@/hooks/session/use-session/use-session';
 import Publication from '@/models/publication/publication';
 import { PublicationCharacteristic } from '@/models/publication/types';
-import { CreatePublicationData, EditPublicationData } from '@/services/adottami-client/publication-client/types';
+import { CreatePublicationData } from '@/services/adottami-client/publication-client/types';
 import { zipCode } from '@/utils/mask';
 
 import { TOAST_CONFIGS } from '../header/constants';
@@ -24,7 +24,7 @@ import { publicationFormSchema } from './schemas/publication-form-schema';
 
 interface Props {
   title: string;
-  onSubmit: (values: CreatePublicationData | EditPublicationData) => Promise<Publication>;
+  onSubmit: (values: CreatePublicationData) => Promise<Publication>;
   type: 'create' | 'edit';
   defaultPublication?: Publication;
 }
