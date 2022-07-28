@@ -30,7 +30,7 @@ const RadioGroup: FC<Props> = ({ id, name, label, options, isRequired, onChange,
         required={isRequired}
       >
         {options.map(({ label, value, isDisabled }) => (
-          <RadioInput key={label} id={id} label={label} isDisabled={isDisabled} value={value} />
+          <RadioInput key={label} id={label} label={label} isDisabled={isDisabled} value={value} />
         ))}
       </RadioBox.Root>
 
