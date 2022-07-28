@@ -1,6 +1,5 @@
 import { AxiosError } from 'axios';
 import { useFormik } from 'formik';
-import router from 'next/router';
 import { EnvelopeSimple, Phone } from 'phosphor-react';
 import React, { FC, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
@@ -60,10 +59,6 @@ const PublicationForm: FC<Props> = ({ title, type, onSubmit }) => {
 
   useEffect(() => {
     async function loadCharacteristics() {
-      if (user === null) {
-        router.push('/sign-in');
-      }
-
       try {
         const response = await api.adottami.publications.getCharacteristics();
         setCharacteristics(response);
@@ -74,7 +69,7 @@ const PublicationForm: FC<Props> = ({ title, type, onSubmit }) => {
     }
 
     loadCharacteristics();
-  }, [api, user]);
+  }, [api]);
 
   async function updatePublicationImages(publication: Publication) {
     await api.adottami.publications.editImages(publication.id(), images);
