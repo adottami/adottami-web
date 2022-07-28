@@ -9,8 +9,8 @@ describe('Radio Group', () => {
         id="sexo"
         label="Sexo"
         options={[
-          { id: 'macho', label: 'Macho', isDisabled: true },
-          { id: 'femea', label: 'Fêmea' },
+          { value: 'Macho', label: 'Macho', isDisabled: true },
+          { value: 'Fêmea', label: 'Fêmea' },
         ]}
       />,
     );
@@ -24,8 +24,8 @@ describe('Radio Group', () => {
         id="sexo"
         label="Sexo"
         options={[
-          { id: 'macho', label: 'Macho' },
-          { id: 'femea', label: 'Fêmea' },
+          { value: 'Macho', label: 'Macho' },
+          { value: 'Fêmea', label: 'Fêmea' },
         ]}
       />,
     );
@@ -44,8 +44,8 @@ describe('Radio Group', () => {
         id="sexo"
         label="Sexo"
         options={[
-          { id: 'macho', label: 'Macho' },
-          { id: 'femea', label: 'Fêmea' },
+          { value: 'Macho', label: 'Macho' },
+          { value: 'Fêmea', label: 'Fêmea' },
         ]}
       />,
     );
