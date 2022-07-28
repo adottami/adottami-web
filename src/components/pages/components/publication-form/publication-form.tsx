@@ -25,7 +25,7 @@ interface Props {
   defaultPublication?: Publication;
 }
 
-const PublicationForm: FC<Props> = ({ title, type, onSubmit }) => {
+const PublicationForm: FC<Props> = ({ title, type /* onSubmit */ }) => {
   const { user } = useSession();
   const api = useApi();
 
