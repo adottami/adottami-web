@@ -16,7 +16,7 @@ import useAPI from '@/hooks/api/use-api/use-api';
 import useSession from '@/hooks/session/use-session/use-session';
 import { applyPhoneMask, undoPhoneMask } from '@/utils/mask';
 
-import { PAGE_TITLE, TOAST_CONFIGS } from './constants';
+import { PAGE_TITLE, signUpPageTestIds, TOAST_CONFIGS } from './constants';
 import { registerSchema } from './schemas/register-schema';
 
 const SignUpPage: FC = () => {
@@ -65,11 +65,17 @@ const SignUpPage: FC = () => {
         <div className="mx-[1.5rem] my-[2.5rem] flex h-full w-full flex-col items-start gap-8 md:m-[3.5rem] md:w-1/2 xl:m-[6rem] 2xl:gap-14">
           <AdottamiLogo className="h-6 w-auto cursor-pointer md:h-8 2xl:h-10" onClick={() => router.push('/')} />
           <div className="w-full md:w-3/4 xl:w-4/6">
-            <h3 className="w-full text-xl font-bold text-primary-dark md:text-2xl">Crie a sua conta</h3>
+            <h3
+              data-testid={signUpPageTestIds.title()}
+              className="w-full text-xl font-bold text-primary-dark md:text-2xl"
+            >
+              Crie a sua conta
+            </h3>
             <div className="flex flex-col gap-4 md:gap-6">
               <form className="flex flex-col gap-6 md:gap-8" onSubmit={onSubmit}>
                 <div className="flex flex-col gap-2">
                   <Input
+                    data-testid={signUpPageTestIds.nameInput()}
                     name="name"
                     type="text"
                     label="Nome completo"
@@ -80,6 +86,7 @@ const SignUpPage: FC = () => {
                     isRequired
                   />
                   <Input
+                    data-testid={signUpPageTestIds.emailInput()}
                     name="email"
                     type="text"
                     label="E-mail"
@@ -91,6 +98,7 @@ const SignUpPage: FC = () => {
                   />
 
                   <Input
+                    data-testid={signUpPageTestIds.telephoneInput()}
                     type="text"
                     name="telephone"
                     label="Telefone"
@@ -101,6 +109,7 @@ const SignUpPage: FC = () => {
                     isRequired
                   />
                   <Input
+                    data-testid={signUpPageTestIds.passwordInput()}
                     name="password"
                     variant="password"
                     label="Senha"
@@ -112,6 +121,7 @@ const SignUpPage: FC = () => {
                     isRequired
                   />
                   <Input
+                    data-testid={signUpPageTestIds.confirmPasswordInput()}
                     name="confirmPassword"
                     variant="password"
                     label="Confirmar senha"
@@ -122,7 +132,9 @@ const SignUpPage: FC = () => {
                     isRequired
                   />
                 </div>
-                <Button type="submit">Criar conta</Button>
+                <Button data-testid={signUpPageTestIds.button()} type="submit">
+                  Criar conta
+                </Button>
               </form>
               <div className="flex flex-col gap-4 md:gap-6">
                 <p className="text-center text-sm text-neutral-500 md:text-md">
@@ -140,6 +152,7 @@ const SignUpPage: FC = () => {
         </div>
         <div className="hidden h-auto w-1/2 items-center justify-center bg-surface-secondary px-[6rem] md:flex">
           <Image
+            data-testid={signUpPageTestIds.decorativeImage()}
             src={banner}
             height={528}
             className="h-full object-cover"
