@@ -44,18 +44,4 @@ export const GENDER_OPTIONS: RadioProps[] = [
 ];
 
 // this constant will be removed during integration phase
-export const FEATURE_OPTIONS = [
-  'Brincalhão',
-  'Dócil',
-  'Calmo',
-  'Sociável',
-  'Sociável com crianças',
-  'Castrado',
-  'Vacinado',
-  'Vermifugado',
-  'Vive bem em apartamento',
-  'Vive bem em casa com quintal',
-];
-
-// this constant will be removed during integration phase
 export const CATEGORY_OPTIONS = ['Cachorro', 'Coelho', 'Gato'];
