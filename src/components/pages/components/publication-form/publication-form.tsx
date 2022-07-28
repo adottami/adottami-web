@@ -1,5 +1,6 @@
 import { AxiosError } from 'axios';
 import { useFormik } from 'formik';
+import router from 'next/router';
 import { EnvelopeSimple, Phone } from 'phosphor-react';
 import React, { FC, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
@@ -59,6 +60,10 @@ const PublicationForm: FC<Props> = ({ title, type, onSubmit }) => {
 
   useEffect(() => {
     async function loadCharacteristics() {
+      if (user === null) {
+        router.push('/sign-in');
+      }
+
       try {
         const response = await api.adottami.publications.getCharacteristics();
         setCharacteristics(response);
@@ -69,14 +74,14 @@ const PublicationForm: FC<Props> = ({ title, type, onSubmit }) => {
     }
 
     loadCharacteristics();
-  }, [api]);
+  }, [api, user]);
 
   async function updatePublicationImages(publication: Publication) {
-    api.adottami.publications.editImages(publication.id(), images);
+    await api.adottami.publications.editImages(publication.id(), images);
   }
 
   function formatFieldsToRequestBody(values: CreatePublicationData) {
-    const characteristicsIds = values.characteristics.map((characteristc) => {
+    values.characteristics.map((characteristc) => {
       const formCharacteristic = characteristc as unknown as string;
       const characteristicId = characteristics.find((char) => char.name === formCharacteristic)?.id as string;
 
@@ -89,14 +94,14 @@ const PublicationForm: FC<Props> = ({ title, type, onSubmit }) => {
       gender,
       category,
       breed: values.breed || null,
-      weightInKilograms: values.weightInKilograms || null,
+      weightInGrams: values.weightInGrams || null,
       ageInYears: values.ageInYears || null,
       zipCode: zipCode.undoMask(values.zipCode),
       city: values.city,
       state: values.state,
       isArchived: !!values.isArchived,
       hidePhoneNumber: Boolean(values.hidePhoneNumber?.toString()),
-      characteristics: characteristicsIds,
+      characteristics: values.characteristics,
     };
 
     return data;
@@ -106,9 +111,9 @@ const PublicationForm: FC<Props> = ({ title, type, onSubmit }) => {
     setImages(images);
   }
 
-  const onHandleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onHandleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     setShowErrors(true);
-    handleSubmit(e);
+    handleSubmit(event);
   };
 
   return (
@@ -188,13 +193,13 @@ const PublicationForm: FC<Props> = ({ title, type, onSubmit }) => {
 
             <div className="flex gap-4">
               <Input
-                name="weightInKilograms"
+                name="weightInGrams"
                 type="number"
                 label="Peso"
-                placeholder="Ex: 10 Kg"
-                value={values.weightInKilograms || ''}
+                placeholder="Ex: 1000g"
+                value={values.weightInGrams || ''}
                 onChange={handleChange}
-                errorMessage={showErrors ? errors.weightInKilograms : ''}
+                errorMessage={showErrors ? errors.weightInGrams : ''}
               />
               <Input
                 name="ageInYears"
