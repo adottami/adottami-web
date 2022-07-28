@@ -1,6 +1,12 @@
-import { FC, useState } from 'react';
+import { AxiosError } from 'axios';
+import { FC, useEffect, useState } from 'react';
 
+import Button from '@/components/common/button/button';
 import Page from '@/components/common/page/page';
+import Footer from '@/components/pages/components/footer/footer';
+import Header from '@/components/pages/components/header/header';
+import useAPI from '@/hooks/api/use-api/use-api';
+import Publication from '@/models/publication/publication';
 
 import Categories from '../components/categories';
 import LocationInput from '../components/location-input';
@@ -10,12 +16,43 @@ import { Search } from './types';
 
 const SearchPublicationsPage: FC = () => {
   const [searchValues, setSearchValues] = useState<Search>(SEARCH_VALUES_INITIAL_STATE);
-  console.log(searchValues);
+  const [publications, setPublications] = useState<Publication[]>([]);
+  const [currentPublicationsPage, setCurrentPublicationsPage] = useState<number>(1);
+  const api = useAPI();
+
+  useEffect(() => {
+    const fetchFirstPublications = async () => {
+      try {
+        const publicationsData = await api.adottami.publications.get(searchValues);
+        setPublications(publicationsData);
+      } catch (error) {
+        if (!(error instanceof AxiosError)) throw error;
+      }
+    };
+    fetchFirstPublications();
+  }, [searchValues, api.adottami.publications]);
+
+  const fetchMorePublications = async () => {
+    try {
+      const publicationsData = await api.adottami.publications.get({
+        ...searchValues,
+        page: currentPublicationsPage + 1,
+      });
+      if (publicationsData.length !== 0) {
+        setCurrentPublicationsPage(currentPublicationsPage + 1);
+      }
+      setPublications(publications.concat(publicationsData));
+    } catch (error) {
+      if (!(error instanceof AxiosError)) throw error;
+    }
+  };
 
   return (
     <Page title={PAGE_TITLE}>
-      <div className="min-w-screen flex h-screen flex-col items-center">
-        <div className="flex h-60 w-full items-center justify-center bg-secondary-medium p-6 md:h-32">
+      <div className="min-w-screen flex h-screen flex-col items-center justify-between">
+        <Header />
+
+        <div className="-z-1 flex h-60 w-full items-center justify-center bg-secondary-medium p-6 md:h-32">
           <div className="w-full md:w-3/5">
             <LocationInput setSearchValues={setSearchValues} />
           </div>
@@ -29,8 +66,22 @@ const SearchPublicationsPage: FC = () => {
         </div>
 
         <div className="mt-7 flex w-full justify-center md:w-3/5">
-          <PublicationList />
+          <PublicationList publications={publications} />
         </div>
+
+        <div className="mt-8" />
+
+        <div>
+          {publications.length > 0 ? (
+            <Button variant="loadMore" onClick={fetchMorePublications}>
+              Carregar mais
+            </Button>
+          ) : null}
+        </div>
+
+        <div className="mt-8" />
+
+        <Footer />
       </div>
     </Page>
   );
