@@ -15,12 +15,16 @@ import { PAGE_TITLE } from './constants';
 const PublicationDashboardPage: FC = () => {
   const [myPublications, setMyPublications] = useState<Publication[]>([]);
   const api = useAPI();
-  const { user } = useSession();
+  const { user, isLoading } = useSession();
   const router = useRouter();
+
   useEffect(() => {
-    if (!user) {
+    if (!isLoading && !user) {
       router.push('/');
     }
+  }, [user, isLoading, router]);
+
+  useEffect(() => {
     const getRecentPublications = async () => {
       const publications = await api.adottami.publications.get({
         authorId: user?.id(),
