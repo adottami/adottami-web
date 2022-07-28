@@ -15,7 +15,7 @@ describe('Publication', () => {
     expect(publication.category()).toEqual(publicationFields.category);
     expect(publication.gender()).toEqual(publicationFields.gender);
     expect(publication.breed()).toEqual(publicationFields.breed);
-    expect(publication.weightInGrams()).toEqual(publicationFields.weightInGrams);
+    expect(publication.weightInKilograms()).toEqual(publicationFields.weightInKilograms);
     expect(publication.ageInYears()).toEqual(publicationFields.ageInYears);
     expect(publication.zipCode()).toEqual(publicationFields.zipCode);
     expect(publication.city()).toEqual(publicationFields.city);
