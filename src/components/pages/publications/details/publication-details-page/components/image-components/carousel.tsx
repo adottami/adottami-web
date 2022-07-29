@@ -5,42 +5,40 @@ import { FC, useState } from 'react';
 import { imageProperties } from './constants';
 
 const Carousel: FC = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  const handlePrev = () => {
-    if (currentIndex === 0) {
-      setCurrentIndex(imageProperties.length - 1);
+  const handlePrevious = () => {
+    if (currentImageIndex === 0) {
+      setCurrentImageIndex(imageProperties.length - 1);
     } else {
-      setCurrentIndex(currentIndex - 1);
+      setCurrentImageIndex(currentImageIndex - 1);
     }
   };
 
   const handleNext = () => {
-    if (currentIndex + 1 > imageProperties.length - 1) {
-      setCurrentIndex(0);
+    if (currentImageIndex + 1 > imageProperties.length - 1) {
+      setCurrentImageIndex(0);
     } else {
-      setCurrentIndex(currentIndex + 1);
+      setCurrentImageIndex(currentImageIndex + 1);
     }
   };
 
   return (
     <div className="flex h-screen max-h-[26rem] w-full items-center md:max-h-[32rem]">
-      <button className="absolute z-1" onClick={() => handlePrev()}>
+      <button className="absolute z-1" onClick={() => handlePrevious()}>
         <CaretLeft size={30} />
       </button>
-      <div className="relative h-full w-full max-w-[44rem]">
+      <div className="relative h-full w-full">
         <Image
-          src={imageProperties[currentIndex].url}
-          width={100}
-          height={100}
+          src={imageProperties[currentImageIndex].url}
           layout="fill"
-          objectFit="initial"
+          objectFit="cover"
           quality={100}
           priority
           className="z-0 rounded-pill"
         />
       </div>
-      <button className="absolute right-6 z-1" onClick={() => handleNext()}>
+      <button className="absolute right-6 z-1 md:right-12" onClick={() => handleNext()}>
         <CaretRight size={30} />
       </button>
     </div>
