@@ -2,8 +2,8 @@ import * as RadioBox from '@radix-ui/react-radio-group';
 import { FC } from 'react';
 
 export interface RadioProps extends RadioBox.RadioGroupProps {
-  id: string;
   label: string;
+  value: string;
   isDisabled?: boolean;
 }
 

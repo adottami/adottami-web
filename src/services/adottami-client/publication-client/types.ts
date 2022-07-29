@@ -17,8 +17,8 @@ export interface CreatePublicationData {
 export type EditPublicationData = Partial<CreatePublicationData>;
 
 export interface GetPublicationsOptions {
-  city: string;
-  state: string;
+  city?: string;
+  state?: string;
   categories?: string[];
   isArchived?: boolean;
   authorId?: string;

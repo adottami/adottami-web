@@ -1,6 +1,9 @@
 import { screen } from '@testing-library/react';
 
 import { expectPageTitleWithApplicationName } from '@/components/common/page/__tests__/utils';
+import createPublication from '@/models/publication/__tests__/factories/publication-factory';
+import PublicationFactory from '@/models/publication/publication-factory';
+import publicationResponseHandler from '@/services/adottami-client/publication-client/__tests__/mocks/publication-response-handler';
 import { renderWithTestProviders } from '@tests/utils/render';
 
 import {
@@ -25,7 +28,41 @@ jest.mock('next/router', () => ({
 }));
 
 describe('Home page', () => {
-  it('should render the first section correctly', () => {
+  const publications = [
+    createPublication({
+      name: 'Leleco',
+      images: [
+        {
+          id: '1',
+          url: 'imagem.png',
+        },
+      ],
+    }),
+    createPublication({
+      name: 'Lilica',
+      images: [
+        {
+          id: '1',
+          url: 'imagem.png',
+        },
+      ],
+    }),
+    createPublication({
+      name: 'Nunu',
+      images: [
+        {
+          id: '1',
+          url: 'imagem.png',
+        },
+      ],
+    }),
+  ];
+  const publicationResponses = publications.map((publication) => PublicationFactory.toResponse(publication));
+  beforeEach(() => {
+    publicationResponseHandler.mockGet(publicationResponses);
+  });
+
+  it('should render the first section correctly', async () => {
     renderWithTestProviders(<HomePage />);
     expectPageTitleWithApplicationName(PAGE_TITLE);
     expect(screen.getByText(SLOGAN_MESSAGE)).toBeInTheDocument();
@@ -35,7 +72,7 @@ describe('Home page', () => {
     expect(screen.getByText(/saiba mais/i)).toBeInTheDocument();
   });
 
-  it('should render `how adottami works` section correctly', () => {
+  it('should render `how adottami works` section correctly', async () => {
     renderWithTestProviders(<HomePage />);
     expect(screen.getByText(HOW_ADOTTAMI_WORKS)).toBeInTheDocument();
     expect(screen.getByText(FIRST_DESCRIPTION_OF_HOW_IT_WORKS)).toBeInTheDocument();
@@ -44,10 +81,14 @@ describe('Home page', () => {
     expect(screen.getByAltText(/entenda como o adottami funciona/i)).toBeInTheDocument();
   });
 
-  it('should render `recent publications` section correctly', () => {
-    const { getByText } = renderWithTestProviders(<HomePage />);
-    expect(getByText('Anúncios recentes')).toBeInTheDocument();
-    expect(getByText('Ver mais')).toBeInTheDocument();
+  it('should render `recent publications` section correctly', async () => {
+    renderWithTestProviders(<HomePage />);
+
+    expect(await screen.findByText('Leleco')).toBeInTheDocument();
+    expect(await screen.findByText('Lilica')).toBeInTheDocument();
+    expect(await screen.findByText('Nunu')).toBeInTheDocument();
+    expect(screen.getByText('Anúncios recentes')).toBeInTheDocument();
+    expect(screen.getByText('Ver mais')).toBeInTheDocument();
     expect(screen.getByTestId('cards')).toBeInTheDocument();
   });
 

@@ -1,6 +1,8 @@
 import { RadioProps } from '@/components/common/radio-group/radio-input';
 import { CreatePublicationData } from '@/services/adottami-client/publication-client/types';
 
+import { PublicationFormData } from './types';
+
 type FormKey = keyof CreatePublicationData;
 
 export const FORM_LABELS = [
@@ -30,32 +32,17 @@ export const INPUT_KEYS: FormKey[] = [
   'gender',
 ];
 
-export const INITIAL_VALUES = INPUT_KEYS.reduce(
+export const INITIAL_VALUES: PublicationFormData = INPUT_KEYS.reduce(
   (accumulate, currentValue) => ({
     ...accumulate,
     [currentValue]: '',
   }),
-  {} as CreatePublicationData,
+  {} as PublicationFormData,
 );
 
 export const GENDER_OPTIONS: RadioProps[] = [
-  { id: 'macho', label: 'Macho' },
-  { id: 'fêmea', label: 'Fêmea' },
+  { value: 'Macho', label: 'Macho', isDisabled: false },
+  { value: 'Fêmea', label: 'Fêmea', isDisabled: false },
 ];
 
-// this constant will be removed during integration phase
-export const FEATURE_OPTIONS = [
-  'Brincalhão',
-  'Dócil',
-  'Calmo',
-  'Sociável',
-  'Sociável com crianças',
-  'Castrado',
-  'Vacinado',
-  'Vermifugado',
-  'Vive bem em apartamento',
-  'Vive bem em casa com quintal',
-];
-
-// this constant will be removed during integration phase
-export const CATEGORY_OPTIONS = ['cachorro', 'coelho', 'gato'];
+export const CATEGORY_OPTIONS = ['Cachorro', 'Gato', 'Coelho', 'Hamster', 'Passaro', 'Peixe', 'Outros'];

@@ -76,8 +76,27 @@ const SessionContextProvider: FCC = ({ children }) => {
         const { adottamiClient } = createClientsAfterAuthenticated(sessionData.authentication);
         const user = await adottamiClient.users.getById(sessionData.userId);
 
+        if (user === null) {
+          throw new Error(`User with id ${sessionData.userId} not found. Could not restore session.`);
+        }
+
+        const accessToken = adottamiClient.accessToken();
+        const refreshToken = adottamiClient.refreshToken();
+
+        if (accessToken === undefined || refreshToken === undefined) {
+          throw new Error(`Access credentials were not properly set. Could not restore session.`);
+        }
+
         setAdottamiClient(adottamiClient);
         setUser(user);
+
+        storage.session.save({
+          userId: user.id(),
+          authentication: {
+            accessToken,
+            refreshToken,
+          },
+        });
       } catch (error) {
         console.error(error);
         clearSession();
