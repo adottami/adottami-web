@@ -24,7 +24,6 @@ const SearchPublicationsPage: FC = () => {
     const fetchFirstPublications = async () => {
       try {
         const publicationsData = await api.adottami.publications.get(searchValues);
-        console.log(publicationsData);
         setPublications(publicationsData);
       } catch (error) {
         if (!(error instanceof AxiosError)) throw error;
