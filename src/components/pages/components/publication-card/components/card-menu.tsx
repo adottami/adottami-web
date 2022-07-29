@@ -54,7 +54,7 @@ interface Props {
 }
 
 interface Item {
-  path: string;
+  path?: string;
   label: string;
   icon: JSX.Element;
   onClick?: () => void;
@@ -84,7 +84,6 @@ const CardMenu: FC<Props> = (props) => {
       icon: <PencilSimpleLine size={24} />,
     },
     {
-      path: '#',
       label: 'Remover',
       icon: <Trash size={24} />,
       onClick: handleRemovePublication,
@@ -113,9 +112,13 @@ const CardMenu: FC<Props> = (props) => {
               onClick={item.onClick}
             >
               {item.icon}
-              <Link href={item.path} passHref>
-                <a className="text-base">{item.label}</a>
-              </Link>
+              {item.path ? (
+                <Link href={item.path} passHref>
+                  <a className="text-base">{item.label}</a>
+                </Link>
+              ) : (
+                <span className="text-base">{item.label}</span>
+              )}
             </DropdownMenu.Item>
           ))}
         </DropdownMenuContent>
