@@ -6,6 +6,15 @@ import { renderWithTestProviders } from '@tests/utils/render';
 import { FORM_LABELS } from '../contants';
 import PublicationForm from '../publication-form';
 
+jest.mock('next/router', () => ({
+  useRouter() {
+    return {
+      pathname: '/',
+      push: jest.fn(),
+    };
+  },
+}));
+
 describe('Publication form tests', () => {
   const title = 'test-publication-form-title';
   const onSubmit = jest.fn();

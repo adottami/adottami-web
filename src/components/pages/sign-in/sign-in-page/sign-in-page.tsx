@@ -93,9 +93,9 @@ const SignInPage: FC = () => {
               </form>
               <div className="flex flex-col gap-4 md:gap-6">
                 <p className="text-center text-sm text-neutral-500 md:text-md">
-                  Ao continuar, você concorda com os <InlineLink href="#">Termos de Uso</InlineLink> e a{' '}
-                  <InlineLink href="#">Política de Privacidade</InlineLink> da Adottami, e também, em receber
-                  comunicações via e-mail.
+                  Ao continuar, você concorda com os <InlineLink>Termos de Uso</InlineLink> e a{' '}
+                  <InlineLink>Política de Privacidade</InlineLink> da Adottami, e também, em receber comunicações via
+                  e-mail.
                 </p>
                 <Separator />
                 <p className="text-center text-sm text-neutral-800 md:text-md">

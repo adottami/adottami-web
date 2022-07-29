@@ -5,6 +5,15 @@ import { renderWithTestProviders } from '@tests/utils/render';
 import { PAGE_TITLE } from '../constants';
 import EditPublicationPage from '../edit-publication-page';
 
+jest.mock('next/router', () => ({
+  useRouter() {
+    return {
+      pathname: '/',
+      push: jest.fn(),
+    };
+  },
+}));
+
 describe('Edit publication page', () => {
   beforeEach(() => {
     publicationResponseHandler.mockGetCharacteristics([]);

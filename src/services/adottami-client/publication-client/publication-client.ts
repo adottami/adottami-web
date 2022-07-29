@@ -6,7 +6,7 @@ import { PublicationCharacteristic, PublicationResponse } from '@/models/publica
 
 import { IMAGES_FORM_DATA_KEY, PUBLICATIONS_ENDPOINT, PUBLICATION_CHARACTERISTICS_ENDPOINT } from './constants';
 import { CreatePublicationData, EditPublicationData, GetPublicationsOptions } from './types';
-import { getPublicationEndpoint } from './utils';
+import { getPublicationEndpoint, getPublicationImagesEndpoint } from './utils';
 
 class PublicationClient {
   constructor(private api: AxiosInstance) {}
@@ -59,7 +59,7 @@ class PublicationClient {
   async editImages(publicationId: string, images: File[]) {
     const formData = this.createImageFormData(images);
 
-    await this.api.patchForm(getPublicationEndpoint(publicationId), formData, {
+    await this.api.patchForm(getPublicationImagesEndpoint(publicationId), formData, {
       headers: { 'Content-Type': 'multipart/form-data' },
     });
   }

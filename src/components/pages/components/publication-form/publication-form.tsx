@@ -1,5 +1,6 @@
 import { AxiosError } from 'axios';
 import { useFormik } from 'formik';
+import { useRouter } from 'next/router';
 import { EnvelopeSimple, Phone } from 'phosphor-react';
 import React, { FC, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
@@ -25,14 +26,15 @@ import { PublicationFormData } from './types';
 
 interface Props {
   title: string;
-  onSubmit: (values: CreatePublicationData) => Promise<Publication>;
+  onSubmit: (values: CreatePublicationData) => Promise<Publication | undefined>;
   type: 'create' | 'edit';
   defaultPublication?: Publication;
 }
 
 const PublicationForm: FC<Props> = ({ title, type, onSubmit }) => {
-  const { user } = useSession();
+  const { user, isLoading } = useSession();
   const api = useApi();
+  const router = useRouter();
 
   const [showErrors, setShowErrors] = useState<boolean>(false);
 
@@ -52,22 +54,35 @@ const PublicationForm: FC<Props> = ({ title, type, onSubmit }) => {
   });
 
   useEffect(() => {
+    if (!user && !isLoading) {
+      toast.error('Por favor, faça login para poder anunciar um pet', TOAST_CONFIGS);
+      router.push(`/sign-in`);
+      return;
+    }
+
+    if (!user) return;
+
     async function loadCharacteristics() {
       try {
         const response = await api.adottami.publications.getCharacteristics();
         setCharacteristics(response);
         setCharacteristicsOptions(response.map((characteristic) => characteristic.name));
-      } catch (error) {
-        console.error(error);
+      } catch {
+        toast.error('Erro ao carregar as categorias', TOAST_CONFIGS);
       }
     }
 
     loadCharacteristics();
-  }, [api]);
+  }, [api, router, user, isLoading]);
 
-  async function updatePublicationImages(publication: Publication) {
+  async function updatePublicationImages(publication: Publication | undefined) {
+    if (!publication?.id?.()) {
+      return;
+    }
+
     try {
-      await api.adottami.publications.editImages(publication.id?.(), images);
+      await api.adottami.publications.editImages(publication.id(), images);
+
       toast.success('Imagens publicadas com sucesso', TOAST_CONFIGS);
     } catch (error) {
       if (!(error instanceof AxiosError)) throw error;
@@ -76,7 +91,7 @@ const PublicationForm: FC<Props> = ({ title, type, onSubmit }) => {
   }
 
   function formatFieldsToRequestBody(values: PublicationFormData) {
-    const characteristicsId = values.characteristics.map((characteristcName) => {
+    const characteristicsId = values.characteristics?.map((characteristcName) => {
       const characteristicId = characteristics.find((char) => char.name === characteristcName)?.id ?? '';
       return { id: characteristicId };
     });
@@ -94,7 +109,7 @@ const PublicationForm: FC<Props> = ({ title, type, onSubmit }) => {
       state: values.state,
       isArchived: !!values.isArchived,
       hidePhoneNumber: values.hidePhoneNumber?.length === 1,
-      characteristics: characteristicsId,
+      characteristics: characteristicsId || [],
     };
 
     return data;

@@ -7,6 +7,15 @@ import { renderWithTestProviders } from '@tests/utils/render';
 import { FORM_TITLE, PAGE_TITLE } from '../constants';
 import CreatePublicationPage from '../create-publication-page';
 
+jest.mock('next/router', () => ({
+  useRouter() {
+    return {
+      pathname: '/',
+      push: jest.fn(),
+    };
+  },
+}));
+
 describe('Create publication page', () => {
   beforeEach(() => {
     publicationResponseHandler.mockGetCharacteristics([]);
