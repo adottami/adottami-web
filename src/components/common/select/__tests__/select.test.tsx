@@ -32,7 +32,7 @@ describe('Select', () => {
   it('should render a select component with an error message correctly', () => {
     const errorMessage = 'error-message';
 
-    render(<Select errorMessage={errorMessage} hasError isRequired />);
+    render(<Select errorMessage={errorMessage} isRequired />);
     expect(screen.getByText(errorMessage)).toBeInTheDocument();
   });
 });

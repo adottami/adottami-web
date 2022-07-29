@@ -1,5 +1,6 @@
 import Image, { StaticImageData } from 'next/image';
 import Link from 'next/link';
+import router from 'next/router';
 import { CaretDown, List, SquaresFour, User } from 'phosphor-react';
 import profile from 'public/images/image-profile-not-found.png';
 import { FC, useState } from 'react';
@@ -45,7 +46,7 @@ const Header: FC<Props> = ({ avatarPhoto = profile }) => {
 
   return (
     <header className="w-full">
-      <div className="flex items-center justify-around p-6">
+      <div className="flex items-center justify-between p-6 md:px-24">
         <div className="flex items-center">
           <span className="lg:hidden">
             <List
@@ -68,7 +69,7 @@ const Header: FC<Props> = ({ avatarPhoto = profile }) => {
             <ul className="flex gap-6 ">
               <MenuCard
                 icon={<SquaresFour size={24} weight="regular" />}
-                href="/publications/dashboard"
+                href={user ? '/publications/dashboard' : '/sign-in'}
                 text="Meus Anúncios"
               />
               <div>
@@ -90,10 +91,18 @@ const Header: FC<Props> = ({ avatarPhoto = profile }) => {
             </ul>
           </nav>
           <div>
-            <Button variant="secondary" className="md:hidden">
+            <Button
+              variant="secondary"
+              className="md:hidden"
+              onClick={() => router.push(user ? '/publications/create' : '/sign-in')}
+            >
               Anunciar
             </Button>
-            <Button variant="secondary" className="hidden md:flex">
+            <Button
+              variant="secondary"
+              className="hidden md:flex"
+              onClick={() => router.push(user ? '/publications/create' : '/sign-in')}
+            >
               Anunciar um pet
             </Button>
           </div>

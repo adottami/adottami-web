@@ -53,7 +53,7 @@ const SignInPage: FC = () => {
     <Page title={PAGE_TITLE}>
       <div className="flex min-h-screen w-full overflow-y-auto">
         <div className="mx-[1.5rem] my-[2.5rem] flex h-full w-full flex-col items-start gap-8 md:m-[3.5rem] md:w-1/2 xl:m-[6rem] 2xl:gap-14">
-          <AdottamiLogo className="h-6 w-auto md:h-8 2xl:h-10" />
+          <AdottamiLogo className="h-6 w-auto cursor-pointer md:h-8 2xl:h-10" onClick={() => router.push('/')} />
           <div className="w-full md:w-3/4 xl:w-4/6">
             <div className="flex flex-col gap-4 md:gap-6">
               <h3
@@ -93,9 +93,9 @@ const SignInPage: FC = () => {
               </form>
               <div className="flex flex-col gap-4 md:gap-6">
                 <p className="text-center text-sm text-neutral-500 md:text-md">
-                  Ao continuar, você concorda com os <InlineLink href="#">Termos de Uso</InlineLink> e a{' '}
-                  <InlineLink href="#">Política de Privacidade</InlineLink> da Adottami, e também, em receber
-                  comunicações via e-mail.
+                  Ao continuar, você concorda com os <InlineLink>Termos de Uso</InlineLink> e a{' '}
+                  <InlineLink>Política de Privacidade</InlineLink> da Adottami, e também, em receber comunicações via
+                  e-mail.
                 </p>
                 <Separator />
                 <p className="text-center text-sm text-neutral-800 md:text-md">
