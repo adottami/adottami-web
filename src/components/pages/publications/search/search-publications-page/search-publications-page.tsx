@@ -24,6 +24,7 @@ const SearchPublicationsPage: FC = () => {
     const fetchFirstPublications = async () => {
       try {
         const publicationsData = await api.adottami.publications.get(searchValues);
+        console.log(publicationsData);
         setPublications(publicationsData);
       } catch (error) {
         if (!(error instanceof AxiosError)) throw error;
@@ -49,10 +50,10 @@ const SearchPublicationsPage: FC = () => {
 
   return (
     <Page title={PAGE_TITLE}>
-      <div className="min-w-screen flex h-screen flex-col items-center justify-center">
+      <div className="min-w-screen relative flex h-full min-h-screen flex-col items-center">
         <Header />
 
-        <div className="-z-1 flex h-60 w-full items-center justify-center bg-secondary-medium p-6 md:h-32">
+        <div className="flex h-60 w-full items-center justify-center bg-secondary-medium p-6 md:h-32">
           <div className="w-full md:w-3/5">
             <LocationInput setSearchValues={setSearchValues} />
           </div>
@@ -79,9 +80,11 @@ const SearchPublicationsPage: FC = () => {
           ) : null}
         </div>
 
-        <div className="mt-8" />
+        <div className="mt-[500px] md:mt-[400px]" />
 
-        <Footer />
+        <div className="absolute bottom-0 w-full">
+          <Footer />
+        </div>
       </div>
     </Page>
   );
