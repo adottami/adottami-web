@@ -1,9 +1,14 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { styled, keyframes } from '@stitches/react';
-import { ArchiveBox, DotsThree, PencilSimpleLine, Trash } from 'phosphor-react';
-import React, { FC } from 'react';
+import { AxiosError } from 'axios';
+import Link from 'next/link';
+import { DotsThree, PencilSimpleLine, Trash } from 'phosphor-react';
+import React, { FC, SyntheticEvent } from 'react';
+import { toast } from 'react-toastify';
 
-import UnarchiveBox from '@/components/icons/unarchive-box';
+import useAPI from '@/hooks/api/use-api/use-api';
+
+import { TOAST_CONFIGS } from '../constants';
 
 const [slideUpAndFade, slideRightAndFade, slideDownAndFade, slideLeftAndFade] = [
   keyframes({
@@ -44,33 +49,46 @@ const DropdownMenuContent = styled(DropdownMenu.Content, {
 });
 
 interface Props {
+  publicationId: string;
   isVisible?: boolean;
-  isArchived?: boolean;
 }
 
 interface Item {
+  path?: string;
   label: string;
   icon: JSX.Element;
-  onClick?: () => void;
+  onClick?: (event: SyntheticEvent) => Promise<void>;
 }
 
 const CardMenu: FC<Props> = (props) => {
-  const { isVisible, isArchived } = props;
+  const { isVisible, publicationId } = props;
+  const api = useAPI();
 
-  const items = [
+  const handleRemovePublication = async (event: SyntheticEvent) => {
+    event.preventDefault();
+    try {
+      await api.adottami.publications.remove(publicationId);
+      toast.success('Publicação removida com sucesso !', TOAST_CONFIGS);
+    } catch (error) {
+      if (!(error instanceof AxiosError)) throw error;
+      if (error.response?.status === 400) {
+        toast.error('Ops ! Ocorreu um erro', TOAST_CONFIGS);
+      }
+    }
+  };
+
+  const items: Item[] = [
     {
+      path: `/publications/edit/${publicationId}`,
       label: 'Editar',
       icon: <PencilSimpleLine size={24} />,
     },
     {
-      label: isArchived ? 'Desarquivar' : 'Arquivar',
-      icon: isArchived ? <UnarchiveBox /> : <ArchiveBox size={24} />,
-    },
-    {
       label: 'Remover',
       icon: <Trash size={24} />,
+      onClick: handleRemovePublication,
     },
-  ] as Item[];
+  ];
 
   if (!isVisible) return null;
 
@@ -91,9 +109,16 @@ const CardMenu: FC<Props> = (props) => {
             <DropdownMenu.Item
               key={item.label}
               className="flex cursor-pointer items-center gap-x-3 py-2 px-4 text-neutral-500 outline-none duration-200 hover:bg-neutral-100 hover:text-secondary-medium"
+              onClick={item.onClick}
             >
               {item.icon}
-              <span className="text-base">{item.label}</span>
+              {item.path ? (
+                <Link href={item.path} passHref>
+                  <a className="text-base">{item.label}</a>
+                </Link>
+              ) : (
+                <span className="text-base">{item.label}</span>
+              )}
             </DropdownMenu.Item>
           ))}
         </DropdownMenuContent>
