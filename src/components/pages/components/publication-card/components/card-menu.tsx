@@ -3,7 +3,7 @@ import { styled, keyframes } from '@stitches/react';
 import { AxiosError } from 'axios';
 import Link from 'next/link';
 import { DotsThree, PencilSimpleLine, Trash } from 'phosphor-react';
-import React, { FC } from 'react';
+import React, { FC, MouseEventHandler, SyntheticEvent } from 'react';
 import { toast } from 'react-toastify';
 
 import useAPI from '@/hooks/api/use-api/use-api';
@@ -57,14 +57,14 @@ interface Item {
   path?: string;
   label: string;
   icon: JSX.Element;
-  onClick?: () => void;
+  onClick?: (event: SyntheticEvent) => Promise<void>;
 }
 
 const CardMenu: FC<Props> = (props) => {
   const { isVisible, publicationId } = props;
   const api = useAPI();
 
-  const handleRemovePublication = async (event: MouseEvent) => {
+  const handleRemovePublication = async (event: SyntheticEvent) => {
     event.preventDefault();
     try {
       await api.adottami.publications.remove(publicationId);
@@ -77,7 +77,7 @@ const CardMenu: FC<Props> = (props) => {
     }
   };
 
-  const items = [
+  const items: Item[] = [
     {
       path: `/publications/edit/${publicationId}`,
       label: 'Editar',
@@ -88,7 +88,7 @@ const CardMenu: FC<Props> = (props) => {
       icon: <Trash size={24} />,
       onClick: handleRemovePublication,
     },
-  ] as Item[];
+  ];
 
   if (!isVisible) return null;
 
