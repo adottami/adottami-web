@@ -49,7 +49,7 @@ const SearchPublicationsPage: FC = () => {
 
   return (
     <Page title={PAGE_TITLE}>
-      <div className="min-w-screen flex h-screen flex-col items-center justify-between">
+      <div className="min-w-screen flex h-screen flex-col items-center justify-center">
         <Header />
 
         <div className="-z-1 flex h-60 w-full items-center justify-center bg-secondary-medium p-6 md:h-32">
