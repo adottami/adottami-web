@@ -43,8 +43,9 @@ const PublicationForm: FC<Props> = ({ title, type, onSubmit, publicationId }) =>
   const [gender, setGender] = useState<string>('');
   const [category, setCategory] = useState<string>('');
   const [characteristics, setCharacteristics] = useState<PublicationCharacteristic[]>([]);
-  const [selectedCharacteristics, setSelectedCharacteristics] = useState<string[]>([]);
-  const [characteristicsOptions, setCharacteristicsOptions] = useState<string[]>([]);
+  const [characteristicOptions, setCharacteristicsOptions] = useState<string[]>([]);
+  const [selectedCharacteristicOptions, setSelectedCharacteristics] = useState<string[]>([]);
+  const [hidePhoneNumber, setHidePhoneNumber] = useState(false);
 
   const { values, errors, handleChange, handleSubmit, setFieldValue } = useFormik({
     initialValues: INITIAL_VALUES,
@@ -56,8 +57,8 @@ const PublicationForm: FC<Props> = ({ title, type, onSubmit, publicationId }) =>
   });
 
   const hidePhoneNumberOptions: string[] = useMemo(
-    () => (values.hidePhoneNumber ? ['Ocultar meu telefone neste anúncio'] : []),
-    [values.hidePhoneNumber],
+    () => (hidePhoneNumber ? ['Ocultar meu telefone neste anúncio'] : []),
+    [hidePhoneNumber],
   );
 
   useEffect(() => {
@@ -102,7 +103,7 @@ const PublicationForm: FC<Props> = ({ title, type, onSubmit, publicationId }) =>
     setFieldValue('zipCode', zipCode.applyMask(publication.zipCode()));
     setFieldValue('city', publication.city());
     setFieldValue('state', publication.state());
-    setFieldValue('hidePhoneNumber', publication.hidePhoneNumber());
+    setHidePhoneNumber(publication.hidePhoneNumber());
   }, [publication, setFieldValue]);
 
   useEffect(() => {
@@ -137,8 +138,8 @@ const PublicationForm: FC<Props> = ({ title, type, onSubmit, publicationId }) =>
   }
 
   function formatFieldsToRequestBody(values: PublicationFormData) {
-    const characteristicsId = selectedCharacteristics.map((characteristcName) => {
-      const characteristicId = characteristics.find((char) => char.name === characteristcName)?.id ?? '';
+    const characteristicsId = selectedCharacteristicOptions.map((characteristicName) => {
+      const characteristicId = characteristics.find((char) => char.name === characteristicName)?.id ?? '';
       return { id: characteristicId };
     });
 
@@ -272,8 +273,8 @@ const PublicationForm: FC<Props> = ({ title, type, onSubmit, publicationId }) =>
               name="characteristics"
               id="characteristics"
               title="Características"
-              options={characteristicsOptions}
-              value={selectedCharacteristics}
+              options={characteristicOptions}
+              selectedOptions={selectedCharacteristicOptions}
               onChange={setSelectedCharacteristics}
             />
 
@@ -329,8 +330,8 @@ const PublicationForm: FC<Props> = ({ title, type, onSubmit, publicationId }) =>
                   id="hidePhoneNumber"
                   name="hidePhoneNumber"
                   options={['Ocultar meu telefone neste anúncio']}
-                  value={hidePhoneNumberOptions}
-                  onChange={handleChange}
+                  selectedOptions={hidePhoneNumberOptions}
+                  onChange={(options) => setHidePhoneNumber(options.length > 0)}
                 />
               </div>
             </div>
