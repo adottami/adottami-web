@@ -17,7 +17,7 @@ class Publication {
   private _characteristics: PublicationCharacteristic[];
   private _images: PublicationImage[];
   private _author: User;
-  private _createdAt: string;
+  private _createdAt: Date;
 
   constructor(fields: PublicationFields) {
     this._id = fields.id;
@@ -98,7 +98,7 @@ class Publication {
     return this._author;
   }
 
-  createdAt(): string {
+  createdAt(): Date {
     return this._createdAt;
   }
 }

@@ -4,8 +4,6 @@ import { FC, useState } from 'react';
 
 import { PublicationImage } from '@/models/publication/types';
 
-import { imageProperties } from './constants';
-
 interface Props {
   images: PublicationImage[] | undefined;
 }
@@ -13,23 +11,27 @@ interface Props {
 const Carousel: FC<Props> = ({ images }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
+  const hasImages = images !== undefined && images.length > 0;
+
   const handlePrevious = () => {
-    if (currentImageIndex === 0) {
-      setCurrentImageIndex(imageProperties.length - 1);
-    } else {
-      setCurrentImageIndex(currentImageIndex - 1);
+    if (hasImages) {
+      if (currentImageIndex === 0) {
+        setCurrentImageIndex(images.length - 1);
+      } else {
+        setCurrentImageIndex(currentImageIndex - 1);
+      }
     }
   };
 
   const handleNext = () => {
-    if (currentImageIndex + 1 > imageProperties.length - 1) {
-      setCurrentImageIndex(0);
-    } else {
-      setCurrentImageIndex(currentImageIndex + 1);
+    if (hasImages) {
+      if (currentImageIndex + 1 > images.length - 1) {
+        setCurrentImageIndex(0);
+      } else {
+        setCurrentImageIndex(currentImageIndex + 1);
+      }
     }
   };
-
-  const hasImages = images !== undefined && images.length > 0;
 
   return (
     <div className="flex h-screen max-h-[26rem] w-full items-center md:max-h-[32rem]">

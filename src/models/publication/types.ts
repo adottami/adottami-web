@@ -45,5 +45,5 @@ export interface PublicationFields {
   characteristics: PublicationCharacteristic[];
   images: PublicationImage[];
   author: UserFields;
-  createdAt: string;
+  createdAt: Date;
 }

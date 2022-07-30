@@ -1,13 +1,12 @@
-import { AxiosError } from 'axios';
 import { FC, useEffect, useState } from 'react';
 
 import Page from '@/components/common/page/page';
 import Separator from '@/components/common/separator/separator';
 import Footer from '@/components/pages/components/footer/footer';
 import Header from '@/components/pages/components/header/header';
+import usePageParameters from '@/components/pages/publications/details/publication-details-page/hooks/use-page-parameters/use-page-parameters';
 import useAPI from '@/hooks/api/use-api/use-api';
 import useSession from '@/hooks/session/use-session/use-session';
-import usePageParameters from '@/hooks/use-page-parameters/use-page-parameters';
 import Publication from '@/models/publication/publication';
 
 import AdvertiserCard from './components/advertiser-card';
@@ -27,11 +26,9 @@ const PublicationDetailsPage: FC = () => {
 
   useEffect(() => {
     const fetchPublicationDetails = async () => {
-      try {
-        const publication = await api.adottami.publications.getById(pageParameters.publicationId ?? '');
+      if (pageParameters.publicationId !== undefined) {
+        const publication = await api.adottami.publications.getById(pageParameters.publicationId);
         setPublication(publication);
-      } catch (error) {
-        if (!(error instanceof AxiosError)) throw error;
       }
     };
     fetchPublicationDetails();
