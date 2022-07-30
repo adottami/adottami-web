@@ -1,5 +1,4 @@
-import { within } from '@testing-library/dom';
-import { render } from '@testing-library/react';
+import { screen, render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import Checkbox from '../checkbox';
@@ -33,29 +32,44 @@ describe('Checkbox', () => {
   });
 
   it('handles click correctly', async () => {
-    const { getByText } = render(<Checkbox title="Características" options={categories} />);
+    const onChange = jest.fn();
+
+    render(<Checkbox title="Características" options={categories} onChange={onChange} />);
     const user = userEvent.setup();
-    const funny = getByText('Brincalhão');
-    const sweet = getByText('Dócil');
-    const calm = getByText('Calmo');
-    const sociable = getByText('Sociável');
-    const sociableWithhKids = getByText('Sociável com crianças');
-    const castrated = getByText('Castrado');
-    const vaccinated = getByText('Vacinado');
-    const livesWellInApartment = getByText('Vive bem em apartamento');
-    const livesWellInHouseWithBackyard = getByText('Vive bem em casa com quintal');
+
+    const funny = screen.getByText('Brincalhão');
+    const sweet = screen.getByText('Dócil');
+    const calm = screen.getByText('Calmo');
+    const sociable = screen.getByText('Sociável');
+    const sociableWithKids = screen.getByText('Sociável com crianças');
+    const castrated = screen.getByText('Castrado');
+    const vaccinated = screen.getByText('Vacinado');
+    const livesWellInApartment = screen.getByText('Vive bem em apartamento');
+    const livesWellInHouseWithBackyard = screen.getByText('Vive bem em casa com quintal');
+
+    [
+      funny,
+      sweet,
+      calm,
+      sociable,
+      sociableWithKids,
+      castrated,
+      vaccinated,
+      livesWellInApartment,
+      livesWellInHouseWithBackyard,
+    ].forEach((option) => {
+      expect(option).toBeInTheDocument();
+    });
 
     await user.click(sociable);
+    expect(onChange).toHaveBeenCalledWith([sociable.textContent]);
+
     await user.click(funny);
+    expect(onChange).toHaveBeenCalledWith([funny.textContent]);
+
     await user.click(livesWellInHouseWithBackyard);
-    expect(within(sociable).getByRole('checkbox')).toBeChecked();
-    expect(within(funny).getByRole('checkbox')).toBeChecked();
-    expect(within(livesWellInHouseWithBackyard).getByRole('checkbox')).toBeChecked();
-    expect(within(sweet).getByRole('checkbox')).not.toBeChecked();
-    expect(within(calm).getByRole('checkbox')).not.toBeChecked();
-    expect(within(sociableWithhKids).getByRole('checkbox')).not.toBeChecked();
-    expect(within(castrated).getByRole('checkbox')).not.toBeChecked();
-    expect(within(vaccinated).getByRole('checkbox')).not.toBeChecked();
-    expect(within(livesWellInApartment).getByRole('checkbox')).not.toBeChecked();
+    expect(onChange).toHaveBeenCalledWith([livesWellInHouseWithBackyard.textContent]);
+
+    expect(onChange).toHaveBeenCalledTimes(3);
   });
 });
