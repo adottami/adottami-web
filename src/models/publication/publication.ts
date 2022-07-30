@@ -14,6 +14,7 @@ class Publication {
   private _city: string;
   private _state: string;
   private _isArchived: boolean;
+  private _hidePhoneNumber: boolean;
   private _characteristics: PublicationCharacteristic[];
   private _images: PublicationImage[];
   private _author: User;
@@ -32,6 +33,8 @@ class Publication {
     this._city = fields.city;
     this._state = fields.state;
     this._isArchived = fields.isArchived;
+    this._hidePhoneNumber = fields.hidePhoneNumber;
+    this._characteristics = fields.characteristics;
     this._characteristics = fields.characteristics;
     this._images = fields.images;
     this._author = new User(fields.author);
@@ -84,6 +87,10 @@ class Publication {
 
   isArchived(): boolean {
     return this._isArchived;
+  }
+
+  hidePhoneNumber(): boolean {
+    return this._hidePhoneNumber;
   }
 
   characteristics(): PublicationCharacteristic[] {

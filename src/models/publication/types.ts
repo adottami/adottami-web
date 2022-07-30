@@ -23,6 +23,7 @@ export interface PublicationResponse {
   city: string;
   state: string;
   isArchived: boolean;
+  hidePhoneNumber: boolean;
   characteristics: PublicationCharacteristic[];
   images: PublicationImage[];
   author: UserResponse;
@@ -42,6 +43,7 @@ export interface PublicationFields {
   city: string;
   state: string;
   isArchived: boolean;
+  hidePhoneNumber: boolean;
   characteristics: PublicationCharacteristic[];
   images: PublicationImage[];
   author: UserFields;
