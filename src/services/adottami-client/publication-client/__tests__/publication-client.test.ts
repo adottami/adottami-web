@@ -25,6 +25,7 @@ describe('Publication client', () => {
     city: 'City',
     state: 'State',
     isArchived: false,
+    hidePhoneNumber: false,
     characteristics: [],
     images: [],
     author: {
@@ -48,7 +49,7 @@ describe('Publication client', () => {
     city: publicationResponse.city,
     state: publicationResponse.state,
     isArchived: publicationResponse.isArchived,
-    hidePhoneNumber: false,
+    hidePhoneNumber: publicationResponse.hidePhoneNumber,
     characteristics: publicationResponse.characteristics,
   };
 
