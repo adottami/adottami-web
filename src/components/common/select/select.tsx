@@ -1,10 +1,11 @@
 import * as SelectPrimitive from '@radix-ui/react-select';
 import { CaretDown, CaretUp, Check, XCircle } from 'phosphor-react';
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 
 interface Props {
   name?: string;
   label?: string;
+  value?: string;
   isRequired?: boolean;
   options?: string[];
   defaultValue?: string;
@@ -15,6 +16,7 @@ interface Props {
 const Select: FC<Props> = ({
   name,
   label,
+  value,
   isRequired,
   onChange,
   options = [],
@@ -29,6 +31,12 @@ const Select: FC<Props> = ({
       onChange(value);
     }
   }
+
+  useEffect(() => {
+    if (value) {
+      setSelectedValue(value);
+    }
+  }, [value]);
 
   return (
     <div>
