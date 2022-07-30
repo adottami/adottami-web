@@ -10,6 +10,7 @@ jest.mock('next/router', () => ({
     return {
       pathname: '/',
       push: jest.fn(),
+      query: (parsedQuery: any) => ({ ...parsedQuery }),
     };
   },
 }));
