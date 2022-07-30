@@ -29,12 +29,16 @@ const AdvertiserCard: FC<Props> = ({ advertiser, authenticated }) => (
           </span>
           <p className="text-neutral-800">{advertiser?.email()}</p>
         </div>
-        <div className="flex items-center gap-3">
-          <span className="rounded-full bg-tertiary-medium p-2 text-white">
-            <Phone size={20} />
-          </span>
-          <p className="text-neutral-800">{advertiser?.phoneNumber()}</p>
-        </div>
+        {advertiser?.phoneNumber() !== undefined ? (
+          <div className="flex items-center gap-3">
+            <span className="rounded-full bg-tertiary-medium p-2 text-white">
+              <Phone size={20} />
+            </span>
+            <p className="text-neutral-800">{advertiser.phoneNumber()}</p>
+          </div>
+        ) : (
+          ''
+        )}
       </div>
     ) : (
       <div className="flex gap-4 p-6">
