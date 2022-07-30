@@ -1,6 +1,7 @@
 import { screen } from '@testing-library/react';
 
 import { expectPageTitleWithApplicationName } from '@/components/common/page/__tests__/utils';
+import publicationResponseHandler from '@/services/adottami-client/publication-client/__tests__/mocks/publication-response-handler';
 import { renderWithTestProviders } from '@tests/utils/render';
 
 import { PAGE_TITLE } from '../constants';
@@ -15,6 +16,10 @@ jest.mock('next/router', () => ({
 }));
 
 describe('Search publication page', () => {
+  beforeEach(() => {
+    publicationResponseHandler.mockGet([]);
+  });
+
   it('should render correctly', () => {
     renderWithTestProviders(<SearchPublicationsPage />);
     expectPageTitleWithApplicationName(PAGE_TITLE);
