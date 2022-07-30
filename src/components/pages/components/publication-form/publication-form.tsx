@@ -2,7 +2,7 @@ import { AxiosError } from 'axios';
 import { useFormik } from 'formik';
 import { useRouter } from 'next/router';
 import { EnvelopeSimple, Phone } from 'phosphor-react';
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useMemo, useState } from 'react';
 import { toast } from 'react-toastify';
 
 import Checkbox from '@/components/common/checkbox/checkbox';
@@ -28,24 +28,26 @@ interface Props {
   title: string;
   onSubmit: (values: CreatePublicationData) => Promise<Publication | undefined>;
   type: 'create' | 'edit';
+  publicationId?: string;
   defaultPublication?: Publication;
 }
 
-const PublicationForm: FC<Props> = ({ title, type, onSubmit }) => {
+const PublicationForm: FC<Props> = ({ title, type, onSubmit, publicationId }) => {
   const { user, isLoading } = useSession();
   const api = useApi();
   const router = useRouter();
 
   const [showErrors, setShowErrors] = useState<boolean>(false);
-
+  const [publication, setPublication] = useState<Publication | null>(null);
   const [images, setImages] = useState<File[]>([]);
   const [gender, setGender] = useState<string>('');
   const [category, setCategory] = useState<string>('');
   const [characteristics, setCharacteristics] = useState<PublicationCharacteristic[]>([]);
+  const [selectedCharacteristics, setSelectedCharacteristics] = useState<string[]>([]);
   const [characteristicsOptions, setCharacteristicsOptions] = useState<string[]>([]);
 
-  const { values, errors, handleChange, handleSubmit } = useFormik({
-    initialValues: type === 'create' ? INITIAL_VALUES : INITIAL_VALUES,
+  const { values, errors, handleChange, handleSubmit, setFieldValue } = useFormik({
+    initialValues: INITIAL_VALUES,
     validationSchema: publicationFormSchema,
     onSubmit: async (values) => {
       const publication = await onSubmit(formatFieldsToRequestBody(values));
@@ -53,13 +55,57 @@ const PublicationForm: FC<Props> = ({ title, type, onSubmit }) => {
     },
   });
 
+  const hidePhoneNumberOptions: string[] = useMemo(
+    () => (values.hidePhoneNumber ? ['Ocultar meu telefone neste anúncio'] : []),
+    [values.hidePhoneNumber],
+  );
+
   useEffect(() => {
     if (!user && !isLoading) {
       toast.error('Por favor, faça login para poder anunciar um pet', TOAST_CONFIGS);
       router.push(`/sign-in`);
-      return;
+    }
+  }, [user, isLoading, router]);
+
+  useEffect(() => {
+    if (type === 'edit') {
+      if (publicationId !== undefined) {
+        fetchPublication(publicationId);
+      }
     }
 
+    async function fetchPublication(id: string) {
+      try {
+        const publication = await api.adottami.publications.getById(id);
+        setPublication(publication);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }, [api.adottami.publications, publicationId, type]);
+
+  useEffect(() => {
+    if (!publication) return;
+    setGender(publication.gender());
+    setCategory(publication.category());
+    setImages(
+      publication.images().map((image) => {
+        return new File([], image.url);
+      }),
+    );
+    setSelectedCharacteristics(publication.characteristics().map((characteristic) => characteristic.name));
+    setFieldValue('name', publication.name());
+    setFieldValue('description', publication.description());
+    setFieldValue('breed', publication.breed());
+    setFieldValue('weightInGrams', publication.weightInGrams());
+    setFieldValue('ageInYears', publication.ageInYears());
+    setFieldValue('zipCode', zipCode.applyMask(publication.zipCode()));
+    setFieldValue('city', publication.city());
+    setFieldValue('state', publication.state());
+    setFieldValue('hidePhoneNumber', publication.hidePhoneNumber());
+  }, [publication, setFieldValue]);
+
+  useEffect(() => {
     if (!user) return;
 
     async function loadCharacteristics() {
@@ -73,7 +119,7 @@ const PublicationForm: FC<Props> = ({ title, type, onSubmit }) => {
     }
 
     loadCharacteristics();
-  }, [api, router, user, isLoading]);
+  }, [api, user]);
 
   async function updatePublicationImages(publication: Publication | undefined) {
     if (!publication?.id?.()) {
@@ -91,7 +137,7 @@ const PublicationForm: FC<Props> = ({ title, type, onSubmit }) => {
   }
 
   function formatFieldsToRequestBody(values: PublicationFormData) {
-    const characteristicsId = values.characteristics?.map((characteristcName) => {
+    const characteristicsId = selectedCharacteristics.map((characteristcName) => {
       const characteristicId = characteristics.find((char) => char.name === characteristcName)?.id ?? '';
       return { id: characteristicId };
     });
@@ -172,6 +218,7 @@ const PublicationForm: FC<Props> = ({ title, type, onSubmit }) => {
               name="category"
               label="Categoria"
               options={CATEGORY_OPTIONS}
+              value={category}
               isRequired
               onChange={setCategory}
               errorMessage={
@@ -184,6 +231,7 @@ const PublicationForm: FC<Props> = ({ title, type, onSubmit }) => {
               name="gender"
               label="Sexo"
               options={GENDER_OPTIONS}
+              value={gender}
               isRequired
               errorMessage={showErrors && gender === '' ? 'Sexo é obrigatorio' : ''}
               onChange={setGender}
@@ -225,7 +273,8 @@ const PublicationForm: FC<Props> = ({ title, type, onSubmit }) => {
               id="characteristics"
               title="Características"
               options={characteristicsOptions}
-              onChange={handleChange}
+              value={selectedCharacteristics}
+              onChange={setSelectedCharacteristics}
             />
 
             <div className="flex flex-col gap-4">
@@ -277,8 +326,10 @@ const PublicationForm: FC<Props> = ({ title, type, onSubmit }) => {
                   {user ? user.phoneNumber() : ''}
                 </div>
                 <Checkbox
+                  id="hidePhoneNumber"
                   name="hidePhoneNumber"
                   options={['Ocultar meu telefone neste anúncio']}
+                  value={hidePhoneNumberOptions}
                   onChange={handleChange}
                 />
               </div>
