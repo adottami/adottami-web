@@ -26,6 +26,7 @@ export interface PublicationResponse {
   characteristics: PublicationCharacteristic[];
   images: PublicationImage[];
   author: UserResponse;
+  createdAt: string;
 }
 
 export interface PublicationFields {
@@ -44,4 +45,5 @@ export interface PublicationFields {
   characteristics: PublicationCharacteristic[];
   images: PublicationImage[];
   author: UserFields;
+  createdAt: Date;
 }

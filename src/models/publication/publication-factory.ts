@@ -24,6 +24,7 @@ class PublicationFactory {
       characteristics: response.characteristics,
       images: response.images,
       author: response.author,
+      createdAt: new Date(response.createdAt),
     };
   }
 
@@ -44,6 +45,7 @@ class PublicationFactory {
       characteristics: publication.characteristics(),
       images: publication.images(),
       author: UserFactory.toResponse(publication.author()),
+      createdAt: publication.createdAt().toISOString(),
     };
   }
 }

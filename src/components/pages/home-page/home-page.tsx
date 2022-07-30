@@ -10,6 +10,7 @@ import useAPI from '@/hooks/api/use-api/use-api';
 import Publication from '@/models/publication/publication';
 
 import EmptyData from '../components/empty-data/empty-data';
+import Footer from '../components/footer/footer';
 import PublicationCard from '../components/publication-card/publication-card';
 import {
   ADOPTING_ANIMAL_IS_ACT_OF_LOVE_TEXT,
@@ -152,6 +153,7 @@ const HomePage: FC = () => {
           </div>
         </section>
       </div>
+      <Footer />
     </Page>
   );
 };
