@@ -24,7 +24,7 @@ const PublicationCard: FC<Props> = ({ publication, isMenuVisible }) => (
     >
       <CardHeader images={publication.images()} />
       <div className="flex flex-col gap-y-2">
-        <CardSubheader name={publication.name()} isArchived={publication.isArchived()} isVisible={isMenuVisible} />
+        <CardSubheader name={publication.name()} publicationId={publication.id()} isVisible={isMenuVisible} />
         <CardDescription breed={publication.breed()} city={publication.city()} state={publication.state()} />
         <CardFooter gender={publication.gender()} />
       </div>

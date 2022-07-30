@@ -7,9 +7,9 @@ interface Props {
 }
 
 const EmptyData: FC<Props> = ({ message }) => (
-  <div className="flex h-[380ox] w-[300px] flex-col items-center justify-center rounded-xl border-2 border-neutral-100 bg-surface-primary lg:h-[400px] lg:w-full">
+  <div className="flex h-[380px] w-[300px] flex-col items-center justify-center rounded-xl border-2 border-neutral-100 bg-surface-primary lg:h-[400px] lg:w-full">
     <PawIcon />
-    <p className="pt-9 text-xl	font-bold">{message}</p>
+    <p className="pt-9 text-center text-lg font-bold tablet:text-xl ">{message}</p>
   </div>
 );
 
