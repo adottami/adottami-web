@@ -17,6 +17,7 @@ class Publication {
   private _characteristics: PublicationCharacteristic[];
   private _images: PublicationImage[];
   private _author: User;
+  private _createdAt: string;
 
   constructor(fields: PublicationFields) {
     this._id = fields.id;
@@ -34,6 +35,7 @@ class Publication {
     this._characteristics = fields.characteristics;
     this._images = fields.images;
     this._author = new User(fields.author);
+    this._createdAt = fields.createdAt;
   }
 
   id(): string {
@@ -94,6 +96,10 @@ class Publication {
 
   author(): User {
     return this._author;
+  }
+
+  createdAt(): string {
+    return this._createdAt;
   }
 }
 
