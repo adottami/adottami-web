@@ -1,18 +1,25 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { XCircle } from 'phosphor-react';
-import { ChangeEvent, FC, useState } from 'react';
+import { ChangeEvent, FC, useEffect, useState } from 'react';
 
 interface Props {
   title?: string;
   options: string[];
+  value?: string[];
   name?: string;
   id?: string;
-  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (value: string[]) => void;
   errorMessage?: string;
 }
 
-const Checkbox: FC<Props> = ({ title, options, name, id, onChange, errorMessage }) => {
+const Checkbox: FC<Props> = ({ title, options, value, name, id, onChange, errorMessage }) => {
   const [optionsChecked, setOptionsChecked] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (value) {
+      setOptionsChecked(value);
+    }
+  }, [value]);
 
   function handleOptions(event: ChangeEvent<HTMLInputElement>) {
     const { target } = event;
@@ -23,7 +30,7 @@ const Checkbox: FC<Props> = ({ title, options, name, id, onChange, errorMessage 
       setOptionsChecked((optionsChecked) => optionsChecked.filter((option) => option !== target.value));
     }
 
-    onChange?.(event);
+    onChange?.(optionsChecked);
   }
 
   return (
