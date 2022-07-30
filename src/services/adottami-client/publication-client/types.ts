@@ -24,5 +24,5 @@ export interface GetPublicationsOptions {
   authorId?: string;
   page?: number;
   perPage?: number;
-  orderBy?: 'createdAt';
+  orderBy?: 'most-recently-created';
 }

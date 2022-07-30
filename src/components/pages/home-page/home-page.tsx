@@ -33,12 +33,11 @@ const HomePage: FC = () => {
   useEffect(() => {
     const getRecentPublications = async () => {
       const publications = await api.adottami.publications.get({
-        orderBy: 'createdAt',
+        orderBy: 'most-recently-created',
         page: 1,
         perPage: 3,
       });
-      const lastRecentPublications = publications.reverse();
-      setRecentPublications(lastRecentPublications);
+      setRecentPublications(publications);
     };
 
     getRecentPublications();
