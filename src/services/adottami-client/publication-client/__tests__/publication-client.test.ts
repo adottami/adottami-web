@@ -33,6 +33,7 @@ describe('Publication client', () => {
       email: 'user@email.com',
       phoneNumber: '1100001111',
     },
+    createdAt: '2022-07-30:T00:00:00.000Z',
   };
 
   const createPublicationData: CreatePublicationData = {

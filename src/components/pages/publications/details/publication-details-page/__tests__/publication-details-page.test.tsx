@@ -8,6 +8,7 @@ jest.mock('next/router', () => ({
   useRouter() {
     return {
       pathname: '/publications/details/publication-details-page',
+      query: '1',
     };
   },
 }));

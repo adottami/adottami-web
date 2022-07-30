@@ -33,6 +33,7 @@ export const publicationMaleMock = new Publication({
   isArchived: false,
   weightInGrams: 1200,
   zipCode: '1111',
+  createdAt: '2022-07-30:T00:00:00.000Z',
 });
 
 export const publicationFemaleMock = new Publication({
@@ -60,4 +61,5 @@ export const publicationFemaleMock = new Publication({
   isArchived: true,
   weightInGrams: 1200,
   zipCode: '1111',
+  createdAt: '2022-07-30:T00:00:00.000Z',
 });

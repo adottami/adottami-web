@@ -21,6 +21,7 @@ function createPublicationFields(partialFields: Partial<PublicationFields> = {})
     characteristics: [],
     images: [],
     author: createUserFields(),
+    createdAt: '2022-07-30:T00:00:00.000Z',
     ...partialFields,
   };
 }
