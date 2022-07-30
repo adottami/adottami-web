@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 
+import Button from '@/components/common/button/button';
 import Page from '@/components/common/page/page';
 import EmptyData from '@/components/pages/components/empty-data/empty-data';
 import Footer from '@/components/pages/components/footer/footer';
@@ -17,6 +18,7 @@ const PublicationDashboardPage: FC = () => {
   const api = useAPI();
   const { user, isLoading } = useSession();
   const router = useRouter();
+  const publicationPage = useRef(1);
 
   useEffect(() => {
     if (!isLoading && !user) {
@@ -25,15 +27,33 @@ const PublicationDashboardPage: FC = () => {
   }, [user, isLoading, router]);
 
   useEffect(() => {
-    const getRecentPublications = async () => {
+    const getPublications = async () => {
       const publications = await api.adottami.publications.get({
         authorId: user?.id(),
+        orderBy: 'most-recently-created',
+        page: publicationPage.current,
       });
       setMyPublications(publications);
     };
 
-    getRecentPublications();
+    getPublications();
   }, [api.adottami.publications, router, user]);
+
+  async function fetchPublicationsOnNextPage() {
+    if (user === null) return;
+
+    const nextPublications = await api.adottami.publications.get({
+      authorId: user.id(),
+      orderBy: 'most-recently-created',
+      page: publicationPage.current + 1,
+    });
+
+    if (nextPublications.length > 0) {
+      publicationPage.current++;
+    }
+
+    setMyPublications((publications) => [...publications, ...nextPublications]);
+  }
 
   return (
     <Page title={PAGE_TITLE}>
@@ -46,15 +66,23 @@ const PublicationDashboardPage: FC = () => {
           </p>
         </div>
         {myPublications.length !== 0 ? (
-          <div className="grid grid-cols-1 gap-4 rounded-xl border-2 border-neutral-100 bg-surface-primary p-4  lg:w-full lg:grid-cols-3 tablet:p-6">
-            {myPublications.map((publication) => {
-              return (
-                <div key={publication.id()} className="w-[281px] pt-1 lg:w-full">
-                  <PublicationCard isMenuVisible publication={publication} />
-                </div>
-              );
-            })}
-          </div>
+          <>
+            <div className="grid grid-cols-1 gap-4 rounded-xl border-2 border-neutral-100 bg-surface-primary p-4  lg:w-full lg:grid-cols-3 tablet:p-6">
+              {myPublications.map((publication) => {
+                return (
+                  <div key={publication.id()} className="w-[281px] pt-1 lg:w-full">
+                    <PublicationCard isMenuVisible publication={publication} />
+                  </div>
+                );
+              })}
+            </div>
+
+            <div className="mt-8 flex justify-center">
+              <Button variant="loadMore" onClick={fetchPublicationsOnNextPage} className="w-fit">
+                Carregar mais
+              </Button>
+            </div>
+          </>
         ) : (
           <EmptyData message="Você não possui anúncios publicados no momento" />
         )}
