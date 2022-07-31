@@ -1,0 +1,12 @@
+# dependencies
+/node_modules
+/yarn.lock
+
+# tests
+/coverage
+
+# next.js
+/.next
+/next-env.d.ts
+/public/sw.js
+/public/workbox*.js

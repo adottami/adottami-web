@@ -1,0 +1,134 @@
+{
+  "extends": ["next", "next/core-web-vitals", "airbnb", "prettier", "plugin:@typescript-eslint/recommended"],
+  "plugins": ["prettier", "@typescript-eslint", "react", "react-hooks", "import", "import-helpers"],
+  "env": {
+    "browser": true,
+    "es2020": true,
+    "node": true,
+    "jest": true
+  },
+  "globals": {
+    "JSX": "readonly",
+    "NodeJS": "readonly"
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "ts": true,
+      "tsx": true
+    },
+    "ecmaVersion": 2020,
+    "sourceType": "module"
+  },
+  "settings": {
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"]
+    },
+    "import/resolver": {
+      "typescript": {
+        "project": "tsconfig.json"
+      }
+    }
+  },
+  "rules": {
+    "prettier/prettier": "warn",
+
+    "consistent-return": "off",
+    "indent": "off",
+    "no-useless-constructor": "off",
+    "func-style": [
+      "error",
+      "declaration",
+      {
+        "allowArrowFunctions": true
+      }
+    ],
+    "comma-dangle": ["warn", "always-multiline"],
+    "implicit-arrow-linebreak": "off",
+    "no-plusplus": "off",
+    "class-methods-use-this": "off",
+    "prefer-template": "off",
+    "default-case": "off",
+    "no-else-return": "off",
+    "radix": "off",
+    "no-unused-vars": "off",
+    "no-restricted-syntax": "off",
+    "no-use-before-define": "off",
+    "max-classes-per-file": "off",
+    "no-unused-expressions": "off",
+    "no-console": "off",
+    "no-continue": "off",
+    "import/prefer-default-export": "off",
+    "import/extensions": [
+      "warn",
+      {
+        "css": "always",
+        "json": "always"
+      }
+    ],
+    "import/no-unresolved": "error",
+    "lines-between-class-members": "off",
+    "no-underscore-dangle": "off",
+    "no-param-reassign": "off",
+    "no-shadow": "off",
+    "arrow-body-style": "off",
+    "no-await-in-loop": "off",
+    "import-helpers/order-imports": [
+      "warn",
+      {
+        "newlinesBetween": "always",
+        "groups": ["module", "/^@@//", ["/^@//", "/^@tests//"], ["parent", "sibling", "index"]],
+        "alphabetize": {
+          "order": "asc",
+          "ignoreCase": true
+        }
+      }
+    ],
+
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": ["**/*.test.ts*", "tests/**/*.ts*", "__tests__/**/*.ts*", "scripts/**/*.ts*"]
+      }
+    ],
+
+    "react/jsx-props-no-spreading": "off",
+    "react/jsx-filename-extension": [
+      "warn",
+      {
+        "extensions": [".jsx", ".tsx"]
+      }
+    ],
+    "react/prop-types": "off",
+    "react/require-default-props": "off",
+    "react/no-unused-prop-types": "off",
+    "react/button-has-type": "off",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "error",
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-no-bind": "off",
+    "jsx-a11y/anchor-is-valid": "off",
+    "react/function-component-definition": [
+      "error",
+      {
+        "namedComponents": ["arrow-function"],
+        "unnamedComponents": ["arrow-function"]
+      }
+    ],
+
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "@typescript-eslint/indent": "off",
+    "@typescript-eslint/no-empty-function": "off",
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      {
+        "varsIgnorePattern": "^_",
+        "argsIgnorePattern": "^_"
+      }
+    ],
+    "@typescript-eslint/no-use-before-define": "off",
+    "@typescript-eslint/no-explicit-any": "warn",
+    "@typescript-eslint/no-empty-interface": "off",
+    "@typescript-eslint/consistent-type-definitions": ["error", "interface"]
+  }
+}
