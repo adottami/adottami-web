@@ -77,7 +77,7 @@ describe('Publication client', () => {
       authorId: '1',
       page: 2,
       perPage: 30,
-      orderBy: 'createdAt',
+      orderBy: 'most-recently-created',
     };
 
     const publications = await publicationClient.get(getOptions);

@@ -23,7 +23,10 @@ const SearchPublicationsPage: FC = () => {
   useEffect(() => {
     const fetchFirstPublications = async () => {
       try {
-        const publicationsData = await api.adottami.publications.get(searchValues);
+        const publicationsData = await api.adottami.publications.get({
+          ...searchValues,
+          orderBy: 'most-recently-created',
+        });
         setPublications(publicationsData);
       } catch (error) {
         if (!(error instanceof AxiosError)) throw error;
@@ -37,6 +40,7 @@ const SearchPublicationsPage: FC = () => {
       const publicationsData = await api.adottami.publications.get({
         ...searchValues,
         page: currentPublicationsPage + 1,
+        orderBy: 'most-recently-created',
       });
       if (publicationsData.length !== 0) {
         setCurrentPublicationsPage(currentPublicationsPage + 1);
@@ -69,9 +73,7 @@ const SearchPublicationsPage: FC = () => {
           <PublicationList publications={publications} />
         </div>
 
-        <div className="mt-8" />
-
-        <div>
+        <div className="mt-8">
           {publications.length > 0 ? (
             <Button variant="loadMore" onClick={fetchMorePublications}>
               Carregar mais
