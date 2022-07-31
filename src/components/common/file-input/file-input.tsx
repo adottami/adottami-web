@@ -7,6 +7,7 @@ import { MAX_FILE_SIZE } from './constants';
 
 interface Props extends React.HTMLProps<HTMLInputElement> {
   variant?: 'image';
+  defaultSelectedFiles?: File[];
   onImageChange?: (files: File[]) => void;
   description?: string | (JSX.Element | string)[];
   maxFiles?: number;
@@ -15,6 +16,7 @@ interface Props extends React.HTMLProps<HTMLInputElement> {
 const FileInput: FC<Props> = ({
   variant,
   label,
+  defaultSelectedFiles,
   onImageChange,
   description,
   maxFiles,
@@ -22,10 +24,16 @@ const FileInput: FC<Props> = ({
   disabled,
   ...rest
 }) => {
-  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+  const [selectedFiles, setSelectedFiles] = useState<File[]>(defaultSelectedFiles ?? []);
   const [imageInputIsDisabled, setImageInputIsDisabled] = useState(false);
   const [errorMessageOnImageInput, setErrorMessageOnImageInput] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    if (defaultSelectedFiles) {
+      setSelectedFiles(defaultSelectedFiles);
+    }
+  }, [defaultSelectedFiles]);
 
   useEffect(() => {
     if (maxFiles && selectedFiles.length >= maxFiles) {
@@ -60,7 +68,9 @@ const FileInput: FC<Props> = ({
   };
 
   const handleRemoveImage = (fileName: string) => {
-    setSelectedFiles(selectedFiles.filter((file) => file.name !== fileName));
+    const newSelectedFiles = selectedFiles.filter((file) => file.name !== fileName);
+    setSelectedFiles(newSelectedFiles);
+    onImageChange?.(newSelectedFiles);
     setErrorMessageOnImageInput(null);
   };
 

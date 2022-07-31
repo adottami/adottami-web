@@ -16,6 +16,7 @@ import useSession from '@/hooks/session/use-session/use-session';
 import Publication from '@/models/publication/publication';
 import { PublicationCharacteristic } from '@/models/publication/types';
 import { CreatePublicationData } from '@/services/adottami-client/publication-client/types';
+import { fetchImageFromURL } from '@/utils/files';
 import { zipCode } from '@/utils/mask';
 
 import { TOAST_CONFIGS } from '../header/constants';
@@ -86,24 +87,28 @@ const PublicationForm: FC<Props> = ({ title, type, onSubmit, publicationId }) =>
   }, [api.adottami.publications, publicationId, type]);
 
   useEffect(() => {
-    if (!publication) return;
-    setGender(publication.gender());
-    setCategory(publication.category());
-    setImages(
-      publication.images().map((image) => {
-        return new File([], image.url);
-      }),
-    );
-    setSelectedCharacteristics(publication.characteristics().map((characteristic) => characteristic.name));
-    setFieldValue('name', publication.name());
-    setFieldValue('description', publication.description());
-    setFieldValue('breed', publication.breed());
-    setFieldValue('weightInGrams', publication.weightInGrams());
-    setFieldValue('ageInYears', publication.ageInYears());
-    setFieldValue('zipCode', zipCode.applyMask(publication.zipCode()));
-    setFieldValue('city', publication.city());
-    setFieldValue('state', publication.state());
-    setHidePhoneNumber(publication.hidePhoneNumber());
+    async function setDefaultValuesBasedOnPublication() {
+      if (!publication) return;
+
+      setGender(publication.gender());
+      setCategory(publication.category());
+      setSelectedCharacteristics(publication.characteristics().map((characteristic) => characteristic.name));
+      setFieldValue('name', publication.name());
+      setFieldValue('description', publication.description());
+      setFieldValue('breed', publication.breed());
+      setFieldValue('weightInGrams', publication.weightInGrams());
+      setFieldValue('ageInYears', publication.ageInYears());
+      setFieldValue('zipCode', zipCode.applyMask(publication.zipCode()));
+      setFieldValue('city', publication.city());
+      setFieldValue('state', publication.state());
+      setHidePhoneNumber(publication.hidePhoneNumber());
+
+      const imageFilePromises = publication.images().map((image) => fetchImageFromURL(image.url));
+      const imageFiles = await Promise.all(imageFilePromises);
+      setImages(imageFiles);
+    }
+
+    setDefaultValuesBasedOnPublication();
   }, [publication, setFieldValue]);
 
   useEffect(() => {
@@ -123,13 +128,12 @@ const PublicationForm: FC<Props> = ({ title, type, onSubmit, publicationId }) =>
   }, [api, user]);
 
   async function updatePublicationImages(publication: Publication | undefined) {
-    if (!publication?.id?.()) {
+    if (!publication) {
       return;
     }
 
     try {
       await api.adottami.publications.editImages(publication.id(), images);
-
       toast.success('Imagens publicadas com sucesso', TOAST_CONFIGS);
     } catch (error) {
       if (!(error instanceof AxiosError)) throw error;
@@ -155,15 +159,11 @@ const PublicationForm: FC<Props> = ({ title, type, onSubmit, publicationId }) =>
       city: values.city,
       state: values.state,
       isArchived: !!values.isArchived,
-      hidePhoneNumber: values.hidePhoneNumber?.length === 1,
+      hidePhoneNumber,
       characteristics: characteristicsId || [],
     };
 
     return data;
-  }
-
-  function handleChangeImages(images: File[]) {
-    setImages(images);
   }
 
   const onHandleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -185,11 +185,12 @@ const PublicationForm: FC<Props> = ({ title, type, onSubmit, publicationId }) =>
               name="images"
               label="Fotos"
               variant="image"
+              defaultSelectedFiles={images}
               description={[
                 <React.Fragment key="first">Adicione até </React.Fragment>,
                 <strong key="second">5 fotos</strong>,
               ]}
-              onImageChange={handleChangeImages}
+              onImageChange={setImages}
               maxFiles={5}
             />
 
