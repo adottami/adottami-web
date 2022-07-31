@@ -5,7 +5,6 @@ import React, { FC, useState } from 'react';
 import { toast } from 'react-toastify';
 
 import Button from '@/components/common/button/button';
-import InlineLink from '@/components/common/inline-link/inline-link';
 import Input from '@/components/common/input/input';
 import { TOAST_CONFIGS } from '@/components/pages/sign-in/sign-in-page/constants';
 import useAPI from '@/hooks/api/use-api/use-api';
@@ -61,7 +60,6 @@ const MyCadastre: FC<Props> = () => {
         <form className="flex flex-col gap-4" onSubmit={onHandleSubmit}>
           <div className="flex w-16 flex-col items-center gap-4">
             <Image src={profile} alt="Foto de perfil" width={64} height={64} className="rounded-full" />
-            <InlineLink onClick={() => console.log('Alterar foto de perfil')}>Alterar</InlineLink>
           </div>
 
           <Input
