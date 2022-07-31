@@ -37,17 +37,17 @@ const PublicationDetailsPage: FC = () => {
   return (
     <Page title={PAGE_TITLE}>
       <Header />
-      <div className="flex h-full w-full flex-col items-center justify-center px-6 py-12 md:gap-6 md:px-12 md:py-20 lg:px-24 tablet:flex-row tablet:items-baseline">
-        <div className="w-full tablet:w-3/5">
+      <div className="flex h-full w-full flex-col items-center justify-center px-6 py-12 md:flex-row md:items-start md:gap-6 md:px-12 md:py-20 lg:px-24">
+        <div className="w-full md:w-3/5">
           <div className="flex flex-col gap-4">
             <h1 className="text-2xl font-bold leading-none text-primary-dark">{publication?.name()}</h1>
             <span className="text-md text-neutral-500">Publicado em {getPublicationDate(publication)}</span>
 
-            <div className="hidden tablet:flex">
+            <div className="hidden md:flex">
               <GridImages images={publication?.images()} />
             </div>
 
-            <div className="flex tablet:hidden">
+            <div className="flex md:hidden">
               <Carousel images={publication?.images()} />
             </div>
 
@@ -74,7 +74,7 @@ const PublicationDetailsPage: FC = () => {
             </div>
           </div>
         </div>
-        <div className="w-full py-4 tablet:w-2/5">
+        <div className="w-full py-4 md:w-2/5">
           <AdvertiserCard advertiser={publication?.author()} authenticated={!isLoading && user !== null} />
         </div>
       </div>

@@ -95,10 +95,6 @@ const tailwindConfig = {
         '-1': -1,
         1: 1,
       },
-
-      screens: {
-        tablet: '980px',
-      },
     },
   },
   plugins: [require('tailwind-scrollbar')],
