@@ -4,11 +4,11 @@ import { FC } from 'react';
 interface Props {
   city: string;
   state: string;
-  breed: string | null;
+  createdAt: Date;
 }
 
 const CardDescription: FC<Props> = (props) => {
-  const { city, state, breed } = props;
+  const { city, state, createdAt } = props;
 
   function getLocation() {
     return [city, state].join(', ');
@@ -22,7 +22,7 @@ const CardDescription: FC<Props> = (props) => {
       </div>
       <div className="flex items-center gap-2 font-medium text-neutral-800">
         <CalendarBlank size={24} />
-        {breed}
+        {createdAt.toLocaleDateString()}
       </div>
     </div>
   );
