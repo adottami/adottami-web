@@ -41,7 +41,7 @@ const SearchPublicationsPage: FC = () => {
       if (publicationsData.length !== 0) {
         setCurrentPublicationsPage(currentPublicationsPage + 1);
       }
-      setPublications(publications.concat(publicationsData));
+      setPublications((publications) => [...publications, ...publicationsData]);
     } catch (error) {
       if (!(error instanceof AxiosError)) throw error;
     }
