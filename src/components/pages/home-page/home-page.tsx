@@ -58,7 +58,7 @@ const HomePage: FC = () => {
               Oferecemos uma plataforma de adoção e simples, prática e agradável para facilitar a adoção e anúncio de
               animais vivendo em situações precarias.
             </p>
-            <div className="mt-6 flex items-center gap-6 tablet:mt-8">
+            <div className="mt-6 flex items-center gap-6 md:mt-8">
               <Button
                 onClick={() => router.push('/publications/search')}
                 data-testid={homePageTestIds.firstSection.button()}
@@ -70,7 +70,7 @@ const HomePage: FC = () => {
               </InlineLink>
             </div>
           </div>
-          <div className="relative hidden h-screen max-h-[32rem] w-1/2 tablet:flex">
+          <div className="relative hidden h-screen max-h-[32rem] w-1/2 md:flex">
             <Image
               src="/images/decorative-image.png"
               alt="Seção decorativa"
@@ -84,16 +84,16 @@ const HomePage: FC = () => {
         </section>
         <section className="w-full px-6 py-4 md:px-12 lg:px-24">
           <div className="flex flex-col items-center justify-center ">
-            <div className="flex w-full justify-between sm:max-w-[50%] tablet:max-w-none">
+            <div className="flex w-full justify-between sm:max-w-[50%] md:max-w-none">
               <h2 className="text-lg font-medium lg:text-2xl">Anúncios recentes</h2>
               <InlineLink href="/publications/search" rightIcon>
                 Ver mais
               </InlineLink>
             </div>
-            <div className="w-full max-w-[322px] overflow-x-scroll scrollbar scrollbar-track-transparent scrollbar-thumb-transparent sm:max-w-[50%] lg:min-w-full lg:overflow-auto tablet:max-w-none">
+            <div className="w-full max-w-[322px] overflow-x-scroll scrollbar scrollbar-track-transparent scrollbar-thumb-transparent sm:max-w-[50%] md:max-w-none lg:min-w-full lg:overflow-auto">
               <div
                 data-testid="cards"
-                className="flex w-[843px] min-w-[843px] gap-x-4 pt-6 md:w-full lg:w-full tablet:gap-x-14"
+                className="flex w-[843px] min-w-[843px] gap-x-4 pt-6 md:w-full md:gap-x-14 lg:w-full"
               >
                 {recentPublications.length !== 0 ? (
                   recentPublications.map((publication) => {
@@ -111,7 +111,7 @@ const HomePage: FC = () => {
           </div>
         </section>
         <section className="flex h-full w-full px-6 pt-4 sm:items-center sm:justify-center md:gap-6 md:px-12 md:pt-20 lg:px-24 lg:pt-40">
-          <div className="relative hidden h-screen max-h-[32rem] w-1/2 tablet:flex">
+          <div className="relative hidden h-screen max-h-[32rem] w-1/2 md:flex">
             <Image
               src="/images/how-adottami-works.png"
               alt="Entenda como o Adottami funciona"
@@ -141,7 +141,7 @@ const HomePage: FC = () => {
             </h2>
             <p className="text-md text-primary-dark lg:text-lg">{ADOPTING_ANIMAL_IS_ACT_OF_LOVE_TEXT}</p>
           </div>
-          <div className="relative hidden h-screen max-h-[32rem] w-1/2 tablet:flex">
+          <div className="relative hidden h-screen max-h-[32rem] w-1/2 md:flex">
             <Image
               src="/images/adopting-animal-is-act-of-love.png"
               alt="Adotar um animal é um ato de amor"

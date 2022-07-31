@@ -28,7 +28,7 @@ const GridImages: FC<Props> = ({ images }) => {
           <Image src={mainPhotoURL} layout="fill" objectFit="cover" quality={100} priority className="rounded-pill" />
         )}
       </div>
-      <div className="flex h-full flex-col justify-center gap-6 p-6">
+      <div className="flex h-full flex-col gap-6 p-6">
         {images?.map((image) => (
           <div key={image.id} className="relative h-20 w-20 cursor-pointer">
             <Image
