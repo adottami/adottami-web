@@ -1,7 +1,7 @@
 import { useFormik } from 'formik';
 import Image from 'next/image';
 import profile from 'public/images/image-profile-not-found.png';
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
 import Button from '@/components/common/button/button';
@@ -25,11 +25,18 @@ const MyCadastre: FC<Props> = () => {
 
   const [showErrors, setShowErrors] = useState<boolean>(false);
 
-  const { values, errors, handleChange, handleSubmit } = useFormik<MyCadastreFormData>({
+  const { values, errors, setFieldValue, handleChange, handleSubmit } = useFormik<MyCadastreFormData>({
     initialValues: { name: user?.name(), phone: user?.phoneNumber() },
     validationSchema: myCadastreFormSchema,
     onSubmit,
   });
+
+  useEffect(() => {
+    if (user) {
+      setFieldValue('name', user.name());
+      setFieldValue('phone', user.phoneNumber());
+    }
+  }, [user, setFieldValue]);
 
   async function onSubmit(values: MyCadastreFormData) {
     if (!user) {
