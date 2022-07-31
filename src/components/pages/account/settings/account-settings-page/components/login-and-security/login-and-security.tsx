@@ -15,13 +15,16 @@ import { DATA_TESTID, SECTION_TITLE } from './constants';
 import { loginAndSecurityFormSchema } from './schemas/login-and-security-form-schema';
 import { ChangePasswordFormData } from './types';
 
-interface Props {}
+interface Props {
+  testStep?: number;
+}
 
-const LoginAndSecurity: FC<Props> = () => {
+const LoginAndSecurity: FC<Props> = (props) => {
+  const { testStep } = props;
   const { user } = useSession();
   const api = useAPI();
 
-  const [step, setStep] = useState<number>(1);
+  const [step, setStep] = useState<number>(testStep || 1);
   const [showErrors, setShowErrors] = useState<boolean>(false);
 
   const { values, errors, handleChange, handleSubmit } = useFormik<ChangePasswordFormData>({
@@ -59,17 +62,23 @@ const LoginAndSecurity: FC<Props> = () => {
 
   if (step === 1) {
     return (
-      <AccountSettingsSection
-        title="Alteração de senha"
-        description={[
-          <p key="first line">Escolha uma senha forte que você não esteja usando em nenhum outro lugar.</p>,
-          <p key="second line">Troque sua senha a cada 6 meses para aumentar a segurança da sua conta.</p>,
-        ]}
+      <DefaultSection
+        data-testid={DATA_TESTID}
+        title={SECTION_TITLE}
+        description="Aumente a segurança e tenha o controle da sua conta"
       >
-        <div>
-          <Button onClick={() => setStep(2)}>Alterar senha</Button>
-        </div>
-      </AccountSettingsSection>
+        <AccountSettingsSection
+          title="Alteração de senha"
+          description={[
+            <p key="first line">Escolha uma senha forte que você não esteja usando em nenhum outro lugar.</p>,
+            <p key="second line">Troque sua senha a cada 6 meses para aumentar a segurança da sua conta.</p>,
+          ]}
+        >
+          <div>
+            <Button onClick={() => setStep(2)}>Alterar senha</Button>
+          </div>
+        </AccountSettingsSection>
+      </DefaultSection>
     );
   }
 

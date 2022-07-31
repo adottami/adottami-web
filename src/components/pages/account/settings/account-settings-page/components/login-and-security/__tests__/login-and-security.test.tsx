@@ -11,17 +11,17 @@ describe('Account settings page', () => {
   });
 
   it('should render section with correctly title', () => {
-    renderWithTestProviders(<LoginAndSecurity />);
+    renderWithTestProviders(<LoginAndSecurity testStep={2} />);
     expect(screen.getByText(SECTION_TITLE)).toBeInTheDocument();
   });
 
   it('should render section with all fields labels correctly', () => {
-    renderWithTestProviders(<LoginAndSecurity />);
+    renderWithTestProviders(<LoginAndSecurity testStep={2} />);
     FIELD_LABELS.forEach((fieldLabel) => expect(screen.getByRole('label', { name: fieldLabel })).toBeInTheDocument());
   });
 
   it('should render section with correctly button', () => {
-    renderWithTestProviders(<LoginAndSecurity />);
+    renderWithTestProviders(<LoginAndSecurity testStep={2} />);
     expect(screen.getByRole('button', { name: 'Enviar' })).toBeInTheDocument();
   });
 });
