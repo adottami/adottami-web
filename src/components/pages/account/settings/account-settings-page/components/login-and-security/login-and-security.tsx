@@ -21,6 +21,7 @@ const LoginAndSecurity: FC<Props> = () => {
   const { user } = useSession();
   const api = useAPI();
 
+  const [step, setStep] = useState<number>(1);
   const [showErrors, setShowErrors] = useState<boolean>(false);
 
   const { values, errors, handleChange, handleSubmit } = useFormik<ChangePasswordFormData>({
@@ -55,6 +56,22 @@ const LoginAndSecurity: FC<Props> = () => {
     setShowErrors(true);
     handleSubmit(event);
   };
+
+  if (step === 1) {
+    return (
+      <AccountSettingsSection
+        title="Alteração de senha"
+        description={[
+          <p key="first line">Escolha uma senha forte que você não esteja usando em nenhum outro lugar.</p>,
+          <p key="second line">Troque sua senha a cada 6 meses para aumentar a segurança da sua conta.</p>,
+        ]}
+      >
+        <div>
+          <Button onClick={() => setStep(2)}>Alterar senha</Button>
+        </div>
+      </AccountSettingsSection>
+    );
+  }
 
   return (
     <DefaultSection
