@@ -3,6 +3,9 @@ const withPWA = require('next-pwa');
 /** @type {import('next').NextConfig} */
 const baseConfig = {
   reactStrictMode: true,
+  images: {
+    domains: ['res.cloudinary.com'],
+  },
 };
 
 const pwaConfig = {
