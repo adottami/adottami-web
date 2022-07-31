@@ -1,29 +1,30 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { XCircle } from 'phosphor-react';
-import { ChangeEvent, FC, useState } from 'react';
+import { ChangeEvent, FC } from 'react';
 
 interface Props {
+  id?: string;
+  name?: string;
   title?: string;
   options: string[];
-  name?: string;
-  id?: string;
-  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
+  selectedOptions?: string[];
   errorMessage?: string;
+  onChange?: (selectedOptions: string[]) => void;
 }
 
-const Checkbox: FC<Props> = ({ title, options, name, id, onChange, errorMessage }) => {
-  const [optionsChecked, setOptionsChecked] = useState<string[]>([]);
-
+const Checkbox: FC<Props> = ({ title, options, selectedOptions = [], name, id, onChange, errorMessage }) => {
   function handleOptions(event: ChangeEvent<HTMLInputElement>) {
-    const { target } = event;
-    const newOption = target.value;
-    if (target.checked) {
-      setOptionsChecked((optionsChecked) => [...optionsChecked, newOption]);
-    } else {
-      setOptionsChecked((optionsChecked) => optionsChecked.filter((option) => option !== target.value));
-    }
+    const isChecked = event.target.checked;
 
-    onChange?.(event);
+    if (isChecked) {
+      const optionToCheck = event.target.value;
+      const newSelectedOptions = [...selectedOptions, optionToCheck];
+      onChange?.(newSelectedOptions);
+    } else {
+      const optionToUncheck = event.target.value;
+      const newSelectedOptions = selectedOptions.filter((option) => option !== optionToUncheck);
+      onChange?.(newSelectedOptions);
+    }
   }
 
   return (
@@ -41,7 +42,7 @@ const Checkbox: FC<Props> = ({ title, options, name, id, onChange, errorMessage 
                   className="mr-2 h-6 w-6 text-md accent-secondary-medium"
                   type="checkbox"
                   value={option}
-                  checked={optionsChecked.includes(option)}
+                  checked={selectedOptions.includes(option)}
                   onChange={handleOptions}
                 />
                 {option}

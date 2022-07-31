@@ -7,6 +7,7 @@ import { MAX_FILE_SIZE } from './constants';
 
 interface Props extends React.HTMLProps<HTMLInputElement> {
   variant?: 'image';
+  defaultSelectedFiles?: File[];
   onImageChange?: (files: File[]) => void;
   description?: string | (JSX.Element | string)[];
   maxFiles?: number;
@@ -15,6 +16,7 @@ interface Props extends React.HTMLProps<HTMLInputElement> {
 const FileInput: FC<Props> = ({
   variant,
   label,
+  defaultSelectedFiles,
   onImageChange,
   description,
   maxFiles,
@@ -22,36 +24,16 @@ const FileInput: FC<Props> = ({
   disabled,
   ...rest
 }) => {
-  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+  const [selectedFiles, setSelectedFiles] = useState<File[]>(defaultSelectedFiles ?? []);
   const [imageInputIsDisabled, setImageInputIsDisabled] = useState(false);
   const [errorMessageOnImageInput, setErrorMessageOnImageInput] = useState<string | null>(null);
-
   const inputRef = useRef<HTMLInputElement | null>(null);
 
-  /*
-  About getting files in parent component on 'image' switch case, use onImageChange prop with a setUseState in
-  parent component and this useEffect function below will make sure you have selectedFiles list, selected by
-  user, in parent component
-
-  make sure that parent component be similar something like this:
-
-  const ParentComponent: FC = () => {
-    const [files, setFiles] = useState<File[]>();
-
-    function handleImageChange(files: File[]) {
-      setFiles(files);
-    }
-
-    return (
-      <FileInput variant="image" onImageChange={handleImageChange}/>
-    );
-  }
-  */
   useEffect(() => {
-    if (onImageChange) {
-      onImageChange(selectedFiles);
+    if (defaultSelectedFiles) {
+      setSelectedFiles(defaultSelectedFiles);
     }
-  }, [selectedFiles, onImageChange]);
+  }, [defaultSelectedFiles]);
 
   useEffect(() => {
     if (maxFiles && selectedFiles.length >= maxFiles) {
@@ -79,12 +61,16 @@ const FileInput: FC<Props> = ({
       }
       filesArray.push(files[i]);
     }
-    setSelectedFiles(selectedFiles.concat(filesArray));
+    const newSelectedFiles = selectedFiles.concat(filesArray);
+    setSelectedFiles(newSelectedFiles);
+    onImageChange?.(newSelectedFiles);
     setErrorMessageOnImageInput(null);
   };
 
   const handleRemoveImage = (fileName: string) => {
-    setSelectedFiles(selectedFiles.filter((file) => file.name !== fileName));
+    const newSelectedFiles = selectedFiles.filter((file) => file.name !== fileName);
+    setSelectedFiles(newSelectedFiles);
+    onImageChange?.(newSelectedFiles);
     setErrorMessageOnImageInput(null);
   };
 

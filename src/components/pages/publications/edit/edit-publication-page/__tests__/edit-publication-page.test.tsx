@@ -8,8 +8,9 @@ import EditPublicationPage from '../edit-publication-page';
 jest.mock('next/router', () => ({
   useRouter() {
     return {
-      pathname: '/',
+      pathname: '/publications/edit',
       push: jest.fn(),
+      query: (parsedQuery: string[]) => ({ ...parsedQuery }),
     };
   },
 }));

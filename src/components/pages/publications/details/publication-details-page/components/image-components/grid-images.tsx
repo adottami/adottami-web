@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import { PublicationImage } from '@/models/publication/types';
 
@@ -10,6 +10,12 @@ interface Props {
 const GridImages: FC<Props> = ({ images }) => {
   const hasImages = images !== undefined && images.length > 0;
   const [mainPhotoURL, setMainPhotoURL] = useState(hasImages ? images[0].url : '');
+
+  useEffect(() => {
+    if (hasImages) {
+      setMainPhotoURL(images[0].url);
+    }
+  }, [images, hasImages]);
 
   return (
     <div className="flex h-screen max-h-[32rem] w-full">

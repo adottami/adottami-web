@@ -18,6 +18,7 @@ function createPublicationFields(partialFields: Partial<PublicationFields> = {})
     city: 'City',
     state: 'State',
     isArchived: false,
+    hidePhoneNumber: false,
     characteristics: [],
     images: [],
     author: createUserFields(),

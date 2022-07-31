@@ -49,6 +49,7 @@
     "class-methods-use-this": "off",
     "prefer-template": "off",
     "default-case": "off",
+    "no-else-return": "off",
     "radix": "off",
     "no-unused-vars": "off",
     "no-restricted-syntax": "off",

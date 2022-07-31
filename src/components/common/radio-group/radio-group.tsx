@@ -7,6 +7,7 @@ import RadioInput, { RadioProps } from './radio-input';
 interface Props {
   id: string;
   name?: string;
+  value?: string;
   label: string;
   options: RadioProps[];
   isRequired?: boolean;
@@ -14,7 +15,7 @@ interface Props {
   errorMessage?: string;
 }
 
-const RadioGroup: FC<Props> = ({ id, name, label, options, isRequired, onChange, errorMessage }) => {
+const RadioGroup: FC<Props> = ({ id, name, value, label, options, isRequired, onChange, errorMessage }) => {
   return (
     <div role="radiogroup">
       <label htmlFor={id} className="mb-1 flex flex-row items-center gap-1 text-md font-bold text-primary-dark">
@@ -25,6 +26,7 @@ const RadioGroup: FC<Props> = ({ id, name, label, options, isRequired, onChange,
       <RadioBox.Root
         id={id}
         name={name}
+        value={value}
         onValueChange={onChange}
         className="flex flex-wrap gap-4"
         required={isRequired}
