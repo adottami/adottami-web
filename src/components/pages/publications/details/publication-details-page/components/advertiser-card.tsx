@@ -22,7 +22,7 @@ const AdvertiserCard: FC<Props> = ({ advertiser, authenticated }) => (
     </div>
     <Separator className="before:h-0.5 after:h-0.5" />
     {authenticated ? (
-      <div className="flex flex-col gap-4 p-6">
+      <div className="flex flex-col gap-4 py-6">
         <div className="flex items-center gap-3">
           <span className="rounded-full bg-tertiary-medium p-2 text-white">
             <EnvelopeSimple size={20} />
