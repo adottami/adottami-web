@@ -3,7 +3,7 @@ import { styled, keyframes } from '@stitches/react';
 import { AxiosError } from 'axios';
 import Link from 'next/link';
 import { DotsThree, PencilSimpleLine, Trash } from 'phosphor-react';
-import React, { FC, SyntheticEvent } from 'react';
+import React, { FC, MouseEvent, SyntheticEvent } from 'react';
 import { toast } from 'react-toastify';
 
 import useAPI from '@/hooks/api/use-api/use-api';
@@ -57,7 +57,7 @@ interface Item {
   path?: string;
   label: string;
   icon: JSX.Element;
-  onClick?: (event: SyntheticEvent) => Promise<void>;
+  onClick?: (event: MouseEvent<HTMLDivElement>) => void;
 }
 
 const CardMenu: FC<Props> = (props) => {
@@ -82,6 +82,7 @@ const CardMenu: FC<Props> = (props) => {
       path: `/publications/edit/${publicationId}`,
       label: 'Editar',
       icon: <PencilSimpleLine size={24} />,
+      onClick: (event) => event.preventDefault(),
     },
     {
       label: 'Remover',
