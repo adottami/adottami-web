@@ -17,7 +17,7 @@ export const LOCATION_INFO = [
   },
   {
     variant: 'bird',
-    name: 'Passaro',
+    name: 'Ave',
   },
   {
     variant: 'fish',
