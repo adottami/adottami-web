@@ -13,3 +13,13 @@ export const zipCode = {
   applyMask: (value: string) => VMasker.toPattern(value.replace(/\D/g, ''), '99999-999'),
   undoMask: (value: string) => value.replace(/\D/g, ''),
 };
+
+export const capitalize = (value: string) => {
+  value
+    .toLowerCase()
+    .split(' ')
+    .forEach((word) => {
+      value = value.replace(word, word.charAt(0).toUpperCase() + word.slice(1));
+    });
+  return value;
+};

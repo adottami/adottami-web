@@ -17,7 +17,7 @@ import Publication from '@/models/publication/publication';
 import { PublicationCharacteristic } from '@/models/publication/types';
 import { CreatePublicationData } from '@/services/adottami-client/publication-client/types';
 import { fetchImageFromURL } from '@/utils/files';
-import { zipCode } from '@/utils/mask';
+import { capitalize, zipCode } from '@/utils/mask';
 
 import { TOAST_CONFIGS } from '../header/constants';
 import PublicationFormFooter from './components/publication-form-footer/publication-form-footer';
@@ -93,14 +93,14 @@ const PublicationForm: FC<Props> = ({ title, type, onSubmit, publicationId }) =>
       setGender(publication.gender());
       setCategory(publication.category());
       setSelectedCharacteristics(publication.characteristics().map((characteristic) => characteristic.name));
-      setFieldValue('name', publication.name());
+      setFieldValue('name', capitalize(publication.name()));
       setFieldValue('description', publication.description());
       setFieldValue('breed', publication.breed());
       setFieldValue('weightInGrams', publication.weightInGrams());
       setFieldValue('ageInYears', publication.ageInYears());
       setFieldValue('zipCode', zipCode.applyMask(publication.zipCode()));
-      setFieldValue('city', publication.city());
-      setFieldValue('state', publication.state());
+      setFieldValue('city', capitalize(publication.city()));
+      setFieldValue('state', capitalize(publication.state()));
       setHidePhoneNumber(publication.hidePhoneNumber());
 
       const imageFilePromises = publication.images().map((image) => fetchImageFromURL(image.url));
@@ -148,7 +148,7 @@ const PublicationForm: FC<Props> = ({ title, type, onSubmit, publicationId }) =>
     });
 
     const data: CreatePublicationData = {
-      name: values.name,
+      name: capitalize(values.name),
       description: values.description,
       gender,
       category,
@@ -156,8 +156,8 @@ const PublicationForm: FC<Props> = ({ title, type, onSubmit, publicationId }) =>
       weightInGrams: values.weightInGrams || null,
       ageInYears: values.ageInYears || null,
       zipCode: zipCode.undoMask(values.zipCode),
-      city: values.city,
-      state: values.state,
+      city: capitalize(values.city),
+      state: capitalize(values.state),
       isArchived: !!values.isArchived,
       hidePhoneNumber,
       characteristics: characteristicsId || [],

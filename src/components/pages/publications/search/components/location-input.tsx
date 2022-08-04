@@ -3,6 +3,7 @@ import { FC, FormEvent } from 'react';
 
 import Button from '@/components/common/button/button';
 import Input from '@/components/common/input/input';
+import { capitalize } from '@/utils/mask';
 
 import { Search } from '../search-publications-page/types';
 
@@ -17,7 +18,7 @@ const LocationInput: FC<Props> = ({ setSearchValues }) => {
       state: { value: string };
       city: { value: string };
     };
-    setSearchValues((prevState) => ({ ...prevState, state: state.value, city: city.value }));
+    setSearchValues((prevState) => ({ ...prevState, state: capitalize(state.value), city: capitalize(city.value) }));
   };
 
   return (
