@@ -27,7 +27,7 @@ const AdvertiserCard: FC<Props> = ({ advertiser, authenticated }) => (
           <span className="rounded-full bg-tertiary-medium p-2 text-white">
             <EnvelopeSimple size={20} />
           </span>
-          <p className="text-neutral-800">{advertiser?.email()}</p>
+          <p className="overflow-hidden text-ellipsis text-neutral-800">{advertiser?.email()}</p>
         </div>
         {advertiser?.phoneNumber() !== undefined ? (
           <div className="flex items-center gap-3">
