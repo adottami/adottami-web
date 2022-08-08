@@ -17,8 +17,8 @@ const Footer: FC<Props> = () => {
         <div>
           <AdottamiLogo width="200" height="40" className="mb-4" data-testid={footerTestIds.logo()} />
           <p className="text-primary-dark" data-testid={footerTestIds.description()}>
-            Oferecemos uma plataforma de adoção e simples, prática e agradável para facilitar a adoção e anuncio de
-            animais vivendo em situações precarias.
+            Oferecemos uma plataforma de adoção simples, prática e agradável para facilitar a adoção e anúncio de
+            animais vivendo em situações precárias.
           </p>
         </div>
         <div

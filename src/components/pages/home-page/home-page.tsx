@@ -55,8 +55,8 @@ const HomePage: FC = () => {
               className="mt-2 text-md text-primary-dark sm:mt-4 lg:text-lg"
               data-testid={homePageTestIds.firstSection.description()}
             >
-              Oferecemos uma plataforma de adoção e simples, prática e agradável para facilitar a adoção e anúncio de
-              animais vivendo em situações precarias.
+              Oferecemos uma plataforma de adoção simples, prática e agradável para facilitar a adoção e anúncio de
+              animais vivendo em situações precárias.
             </p>
             <div className="mt-6 flex items-center gap-6 md:mt-8">
               <Button
