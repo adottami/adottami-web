@@ -17,8 +17,8 @@ const Table: FC<Props> = ({ publication, variant }) => {
       publication.category(),
       publication.gender(),
       publication.breed(),
-      `${publication.weightInGrams()} g`,
-      `${publication.ageInYears()} anos`,
+      publication.weightInGrams() ? `${publication.weightInGrams()}g` : null,
+      publication.ageInYears() ? `${publication.ageInYears()} anos` : null,
     ];
   }
 
